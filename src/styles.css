@@ -1,0 +1,753 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{
+  font-family:'DM Sans',Arial,sans-serif;
+  color:#17253b;
+  background:#f6f8fc;
+  font-synthesis:none;
+  font-weight:400;
+  --ink:#17253b;
+  --muted:#606c7f;
+  --line:#dfe4ed;
+  --lime:#baf369;
+  --navy:#101f37;
+  --accent:#244dcc}
+  *{
+    box-sizing:border-box}
+    body{
+      margin:0}
+      button,select{
+        font:inherit}
+        button,a,select{
+          -webkit-tap-highlight-color:transparent}
+          button{
+            cursor:pointer}
+            button:disabled{
+              cursor:default;
+              opacity:.4}
+              button,a,select{
+                touch-action:manipulation}
+                button:focus-visible,a:focus-visible,select:focus-visible,summary:focus-visible{
+                  outline:3px solid #527df5;
+                  outline-offset:4px}
+                  button{
+                    color:inherit}
+                    a{
+                      color:inherit}
+                      h1,h2,h3,p{
+                        margin:0}
+                        button{
+                          border:0}
+                          h1,h2,h3,.brand{
+                            font-family:'Space Grotesk','DM Sans',sans-serif}
+                            .skip-link{
+                              position:absolute;
+                              left:12px;
+                              top:-100px;
+                              background:white;
+                              z-index:10;
+                              padding:12px}
+                              .skip-link:focus{
+                                top:12px}
+                                .masthead{
+                                  height:88px;
+                                  padding:0 4%;
+                                  display:flex;
+                                  align-items:center;
+                                  justify-content:space-between;
+                                  border-bottom:1px solid var(--line);
+                                  background:#fff;
+                                  gap:20px}
+                                  .brand{
+                                    text-decoration:none;
+                                    display:flex;
+                                    align-items:center;
+                                    gap:12px;
+                                    font-weight:600;
+                                    font-size:1.12rem}
+                                    .brand-mark{
+                                      display:grid;
+                                      place-items:center;
+                                      width:43px;
+                                      height:43px;
+                                      background:var(--navy);
+                                      color:var(--lime);
+                                      font-size:1.15rem;
+                                      border-radius:12px;
+                                      letter-spacing:-2px;
+                                      padding-right:2px}
+                                      .edition{
+                                        font-size:.875rem;
+                                        color:var(--muted)}
+                                        .prototype-label{
+                                          font-size:.75rem;
+                                          font-weight:650;
+                                          letter-spacing:.1em}
+                                          main{
+                                            max-width:1700px;
+                                            margin:auto;
+                                            padding:38px 4% 32px}
+                                            .page-heading{
+                                              display:flex;
+                                              justify-content:space-between;
+                                              align-items:center;
+                                              gap:25px;
+                                              margin-bottom:30px}
+                                              .eyebrow{
+                                                font-size:.75rem;
+                                                font-weight:650;
+                                                letter-spacing:.11em;
+                                                line-height:1.5;
+                                                color:var(--muted)}
+                                                h1{
+                                                  font-size:clamp(1.9rem,3vw,2.7rem);
+                                                  font-weight:500;
+                                                  letter-spacing:-.055em;
+                                                  line-height:1.2;
+                                                  margin:8px 0 10px}
+                                                  .page-heading>div>p:last-child{
+                                                    font-size:1rem;
+                                                    color:var(--muted);
+                                                    line-height:1.5}
+                                                    .version-label{
+                                                      font-size:.8rem;
+                                                      color:#41536d;
+                                                      border:1px solid #ced7e6;
+                                                      border-radius:30px;
+                                                      padding:9px 14px;
+                                                      white-space:nowrap}
+                                                      .explorer-layout{
+                                                        display:grid;
+                                                        grid-template-columns:220px minmax(0,1fr) 270px;
+                                                        align-items:start;
+                                                        gap:24px}
+                                                        .dictionary-panel{
+                                                          padding-top:5px}
+                                                          select{
+                                                            display:block;
+                                                            width:100%;
+                                                            font-size:.95rem;
+                                                            border:1px solid #cfd7e4;
+                                                            background:#fff;
+                                                            color:var(--ink);
+                                                            border-radius:9px;
+                                                            padding:13px 9px;
+                                                            margin:10px 0 16px}
+                                                            .dictionary-intro{
+                                                              font-size:.875rem;
+                                                              color:var(--muted);
+                                                              line-height:1.65;
+                                                              margin-bottom:30px}
+                                                              .section-label{
+                                                                display:flex;
+                                                                justify-content:space-between;
+                                                                align-items:center;
+                                                                gap:10px;
+                                                                margin-bottom:14px}
+                                                                .section-label h2{
+                                                                  font-size:.95rem;
+                                                                  font-weight:500}
+                                                                  .section-label>span{
+                                                                    font-size:.75rem;
+                                                                    color:var(--muted);
+                                                                    font-variant-numeric:tabular-nums}
+                                                                    .entry-list{
+                                                                      display:grid;
+                                                                      gap:5px}
+                                                                      .entry-row{
+                                                                        width:100%;
+                                                                        display:flex;
+                                                                        align-items:center;
+                                                                        justify-content:space-between;
+                                                                        gap:8px;
+                                                                        text-align:left;
+                                                                        border-radius:8px;
+                                                                        padding:13px 10px;
+                                                                        background:transparent;
+                                                                        font-size:.875rem;
+                                                                        min-height:46px}
+                                                                        .entry-row:hover{
+                                                                          background:#e9eef7}
+                                                                          .entry-row.selected{
+                                                                            background:#e4ebfc;
+                                                                            box-shadow:inset 3px 0 var(--accent);
+                                                                            color:#1b3d9f;
+                                                                            font-weight:600}
+                                                                            .source-id{
+                                                                              font-size:.75rem;
+                                                                              color:var(--muted);
+                                                                              font-weight:400}
+                                                                              .aside-note{
+                                                                                padding-top:24px;
+                                                                                margin-top:27px;
+                                                                                border-top:1px solid var(--line);
+                                                                                font-size:.875rem;
+                                                                                line-height:1.7;
+                                                                                color:var(--muted)}
+                                                                                .workspace{
+                                                                                  min-width:0}
+                                                                                  .graph-card{
+                                                                                    background:var(--navy);
+                                                                                    color:#fff;
+                                                                                    border-radius:15px;
+                                                                                    overflow:hidden;
+                                                                                    box-shadow:0 10px 24px #1124400b}
+                                                                                    .graph-heading{
+                                                                                      padding:24px 25px 0;
+                                                                                      display:flex;
+                                                                                      justify-content:space-between;
+                                                                                      align-items:center;
+                                                                                      gap:16px}
+                                                                                      .graph-heading .eyebrow{
+                                                                                        color:#9cacc4;
+                                                                                        font-size:.75rem}
+                                                                                        .graph-heading h2{
+                                                                                          font-size:1.15rem;
+                                                                                          font-weight:500;
+                                                                                          margin-top:5px}
+                                                                                          .graph-heading>span{
+                                                                                            font-size:.75rem;
+                                                                                            color:#acbbcf}
+                                                                                            .graph-canvas{
+                                                                                              position:relative;
+                                                                                              height:365px;
+                                                                                              margin:10px 10px 0;
+                                                                                              background-image:radial-gradient(#59759436 1px,transparent 1px);
+                                                                                              background-size:22px 22px}
+                                                                                              .connections{
+                                                                                                position:absolute;
+                                                                                                inset:0;
+                                                                                                width:100%;
+                                                                                                height:100%;
+                                                                                                pointer-events:none}
+                                                                                                .connections line{
+                                                                                                  stroke:#43556f;
+                                                                                                  stroke-width:1.5;
+                                                                                                  vector-effect:non-scaling-stroke}
+                                                                                                  .connections line.connected{
+                                                                                                    stroke:#a1bd81;
+                                                                                                    stroke-width:2}
+                                                                                                    .graph-node{
+                                                                                                      position:absolute;
+                                                                                                      transform:translate(-50%,-50%);
+                                                                                                      display:flex;
+                                                                                                      flex-direction:column;
+                                                                                                      align-items:center;
+                                                                                                      justify-content:center;
+                                                                                                      gap:6px;
+                                                                                                      min-width:105px;
+                                                                                                      min-height:66px;
+                                                                                                      padding:11px 13px;
+                                                                                                      background:#192d49;
+                                                                                                      border:1px solid #556881;
+                                                                                                      color:#ecf1f8;
+                                                                                                      border-radius:10px;
+                                                                                                      font-size:.875rem;
+                                                                                                      box-shadow:0 3px 12px #050d1d29;
+                                                                                                      transition:background .2s,border-color .2s,box-shadow .2s}
+                                                                                                      .node-id{
+                                                                                                        font-size:.75rem;
+                                                                                                        color:#a4b5cf;
+                                                                                                        letter-spacing:.05em}
+                                                                                                        .graph-node.selected{
+                                                                                                          background:var(--lime);
+                                                                                                          color:#172e24;
+                                                                                                          border-color:var(--lime);
+                                                                                                          box-shadow:0 0 0 7px #baf3690d}
+                                                                                                          .graph-node.selected .node-id{
+                                                                                                            color:#365728}
+                                                                                                            .graph-node:hover{
+                                                                                                              border-color:var(--lime)}
+                                                                                                              .graph-footer{
+                                                                                                                display:flex;
+                                                                                                                gap:22px;
+                                                                                                                padding:19px 25px 22px;
+                                                                                                                color:#b3c0d4;
+                                                                                                                flex-wrap:wrap;
+                                                                                                                font-size:.75rem}
+                                                                                                                .graph-footer>span{
+                                                                                                                  display:flex;
+                                                                                                                  align-items:center;
+                                                                                                                  gap:7px}
+                                                                                                                  .legend-mark{
+                                                                                                                    display:inline-block;
+                                                                                                                    width:9px;
+                                                                                                                    height:9px;
+                                                                                                                    border:1px solid #8194ad;
+                                                                                                                    border-radius:2px}
+                                                                                                                    .legend-mark.selected{
+                                                                                                                      background:var(--lime);
+                                                                                                                      border-color:var(--lime)}
+                                                                                                                      .legend-line{
+                                                                                                                        width:19px;
+                                                                                                                        height:1px;
+                                                                                                                        background:#90a3bd;
+                                                                                                                        display:inline-block}
+                                                                                                                        .inspector{
+                                                                                                                          background:#fff;
+                                                                                                                          border:1px solid var(--line);
+                                                                                                                          border-radius:12px;
+                                                                                                                          padding:21px;
+                                                                                                                          min-width:0}
+                                                                                                                          .inspector h3{
+                                                                                                                            font-size:1.4rem;
+                                                                                                                            line-height:1.3;
+                                                                                                                            overflow-wrap:anywhere;
+                                                                                                                            margin:24px 0 10px;
+                                                                                                                            font-weight:500;
+                                                                                                                            letter-spacing:-.04em}
+                                                                                                                            .entry-type{
+                                                                                                                              font-size:.75rem;
+                                                                                                                              color:#586a82;
+                                                                                                                              border:1px solid #dde4ed;
+                                                                                                                              border-radius:4px;
+                                                                                                                              padding:4px 6px;
+                                                                                                                              letter-spacing:.05em}
+                                                                                                                              .definition{
+                                                                                                                                margin-top:30px}
+                                                                                                                                .definition>p:last-child{
+                                                                                                                                  font-size:1rem;
+                                                                                                                                  line-height:1.8;
+                                                                                                                                  margin-top:11px;
+                                                                                                                                  overflow-wrap:anywhere}
+                                                                                                                                  .reference-section{
+                                                                                                                                    border-top:1px solid var(--line);
+                                                                                                                                    padding-top:22px;
+                                                                                                                                    margin-top:24px}
+                                                                                                                                    .reference-link{
+                                                                                                                                      display:flex;
+                                                                                                                                      justify-content:space-between;
+                                                                                                                                      gap:10px;
+                                                                                                                                      padding:12px 0;
+                                                                                                                                      width:100%;
+                                                                                                                                      text-align:left;
+                                                                                                                                      background:transparent;
+                                                                                                                                      color:#244bc0;
+                                                                                                                                      font-size:.875rem}
+                                                                                                                                      .reference-link:hover{
+                                                                                                                                        text-decoration:underline}
+                                                                                                                                        .muted{
+                                                                                                                                          color:var(--muted);
+                                                                                                                                          font-size:.875rem;
+                                                                                                                                          line-height:1.6;
+                                                                                                                                          margin-top:10px}
+                                                                                                                                          .provenance{
+                                                                                                                                            margin-top:28px;
+                                                                                                                                            padding-top:18px;
+                                                                                                                                            border-top:1px solid var(--line);
+                                                                                                                                            font-size:.75rem;
+                                                                                                                                            line-height:1.7;
+                                                                                                                                            color:var(--muted)}
+                                                                                                                                            .trace-panel{
+                                                                                                                                              background:white;
+                                                                                                                                              border:1px solid var(--line);
+                                                                                                                                              border-radius:12px;
+                                                                                                                                              padding:23px;
+                                                                                                                                              margin-top:18px}
+                                                                                                                                              .trace-heading{
+                                                                                                                                                display:flex;
+                                                                                                                                                align-items:center;
+                                                                                                                                                justify-content:space-between;
+                                                                                                                                                gap:15px}
+                                                                                                                                                .trace-heading h2{
+                                                                                                                                                  font-size:1.15rem;
+                                                                                                                                                  font-weight:500;
+                                                                                                                                                  margin-top:6px}
+                                                                                                                                                  .demo-badge{
+                                                                                                                                                    color:#5b508b;
+                                                                                                                                                    background:#f0edfa;
+                                                                                                                                                    border:1px solid #e4dff3;
+                                                                                                                                                    border-radius:5px;
+                                                                                                                                                    padding:6px 8px;
+                                                                                                                                                    font-size:.75rem;
+                                                                                                                                                    text-align:center}
+                                                                                                                                                    .trace-intro{
+                                                                                                                                                      color:var(--muted);
+                                                                                                                                                      font-size:.875rem;
+                                                                                                                                                      margin-top:16px;
+                                                                                                                                                      line-height:1.6}
+                                                                                                                                                      .page-footer{
+                                                                                                                                                        max-width:1700px;
+                                                                                                                                                        margin:auto;
+                                                                                                                                                        padding:6px 4% 27px;
+                                                                                                                                                        display:flex;
+                                                                                                                                                        justify-content:space-between;
+                                                                                                                                                        gap:20px;
+                                                                                                                                                        font-size:.75rem;
+                                                                                                                                                        color:var(--muted)}
+                                                                                                                                                        .sr-only{
+                                                                                                                                                          position:absolute;
+                                                                                                                                                          width:1px;
+                                                                                                                                                          height:1px;
+                                                                                                                                                          padding:0;
+                                                                                                                                                          margin:-1px;
+                                                                                                                                                          overflow:hidden;
+                                                                                                                                                          clip:rect(0,0,0,0);
+                                                                                                                                                          white-space:nowrap;
+                                                                                                                                                          border:0}
+                                                                                                                                                          .node-id{
+                                                                                                                                                            display:flex;
+                                                                                                                                                            gap:6px;
+                                                                                                                                                            align-items:center;
+                                                                                                                                                            min-height:15px}
+                                                                                                                                                            .trace-node-mark{
+                                                                                                                                                              width:5px;
+                                                                                                                                                              height:5px;
+                                                                                                                                                              background:#b9cdff;
+                                                                                                                                                              transform:rotate(45deg)}
+                                                                                                                                                              .graph-node.selected .trace-node-mark{
+                                                                                                                                                                background:#355721}
+                                                                                                                                                                .graph-node.in-trace:not(.selected){
+                                                                                                                                                                  border-color:#a3baf6}
+                                                                                                                                                                  .legend-mark.trace{
+                                                                                                                                                                    background:transparent;
+                                                                                                                                                                    border-color:#b9cdff;
+                                                                                                                                                                    transform:rotate(45deg);
+                                                                                                                                                                    width:7px;
+                                                                                                                                                                    height:7px;
+                                                                                                                                                                    border-radius:0}
+                                                                                                                                                                    .about-vd{
+                                                                                                                                                                      margin-top:22px;
+                                                                                                                                                                      font-size:.875rem;
+                                                                                                                                                                      color:var(--muted);
+                                                                                                                                                                      line-height:1.7}
+                                                                                                                                                                      summary{
+                                                                                                                                                                        cursor:pointer;
+                                                                                                                                                                        min-height:28px}
+                                                                                                                                                                        .about-vd summary{
+                                                                                                                                                                          color:var(--ink)}
+                                                                                                                                                                          .about-vd p{
+                                                                                                                                                                            margin-top:12px}
+                                                                                                                                                                            .trace-select{
+                                                                                                                                                                              font-size:.95rem;
+                                                                                                                                                                              margin:20px 0 16px;
+                                                                                                                                                                              background:#f9fafc;
+                                                                                                                                                                              border-color:#dde4ee}
+                                                                                                                                                                              .playback-controls{
+                                                                                                                                                                                display:flex;
+                                                                                                                                                                                align-items:center;
+                                                                                                                                                                                gap:14px}
+                                                                                                                                                                                .play-button{
+                                                                                                                                                                                  display:flex;
+                                                                                                                                                                                  align-items:center;
+                                                                                                                                                                                  gap:8px;
+                                                                                                                                                                                  justify-content:center;
+                                                                                                                                                                                  background:var(--navy);
+                                                                                                                                                                                  color:white;
+                                                                                                                                                                                  border-radius:7px;
+                                                                                                                                                                                  min-width:93px;
+                                                                                                                                                                                  min-height:44px;
+                                                                                                                                                                                  padding:10px 13px;
+                                                                                                                                                                                  font-size:.875rem}
+                                                                                                                                                                                  .play-button:hover{
+                                                                                                                                                                                    background:#294365}
+                                                                                                                                                                                    .step-controls{
+                                                                                                                                                                                      display:flex;
+                                                                                                                                                                                      gap:3px}
+                                                                                                                                                                                      .icon-button{
+                                                                                                                                                                                        display:grid;
+                                                                                                                                                                                        place-items:center;
+                                                                                                                                                                                        background:transparent;
+                                                                                                                                                                                        min-width:40px;
+                                                                                                                                                                                        min-height:44px;
+                                                                                                                                                                                        border-radius:7px}
+                                                                                                                                                                                        .icon-button:hover:not(:disabled){
+                                                                                                                                                                                          background:#edf1f8}
+                                                                                                                                                                                          .playback-position{
+                                                                                                                                                                                            margin-left:auto;
+                                                                                                                                                                                            font-size:.875rem;
+                                                                                                                                                                                            white-space:nowrap;
+                                                                                                                                                                                            font-variant-numeric:tabular-nums}
+                                                                                                                                                                                            .playback-position>span{
+                                                                                                                                                                                              color:var(--muted)}
+                                                                                                                                                                                              .timeline{
+                                                                                                                                                                                                display:flex;
+                                                                                                                                                                                                list-style:none;
+                                                                                                                                                                                                padding:0;
+                                                                                                                                                                                                margin:20px 0 14px;
+                                                                                                                                                                                                gap:5px}
+                                                                                                                                                                                                .timeline li{
+                                                                                                                                                                                                  flex:1;
+                                                                                                                                                                                                  min-width:0}
+                                                                                                                                                                                                  .timeline-step{
+                                                                                                                                                                                                    display:block;
+                                                                                                                                                                                                    width:100%;
+                                                                                                                                                                                                    text-align:left;
+                                                                                                                                                                                                    background:transparent;
+                                                                                                                                                                                                    padding:0 0 7px;
+                                                                                                                                                                                                    min-height:40px;
+                                                                                                                                                                                                    border-radius:2px;
+                                                                                                                                                                                                    font-size:.75rem;
+                                                                                                                                                                                                    color:#66748a}
+                                                                                                                                                                                                    .timeline-step::before{
+                                                                                                                                                                                                      content:'';
+                                                                                                                                                                                                      display:block;
+                                                                                                                                                                                                      height:4px;
+                                                                                                                                                                                                      background:#e4e9f2;
+                                                                                                                                                                                                      border-radius:2px;
+                                                                                                                                                                                                      margin-bottom:9px}
+                                                                                                                                                                                                      .timeline-step.current{
+                                                                                                                                                                                                        color:var(--accent);
+                                                                                                                                                                                                        font-weight:700}
+                                                                                                                                                                                                        .timeline-step.current::before{
+                                                                                                                                                                                                          background:var(--accent)}
+                                                                                                                                                                                                          .timeline-step.past::before{
+                                                                                                                                                                                                            background:#a9bae7}
+                                                                                                                                                                                                            .timeline-step:hover::before{
+                                                                                                                                                                                                              background:#6c8ddc}
+                                                                                                                                                                                                              .step-content{
+                                                                                                                                                                                                                padding-top:15px;
+                                                                                                                                                                                                                border-top:1px solid var(--line)}
+                                                                                                                                                                                                                .step-title{
+                                                                                                                                                                                                                  display:flex;
+                                                                                                                                                                                                                  align-items:center;
+                                                                                                                                                                                                                  gap:10px;
+                                                                                                                                                                                                                  flex-wrap:wrap}
+                                                                                                                                                                                                                  .step-title h3{
+                                                                                                                                                                                                                    font-size:1rem;
+                                                                                                                                                                                                                    font-weight:500;
+                                                                                                                                                                                                                    line-height:1.5}
+                                                                                                                                                                                                                    .operation{
+                                                                                                                                                                                                                      font-size:.75rem;
+                                                                                                                                                                                                                      font-weight:600;
+                                                                                                                                                                                                                      color:#465f8b;
+                                                                                                                                                                                                                      background:#edf2fc;
+                                                                                                                                                                                                                      padding:4px 7px;
+                                                                                                                                                                                                                      border-radius:4px}
+                                                                                                                                                                                                                      .step-description{
+                                                                                                                                                                                                                        font-size:.875rem;
+                                                                                                                                                                                                                        line-height:1.7;
+                                                                                                                                                                                                                        color:var(--muted);
+                                                                                                                                                                                                                        margin-top:11px}
+                                                                                                                                                                                                                        .fragment-heading{
+                                                                                                                                                                                                                          display:flex;
+                                                                                                                                                                                                                          justify-content:space-between;
+                                                                                                                                                                                                                          gap:10px;
+                                                                                                                                                                                                                          font-size:.75rem;
+                                                                                                                                                                                                                          letter-spacing:.05em;
+                                                                                                                                                                                                                          color:var(--muted);
+                                                                                                                                                                                                                          margin-top:22px;
+                                                                                                                                                                                                                          margin-bottom:9px}
+                                                                                                                                                                                                                          .settled-label{
+                                                                                                                                                                                                                            letter-spacing:0;
+                                                                                                                                                                                                                            color:#3b692f}
+                                                                                                                                                                                                                            .trace-fragment{
+                                                                                                                                                                                                                              font-size:1rem;
+                                                                                                                                                                                                                              line-height:2.05;
+                                                                                                                                                                                                                              padding:17px 18px;
+                                                                                                                                                                                                                              background:#f3f6fb;
+                                                                                                                                                                                                                              border:1px solid #e3e8f1;
+                                                                                                                                                                                                                              border-radius:8px;
+                                                                                                                                                                                                                              overflow-wrap:anywhere}
+                                                                                                                                                                                                                              .inline-reference{
+                                                                                                                                                                                                                                display:inline;
+                                                                                                                                                                                                                                background:#dfe8fc;
+                                                                                                                                                                                                                                color:#2445a1;
+                                                                                                                                                                                                                                font-size:.95rem;
+                                                                                                                                                                                                                                border-radius:5px;
+                                                                                                                                                                                                                                padding:3px 6px;
+                                                                                                                                                                                                                                border:1px solid #c5d4f7;
+                                                                                                                                                                                                                                line-height:1.5}
+                                                                                                                                                                                                                                .inline-reference:hover{
+                                                                                                                                                                                                                                  background:#cbdafa}
+                                                                                                                                                                                                                                  .trace-context{
+                                                                                                                                                                                                                                    font-size:.75rem;
+                                                                                                                                                                                                                                    color:var(--muted);
+                                                                                                                                                                                                                                    line-height:1.6;
+                                                                                                                                                                                                                                    margin-top:8px;
+                                                                                                                                                                                                                                    overflow-wrap:anywhere}
+                                                                                                                                                                                                                                    .step-entries{
+                                                                                                                                                                                                                                      display:flex;
+                                                                                                                                                                                                                                      flex-wrap:wrap;
+                                                                                                                                                                                                                                      gap:7px;
+                                                                                                                                                                                                                                      align-items:center;
+                                                                                                                                                                                                                                      margin-top:18px}
+                                                                                                                                                                                                                                      .step-entries>span{
+                                                                                                                                                                                                                                        font-size:.75rem;
+                                                                                                                                                                                                                                        color:var(--muted);
+                                                                                                                                                                                                                                        margin-right:3px}
+                                                                                                                                                                                                                                        .step-entries>button{
+                                                                                                                                                                                                                                          font-size:.875rem;
+                                                                                                                                                                                                                                          border:1px solid #d9e0ef;
+                                                                                                                                                                                                                                          border-radius:6px;
+                                                                                                                                                                                                                                          min-height:36px;
+                                                                                                                                                                                                                                          padding:6px 9px;
+                                                                                                                                                                                                                                          background:white}
+                                                                                                                                                                                                                                          .step-entries>button:hover,.step-entries>button.active{
+                                                                                                                                                                                                                                            background:#e8eefc;
+                                                                                                                                                                                                                                            border-color:#b9c9f0;
+                                                                                                                                                                                                                                            color:#264ba8}
+                                                                                                                                                                                                                                            .player-hint{
+                                                                                                                                                                                                                                              font-size:.75rem;
+                                                                                                                                                                                                                                              color:var(--muted);
+                                                                                                                                                                                                                                              line-height:1.6;
+                                                                                                                                                                                                                                              margin-top:17px}
+                                                                                                                                                                                                                                              .demo-note{
+                                                                                                                                                                                                                                                border-top:1px solid var(--line);
+                                                                                                                                                                                                                                                margin-top:17px;
+                                                                                                                                                                                                                                                padding-top:14px;
+                                                                                                                                                                                                                                                font-size:.875rem;
+                                                                                                                                                                                                                                                color:var(--muted);
+                                                                                                                                                                                                                                                line-height:1.7}
+                                                                                                                                                                                                                                                .demo-note p{
+                                                                                                                                                                                                                                                  margin-top:10px}
+                                                                                                                                                                                                                                                  .incoming{
+                                                                                                                                                                                                                                                    margin-top:15px;
+                                                                                                                                                                                                                                                    padding-top:20px}
+                                                                                                                                                                                                                                                    @media(min-width:1450px){
+                                                                                                                                                                                                                                                      .explorer-layout{
+                                                                                                                                                                                                                                                        grid-template-columns:240px minmax(0,1fr) 290px;
+                                                                                                                                                                                                                                                        gap:28px}
+                                                                                                                                                                                                                                                        .graph-canvas{
+                                                                                                                                                                                                                                                          height:425px}
+                                                                                                                                                                                                                                                          .graph-node{
+                                                                                                                                                                                                                                                            min-width:125px}
+                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                          @media(max-width:1180px){
+                                                                                                                                                                                                                                                            .explorer-layout{
+                                                                                                                                                                                                                                                              grid-template-columns:190px minmax(0,1fr);
+                                                                                                                                                                                                                                                              gap:20px}
+                                                                                                                                                                                                                                                              .inspector{
+                                                                                                                                                                                                                                                                grid-column:2}
+                                                                                                                                                                                                                                                                .graph-canvas{
+                                                                                                                                                                                                                                                                  height:380px}
+                                                                                                                                                                                                                                                                  .dictionary-panel{
+                                                                                                                                                                                                                                                                    grid-row:1 / span 2}
+                                                                                                                                                                                                                                                                    .inspector h3{
+                                                                                                                                                                                                                                                                      margin-top:12px}
+                                                                                                                                                                                                                                                                      .inspector .definition{
+                                                                                                                                                                                                                                                                        margin-top:22px}
+                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                      @media(max-width:760px){
+                                                                                                                                                                                                                                                                        .masthead{
+                                                                                                                                                                                                                                                                          height:72px;
+                                                                                                                                                                                                                                                                          padding:0 20px}
+                                                                                                                                                                                                                                                                          .edition{
+                                                                                                                                                                                                                                                                            display:none}
+                                                                                                                                                                                                                                                                            .prototype-label{
+                                                                                                                                                                                                                                                                              font-size:.75rem}
+                                                                                                                                                                                                                                                                              main{
+                                                                                                                                                                                                                                                                                padding:26px 20px}
+                                                                                                                                                                                                                                                                                .page-heading{
+                                                                                                                                                                                                                                                                                  display:block;
+                                                                                                                                                                                                                                                                                  margin-bottom:24px}
+                                                                                                                                                                                                                                                                                  .version-label{
+                                                                                                                                                                                                                                                                                    display:none}
+                                                                                                                                                                                                                                                                                    .page-heading h1{
+                                                                                                                                                                                                                                                                                      font-size:2.1rem}
+                                                                                                                                                                                                                                                                                      .page-heading>div>p:last-child{
+                                                                                                                                                                                                                                                                                        max-width:330px}
+                                                                                                                                                                                                                                                                                        .explorer-layout{
+                                                                                                                                                                                                                                                                                          display:flex;
+                                                                                                                                                                                                                                                                                          flex-direction:column;
+                                                                                                                                                                                                                                                                                          gap:18px}
+                                                                                                                                                                                                                                                                                          .dictionary-panel,.workspace,.inspector{
+                                                                                                                                                                                                                                                                                            width:100%}
+                                                                                                                                                                                                                                                                                            .dictionary-panel{
+                                                                                                                                                                                                                                                                                              padding:0}
+                                                                                                                                                                                                                                                                                              .dictionary-intro{
+                                                                                                                                                                                                                                                                                                margin:0 0 16px}
+                                                                                                                                                                                                                                                                                                .dictionary-panel .section-label{
+                                                                                                                                                                                                                                                                                                  display:none}
+                                                                                                                                                                                                                                                                                                  .entry-list{
+                                                                                                                                                                                                                                                                                                    display:flex;
+                                                                                                                                                                                                                                                                                                    flex-wrap:wrap;
+                                                                                                                                                                                                                                                                                                    gap:7px}
+                                                                                                                                                                                                                                                                                                    .entry-row{
+                                                                                                                                                                                                                                                                                                      width:auto;
+                                                                                                                                                                                                                                                                                                      gap:10px;
+                                                                                                                                                                                                                                                                                                      border:1px solid var(--line);
+                                                                                                                                                                                                                                                                                                      padding:10px;
+                                                                                                                                                                                                                                                                                                      font-size:.875rem;
+                                                                                                                                                                                                                                                                                                      min-height:44px;
+                                                                                                                                                                                                                                                                                                      background:white}
+                                                                                                                                                                                                                                                                                                      .entry-row.selected{
+                                                                                                                                                                                                                                                                                                        box-shadow:none;
+                                                                                                                                                                                                                                                                                                        border-color:#adc0f8}
+                                                                                                                                                                                                                                                                                                        .source-id{
+                                                                                                                                                                                                                                                                                                          font-size:.75rem}
+                                                                                                                                                                                                                                                                                                          .aside-note{
+                                                                                                                                                                                                                                                                                                            display:none}
+                                                                                                                                                                                                                                                                                                            select{
+                                                                                                                                                                                                                                                                                                              margin:7px 0 10px}
+                                                                                                                                                                                                                                                                                                              .graph-heading{
+                                                                                                                                                                                                                                                                                                                padding:20px 19px 0}
+                                                                                                                                                                                                                                                                                                                .graph-heading>span{
+                                                                                                                                                                                                                                                                                                                  font-size:.75rem}
+                                                                                                                                                                                                                                                                                                                  .graph-canvas{
+                                                                                                                                                                                                                                                                                                                    height:335px;
+                                                                                                                                                                                                                                                                                                                    margin:10px 0 0}
+                                                                                                                                                                                                                                                                                                                    .graph-node{
+                                                                                                                                                                                                                                                                                                                      min-width:0;
+                                                                                                                                                                                                                                                                                                                      padding:10px 8px;
+                                                                                                                                                                                                                                                                                                                      font-size:.875rem;
+                                                                                                                                                                                                                                                                                                                      min-height:62px;
+                                                                                                                                                                                                                                                                                                                      gap:4px}
+                                                                                                                                                                                                                                                                                                                      .graph-footer{
+                                                                                                                                                                                                                                                                                                                        padding:17px 18px;
+                                                                                                                                                                                                                                                                                                                        gap:14px}
+                                                                                                                                                                                                                                                                                                                        .trace-panel{
+                                                                                                                                                                                                                                                                                                                          padding:18px}
+                                                                                                                                                                                                                                                                                                                          .trace-heading{
+                                                                                                                                                                                                                                                                                                                            align-items:start}
+                                                                                                                                                                                                                                                                                                                            .demo-badge{
+                                                                                                                                                                                                                                                                                                                              max-width:115px}
+                                                                                                                                                                                                                                                                                                                              .page-footer{
+                                                                                                                                                                                                                                                                                                                                padding:0 20px 24px;
+                                                                                                                                                                                                                                                                                                                                line-height:1.6}
+                                                                                                                                                                                                                                                                                                                                .page-footer>span:last-child{
+                                                                                                                                                                                                                                                                                                                                  text-align:right}
+                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                @media(max-width:380px){
+                                                                                                                                                                                                                                                                                                                                  main{
+                                                                                                                                                                                                                                                                                                                                    padding-left:12px;
+                                                                                                                                                                                                                                                                                                                                    padding-right:12px}
+                                                                                                                                                                                                                                                                                                                                    .masthead{
+                                                                                                                                                                                                                                                                                                                                      padding:0 12px}
+                                                                                                                                                                                                                                                                                                                                      .brand{
+                                                                                                                                                                                                                                                                                                                                        font-size:1rem}
+                                                                                                                                                                                                                                                                                                                                        .graph-node{
+                                                                                                                                                                                                                                                                                                                                          font-size:.8rem;
+                                                                                                                                                                                                                                                                                                                                          padding:9px 6px}
+                                                                                                                                                                                                                                                                                                                                          .graph-heading{
+                                                                                                                                                                                                                                                                                                                                            gap:10px}
+                                                                                                                                                                                                                                                                                                                                            .graph-footer{
+                                                                                                                                                                                                                                                                                                                                              gap:10px}
+                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                            @media(max-width:760px){
+                                                                                                                                                                                                                                                                                                                                              .about-vd{
+                                                                                                                                                                                                                                                                                                                                                margin-top:12px}
+                                                                                                                                                                                                                                                                                                                                                .trace-select{
+                                                                                                                                                                                                                                                                                                                                                  margin-top:15px}
+                                                                                                                                                                                                                                                                                                                                                  .playback-controls{
+                                                                                                                                                                                                                                                                                                                                                    gap:8px}
+                                                                                                                                                                                                                                                                                                                                                    .step-controls{
+                                                                                                                                                                                                                                                                                                                                                      gap:0}
+                                                                                                                                                                                                                                                                                                                                                      .icon-button{
+                                                                                                                                                                                                                                                                                                                                                        min-width:36px}
+                                                                                                                                                                                                                                                                                                                                                        .play-button{
+                                                                                                                                                                                                                                                                                                                                                          min-width:80px}
+                                                                                                                                                                                                                                                                                                                                                          .playback-position{
+                                                                                                                                                                                                                                                                                                                                                            font-size:.8rem}
+                                                                                                                                                                                                                                                                                                                                                            .trace-fragment{
+                                                                                                                                                                                                                                                                                                                                                              padding:14px}
+                                                                                                                                                                                                                                                                                                                                                              .graph-node{
+                                                                                                                                                                                                                                                                                                                                                                max-width:40%}
+                                                                                                                                                                                                                                                                                                                                                                .page-footer{
+                                                                                                                                                                                                                                                                                                                                                                  margin-top:0}
+                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                                @media(forced-colors:active){
+                                                                                                                                                                                                                                                                                                                                                                  .graph-node.selected,.entry-row.selected{
+                                                                                                                                                                                                                                                                                                                                                                    outline:3px solid Highlight}
+                                                                                                                                                                                                                                                                                                                                                                    .timeline-step::before{
+                                                                                                                                                                                                                                                                                                                                                                      background:CanvasText}
+                                                                                                                                                                                                                                                                                                                                                                      .timeline-step.current{
+                                                                                                                                                                                                                                                                                                                                                                        outline:2px solid Highlight}
+                                                                                                                                                                                                                                                                                                                                                                        .connections line{
+                                                                                                                                                                                                                                                                                                                                                                          stroke:CanvasText}
+                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                        @media(prefers-reduced-motion:reduce){
+                                                                                                                                                                                                                                                                                                                                                                          *,*::before,*::after{
+                                                                                                                                                                                                                                                                                                                                                                            animation:none!important;
+                                                                                                                                                                                                                                                                                                                                                                            transition:none!important;
+                                                                                                                                                                                                                                                                                                                                                                            scroll-behavior:auto!important}
+                                                                                                                                                                                                                                                                                                                                                                          }
