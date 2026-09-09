@@ -1,3 +1,11 @@
+import { newtonDictionaries } from './newton-dictionaries.ts';
+
+export interface Definition {
+  sourceId: string;
+  definition: string;
+  references: string[];
+}
+
 export interface Entry {
   id: string;
   sourceId: string;
@@ -5,6 +13,7 @@ export interface Entry {
   references: string[];
   x: number;
   y: number;
+  alternatives?: Definition[];
 }
 
 export interface Dictionary {
@@ -13,10 +22,13 @@ export interface Dictionary {
   shortName: string;
   description: string;
   source: string;
+  status?: string;
+  definitionCount?: number;
   entries: Entry[];
 }
 
 export const dictionaries: Dictionary[] = [
+  ...newtonDictionaries,
   {
     id: 'kinematics', name: 'Newton kinematics', shortName: 'Kinematics',
     description: 'Six entries about position and motion, selected from the Newton dictionary.',

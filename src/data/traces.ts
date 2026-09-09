@@ -1,28 +1,41 @@
 import { dictionaries } from './dictionaries.ts';
+import { newtonTrace } from './newton-trace.ts';
 
 /** Literal text remains inert. Only explicit entryId parts represent open holes. */
 export type FragmentPart = { text: string; entryId?: never } | { entryId: string; text?: never };
 export interface TraceStep {
   id: string;
   title: string;
-  operation: 'Start' | 'Expand' | 'Recall' | 'Return' | 'Onward';
+  operation: 'Start' | 'Expand' | 'Recall' | 'Return' | 'Onward' | 'Flatten' | 'Input' | 'Reduce';
   description: string;
   context: string;
   relatedEntryIds: string[];
   fragment: FragmentPart[];
   settled?: boolean;
+  traversedEdges?: { from: string; to: string }[];
+}
+export interface TraceOccurrence {
+  id: string;
+  entryId: string;
+  parentEntryId: string;
+  label: string;
+  appearsAt: string;
+  flattenedAt: string;
 }
 export interface PreparedTrace {
   id: string;
   dictionaryId: string;
   title: string;
-  kind: 'prepared';
+  kind: 'prepared' | 'recorded';
   provenance: string;
+  question?: string;
+  startEntryId?: string;
+  occurrences?: TraceOccurrence[];
   steps: TraceStep[];
 }
 const text = (value: string): FragmentPart => ({ text: value });
 const ref = (entryId: string): FragmentPart => ({ entryId });
-const definition = (id: string) => dictionaries[0].entries.find(entry => entry.id === id)!.definition;
+const definition = (id: string) => dictionaries.find(item => item.id === 'kinematics')!.entries.find(entry => entry.id === id)!.definition;
 const particle = definition('point-particle');
 const time = definition('time');
 const frame = `A convention for assigning spatial coordinates and a ${time} coordinate to events: an origin, a set of basis vectors, and a clock.`;
@@ -39,7 +52,24 @@ const kinematicsSteps: TraceStep[] = [
   { id: 'return-position', title: 'Inspect the enclosing position', operation: 'Return', context: 'displacement › position', description: 'The settled reference-frame fragment is visible inside position. Literal substitution preserves the original wording, including awkward grammar.', relatedEntryIds: ['position', 'reference-frame'], fragment: [text(position)], settled: true },
   { id: 'onward-root', title: 'All holes are settled', operation: 'Onward', context: 'displacement', description: 'Return attention to the root. This prepared route illustrates definitional expansion; it does not calculate or validate a physical result.', relatedEntryIds: ['displacement', 'position'], fragment: [text(`The change in ${position}: delta r = r(t2) - r(t1).`)], settled: true },
 ];
+const routes: Record<string, Record<string, [string, string][]>> = {
+  displacement: {
+    'expand-position': [['displacement', 'position']],
+    'recall-particle': [['position', 'point-particle']],
+    'recall-time': [['position', 'time']],
+    'expand-frame': [['position', 'reference-frame']],
+    'recall-frame-time': [['reference-frame', 'time']],
+  },
+  position: {
+    'recall-particle': [['position', 'point-particle']],
+    'recall-time': [['position', 'time']],
+    'expand-frame': [['position', 'reference-frame']],
+    'recall-frame-time': [['reference-frame', 'time']],
+  },
+  force: { mass: [['force', 'mass']], acceleration: [['force', 'acceleration']] },
+};
 export const traces: PreparedTrace[] = [
+  newtonTrace,
   { id: 'displacement', dictionaryId: 'kinematics', title: 'Follow displacement', kind: 'prepared', provenance: 'Illustrative route derived from the six source definitions and current VD operation semantics; not an exported engine run.', steps: kinematicsSteps },
   { id: 'position', dictionaryId: 'kinematics', title: 'Inside position', kind: 'prepared', provenance: 'Shortened prepared route through position; not an exported engine run.', steps: [
     { id: 'start-position', title: 'Begin with position', operation: 'Start', context: 'position', description: 'A shorter route starts directly with the position headword.', relatedEntryIds: ['position'], fragment: [ref('position')] },
@@ -52,3 +82,9 @@ export const traces: PreparedTrace[] = [
     { id: 'acceleration', title: 'All holes are settled', operation: 'Recall', context: 'force', description: 'The residual is “2 kg times 5 m/s^2”. No arithmetic is performed; this demonstration does not claim that VD calculated 10 N.', relatedEntryIds: ['acceleration', 'force'], fragment: [text('2 kg times 5 m/s^2')], settled: true },
   ] },
 ];
+for (const trace of traces) {
+  for (const step of trace.steps) {
+    const edges = routes[trace.id]?.[step.id];
+    if (edges) step.traversedEdges = edges.map(([from, to]) => ({ from, to }));
+  }
+}

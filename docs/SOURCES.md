@@ -1,5 +1,27 @@
 # Example provenance
 
+## Newton sources added for Authority Dictionary
+
+The local VD-Newton working surface was inspected on 9 September 2026, on branch `codex/nml2-entry-renumbering`, HEAD `5ae1797dd5ab9a36b1c0ae56ac360ad4bff0d58a`.
+
+- **Current authored version:** `07_design_2_1/DESIGN_2_1_DRAFT_1_ENTRIES.md`, explicitly designated active output by that directory's README and SOURCE_STATUS. Its 26 definitions (21 headwords) are retained verbatim, including K16/E1 and all alternative definitions. It is incomplete: E12 is deferred and the NML3 force-sum cut is open. `material-object` is not a defined headword here and is not invented by the viewer.
+- **Trace-matched operational version:** `02_engine/newton.py`, 45 definitions (34 headwords), with the August 26 impressed-force / interaction-set terminology. This is the dictionary used by the saved Newton II run; it is distinct from the current authored draft.
+- **Recorded trace:** `03_trace_and_evaluator/newton_second_law_trace.json` and its accompanying explanation, executed 7 September 2026. It was active, untracked local work, so the trace is identified by its content hash rather than falsely attributed to the repository commit. All seven original source hashes still matched at import.
+
+The dictionary reference arrays were extracted with the actual VDfirst tokeniser, using its recorded source version (`5a57790539ad405134b609e562d30490e19550d9`), not a website string-matching heuristic. The viewer groups definitions by headword; the source extracts retain per-definition references, ordered occurrences, and candidate target entries.
+
+Checked-in, path-sanitized source extracts:
+
+- `newton-current-source.json` — source SHA-256 `3bd6758d4cf7d476d87caddf8f9f73ec7d66bd5d4eaf14398a9fc12cd2eb32a8`.
+- `newton-operational-source.json` — source SHA-256 `e5771def38b3c90e176bf7908f28487158e185334020391d8670216c18243e2e`.
+- `newton-ii-recorded-source.json` — original trace SHA-256 `f1acd72d9d99daf2d97be3d60c5e1dc0cba441024ee40c88a279018d2ce6ee56`, exposures and 39 events.
+
+Newton II is condensed into 14 display stages while preserving event order and exact active fragments. The actual followed entry edges are E21→E3, E21→E24, E24→E26, and E24→E25. E20/E18/E23 inspections and input injections are not counted as traversal. Only E21 position 1 (`inertial-acceleration` self-label) and E24 position 0 (`net-force` self-label) are flattened. The graph represents these as separate occurrence nodes; it does not expend every use of those headwords.
+
+The question supplies 2 kg, the inertial frame, both interaction identities, their completeness, and force values +10 N and −4 N. The interpreter supplied the reductions to 6 N and then 3 m/s². The website replays this record; it does not run or certify the arithmetic. Newer recursive-sum attempts are unaccepted experiments and have not been merged into these versions.
+
+## Original small examples
+
 Selected on 9 September 2026 from the local VDfirst checkout at commit `11bfd8df1d27a5c7f2190aade2470a8a8801dc1f`. These small examples are suitable for the viewer's first demonstration; they do not reproduce the full research dictionaries.
 
 ## Newton kinematics excerpt
