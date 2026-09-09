@@ -1,2 +1,2 @@
 # Preserve the archived transcript byte-for-byte, including its source hash.
-docs/newton-ii-given-inputs-source.txt -text
+docs/newton-ii-given-inputs-source.txt -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
