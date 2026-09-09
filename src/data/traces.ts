@@ -1,5 +1,6 @@
 import { dictionaries } from './dictionaries.ts';
 import { newtonTrace } from './newton-trace.ts';
+import { newtonGivenInputsTrace } from './newton-given-inputs-trace.ts';
 
 /** Literal text remains inert. Only explicit entryId parts represent open holes. */
 export type FragmentPart = { text: string; entryId?: never } | { entryId: string; text?: never };
@@ -13,6 +14,7 @@ export interface TraceStep {
   fragment: FragmentPart[];
   settled?: boolean;
   traversedEdges?: { from: string; to: string }[];
+  boundInputs?: { from: string; to: string; value: string }[];
 }
 export interface TraceOccurrence {
   id: string;
@@ -69,6 +71,7 @@ const routes: Record<string, Record<string, [string, string][]>> = {
   force: { mass: [['force', 'mass']], acceleration: [['force', 'acceleration']] },
 };
 export const traces: PreparedTrace[] = [
+  newtonGivenInputsTrace,
   newtonTrace,
   { id: 'displacement', dictionaryId: 'kinematics', title: 'Follow displacement', kind: 'prepared', provenance: 'Illustrative route derived from the six source definitions and current VD operation semantics; not an exported engine run.', steps: kinematicsSteps },
   { id: 'position', dictionaryId: 'kinematics', title: 'Inside position', kind: 'prepared', provenance: 'Shortened prepared route through position; not an exported engine run.', steps: [

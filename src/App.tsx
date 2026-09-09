@@ -58,8 +58,8 @@ export default function App() {
               <p className="aside-note">{dictionary.definitionCount ?? dictionary.entries.length} definitions. Select a headword to inspect its references.</p>
             </aside>
             <section className="workspace" aria-label="Dictionary network and trace">
-              <Graph dictionary={dictionary} selected={selected} trace={trace} stepIndex={session.stepIndex} onSelect={selectEntry}/>
               <div className="trace-picker"><label htmlFor="trace-select">Trace</label><select id="trace-select" value={session.traceId ?? ''} onChange={event => dispatch({ type: 'trace', id: event.target.value })}><option value="">Browse without a trace</option>{demonstrations.map(item => <option key={item.id} value={item.id}>{item.title}</option>)}</select></div>
+              <Graph dictionary={dictionary} selected={selected} trace={trace} stepIndex={session.stepIndex} playing={session.playing} onSelect={selectEntry} onPlayback={dispatch}/>
               {trace ? <TracePlayer trace={trace} session={session} selectedId={selected.id} dispatch={dispatch} selectEntry={selectEntry}/> : <div className="trace-empty"><h3>{demonstrations.length ? 'The dictionary is yours to explore.' : 'Browse the current draft.'}</h3><p>{demonstrations.length ? 'Choose a trace above to follow its starting node and traversed edges.' : 'No recorded trace is paired with this draft yet. The Newton II example is available with the operational Newtonian mechanics dictionary.'}</p></div>}
             </section>
             <aside className="inspector" aria-label="Selected entry details">

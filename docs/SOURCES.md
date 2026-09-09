@@ -20,6 +20,14 @@ Newton II is condensed into 14 display stages while preserving event order and e
 
 The question supplies 2 kg, the inertial frame, both interaction identities, their completeness, and force values +10 N and −4 N. The interpreter supplied the reductions to 6 N and then 3 m/s². The website replays this record; it does not run or certify the arithmetic. Newer recursive-sum attempts are unaccepted experiments and have not been merged into these versions.
 
+## Newton II with given inputs
+
+Added from `03_trace_and_evaluator/newton_second_law_given_inputs_trace.txt`, committed in VD-Newton as `7e143375dcdaa90c60f8383058d7f24e619292b4` on 9 September 2026. The byte-for-byte archive is `newton-ii-given-inputs-source.txt`, SHA-256 `1c205f50c996105e9d06ae66455278e9d5a3e453f3acc574850192dea8fcc5bb`. Its entry-source hash is `e5771def38b3c90e176bf7908f28487158e185334020391d8670216c18243e2e`; all 45 definitions match the operational dictionary already bundled here.
+
+The question gives particle p1, an inertial frame R, instant t0, a net force of (6, 0, 0) N and a mass of 2 kg. This transcript starts the trace, inspects document E3/E20/E23, expands document E21 (raw zero-based REPL E20), injects p1, flattens the acceleration self-label, injects force and mass, and records the interpreter's reduction to (3, 0, 0) m/s². The viewer condenses this into seven display stages and retains the source's normalized literal residual.
+
+Only the Newton II definition is expanded. There is no particle recall, force-sum expansion, or interaction-set traversal. The three supplied values are shown as cyan input bindings, separately from lime dictionary traversals. Only E21 position 1 is flattened. This source is a text transcript, separate from the earlier 39-event JSON run; no event count or live engine execution is claimed for it.
+
 ## Original small examples
 
 Selected on 9 September 2026 from the local VDfirst checkout at commit `11bfd8df1d27a5c7f2190aade2470a8a8801dc1f`. These small examples are suitable for the viewer's first demonstration; they do not reproduce the full research dictionaries.
@@ -28,7 +36,7 @@ Selected on 9 September 2026 from the local VDfirst checkout at commit `11bfd8df
 
 Exact definitions for E1 time, E2 reference-frame, E3 point-particle, E4 position, E5 displacement, and E9 trajectory are copied from [VDfirst/newton.py](https://github.com/canvalidk/VDfirst/blob/11bfd8df1d27a5c7f2190aade2470a8a8801dc1f/newton.py). The same six definitions were cross-checked against the local VD-Newton operational dictionary (`02_engine/newton.py`). No force terminology from those differing dictionary versions is combined here.
 
-The seven explicit reference edges follow literal headword occurrences in those definitions. Source entry numbering is preserved. Diagram positions are hand-arranged display choices.
+The seven explicit reference edges follow literal headword occurrences in those definitions. Source entry numbering is preserved. Diagram positions are presentation choices, computed by the viewer.
 
 **Follow displacement** and **Inside position** are prepared, illustrative routes derived from these definitions and the current operation semantics. They are not exported engine runs. Recalled literal definitions retain their punctuation; the accumulated wording is intentionally not polished into a paraphrase.
 

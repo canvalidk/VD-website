@@ -14,7 +14,7 @@ Each `Entry` contains:
 | `sourceId` | Original entry identifier, including gaps in selected excerpts |
 | `definition` | Exact literal source text |
 | `references` | Explicit outgoing headword IDs in this excerpt |
-| `x`, `y` | Percent positions for the illustrative map; presentation metadata only |
+| `x`, `y` | Legacy illustrative positions; the current viewer computes its own stable layout |
 
 References are explicit. The website does not tokenize arbitrary dictionary text, resolve underscored calls, or infer missing references. Every referenced ID must exist in the same bundled dictionary. A future adapter should handle missing/outside-excerpt references explicitly before passing data to this viewer.
 
@@ -44,9 +44,13 @@ fragment: [
 
 Each step's optional `traversedEdges` is a delta containing only the references actually followed at that stage. The viewer unions these deltas through the current step. Inspection, input injection, and merely exposing a reference do not imply traversal. Seeking backwards recomputes the union and removes later history. Reciprocal reference directions use distinct curved paths and directional midpoint arrows.
 
+Each step's optional `boundInputs` is a delta of `{ from, to, value }` records for supplied values. The viewer accumulates these separately, draws cyan dashed connections, and adds the value to the target headword node. Binding an input does not imply that its dictionary definition was followed. Rewinding removes later bindings.
+
 Optional trace-level `occurrences` identify self-label nodes separately from headword nodes: `id`, `entryId`, `parentEntryId`, `label`, `appearsAt`, and `flattenedAt`. The last two fields reference step IDs. The occurrence first appears open, then dims and gains a FLATTENED label at its actual flatten event. This does not flatten the dictionary definition or every occurrence of that headword. Recall, reduction, and settlement are not flattening. Earlier playback steps restore the earlier appearance.
 
-For larger dictionaries, the graph shows the trace's headwords or the selected headword's immediate neighborhood; the full list of headwords and all their definitions remain browsable. Source archives retain entry-level occurrence and candidate-definition information that the aggregate headword network does not claim to represent.
+Focused view shows the trace's complete participant set or the selected headword's immediate neighborhood. Full dictionary shows all headwords. Both views use identical trace history and occurrence state; changing the view never resets playback. Definitions sharing a headword remain grouped and individually readable in the inspector. Source archives retain entry-level occurrence and candidate-definition information that the aggregate headword network does not claim to represent.
+
+`graphScene.ts` computes stable positions and reserves occurrence slots beside trace participants. Fit all includes the whole scene; zoom and pan allow closer inspection. With Follow trace enabled, every step keeps the starting node, current participants, cumulative traversed/input connection endpoints, visible occurrences, and selected headword inside the viewport. The camera reduces zoom if needed to fit that set. Network-local controls use the same reducer as the detailed player. Reduced-motion preferences suppress movement and pulses while preserving visual state.
 
 ## Playback state
 
@@ -58,4 +62,4 @@ For larger dictionaries, the graph shows the trace's headwords or the selected h
 
 A later producer can turn real engine events into this ordered-step boundary. Before claiming engine provenance, inspect the actual output and extend the format for event identifiers, occurrence/frame identity, authoritative root state, unresolved work, and reduction/recognition provenance as needed. The current format intentionally lacks those guarantees. Do not relabel these prepared arrays as executed traces.
 
-The checks in `tests/player.test.ts` also cover unpicked state, reciprocal path separation, chronological traversal, occurrence-scoped flattening, and preservation of all 71 imported Newton definitions against the checked-in source extracts.
+The checks in `tests/` cover unpicked state, reciprocal path separation, chronological traversal and input binding, occurrence-scoped flattening, full dictionary membership, stable non-overlapping layouts, camera visibility at every step in both views, and preservation of all 71 imported Newton definitions and the new transcript against their checked-in sources.

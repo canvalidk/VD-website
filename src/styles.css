@@ -1081,7 +1081,7 @@ summary {
   flex-shrink: 0;
 }
 .trace-picker {
-  margin-top: 20px;
+  margin-bottom: 18px;
 }
 .trace-picker select {
   margin: 7px 0 0;
@@ -1122,20 +1122,140 @@ summary {
 .timeline li {
   min-width: 32px;
 }
-.graph-scroll {
-  overflow: auto;
-  scrollbar-color: #5c7194 #101f37;
-  scrollbar-width: thin;
+.graph-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 24px 12px;
+  font-size: .75rem;
 }
-.graph-large {
-  margin: 12px 0 0;
+.graph-tools button,.graph-playback button {
+  background: #213651;
+  border: 1px solid #536780;
+  color: #e8f0fb;
+  border-radius: 6px;
+  min-height: 36px;
+  min-width: 36px;
+  padding: 7px 10px;
 }
-.graph-large .graph-node {
-  width: 168px;
-  max-width: none;
+.graph-tools button:hover:not(:disabled),.graph-playback button:hover:not(:disabled) {
+  background: #354f71;
+}
+.graph-view-picker,.graph-camera-controls {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.graph-view-picker button[aria-pressed=true] {
+  background: #e2ecff;
+  color: #14243c;
+  border-color: #e2ecff;
+}
+.graph-camera-controls output {
+  min-width: 40px;
+  text-align: center;
+  color: #b3c5df;
+  font-variant-numeric: tabular-nums;
+}
+.graph-follow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  color: #c2d1e6;
+  min-height: 32px;
+}
+.graph-follow input {
+  accent-color: #baf369;
+}
+.graph-viewport {
+  position: relative;
+  height: clamp(360px, 53vh, 480px);
+  overflow: hidden;
+  background-image: radial-gradient(#59759436 1px,transparent 1px);
+  background-size: 22px 22px;
+  touch-action: none;
+  cursor: grab;
+  contain: layout paint;
+}
+.graph-world {
+  position: absolute;
+  inset: 0 auto auto 0;
+  transform-origin: 0 0;
+  transition: transform .45s ease;
+}
+.is-dragging,.is-dragging .graph-world {
+  cursor: grabbing;
+  user-select: none;
+}
+.is-dragging .graph-world {
+  transition: none;
+}
+.graph-world .graph-node {
   min-width: 0;
+  max-width: none;
+  min-height: 0;
+  font-size: .875rem;
   overflow-wrap: anywhere;
-  min-height: 70px;
+  transition: background .65s,border-color .65s,color .65s,opacity .65s,box-shadow .65s;
+}
+.graph-world .flattened-node {
+  opacity: .55;
+}
+.node-step-pulse {
+  position: absolute;
+  inset: -5px;
+  border: 2px solid #b9cdff;
+  border-radius: 14px;
+  pointer-events: none;
+  animation: node-step 1.7s ease-out both;
+}
+.graph-world .given-node:not(.selected) {
+  border-color: #77def1;
+}
+.node-given {
+  color: #9aebf8;
+  font-size: .75rem;
+}
+.selected .node-given {
+  color: #214f38;
+}
+.graph-playback {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 24px;
+  border-top: 1px solid #344761;
+  background: #13253e;
+}
+.graph-playback>div {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.graph-playback .graph-play {
+  min-width: 65px;
+  color: #142a20;
+  background: var(--lime);
+  border-color: var(--lime);
+}
+.graph-playback p {
+  font-size: .875rem;
+  line-height: 1.5;
+}
+.graph-playback p>span {
+  display: block;
+  color: #acbdd4;
+  font-size: .75rem;
+  margin-bottom: 2px;
+}
+@keyframes node-step {
+  from { opacity: .85; box-shadow: 0 0 0 0 #a9c5ff40; }
+  to { opacity: 0; box-shadow: 0 0 0 12px #a9c5ff00; }
+}
+@keyframes edge-travel {
+  to { stroke-dashoffset: -32; }
 }
 .connections polyline,.connections path {
   fill: none;
@@ -1150,6 +1270,15 @@ summary {
 .connections .traversed,.connections .traversed.connected {
   stroke: #baf369;
   stroke-width: 3;
+}
+.connections .input-edge,.connections .input-edge.connected {
+  stroke: #77def1;
+  stroke-width: 3;
+  stroke-dasharray: 7 5;
+}
+.connections .current-edge {
+  stroke-dasharray: 9 7;
+  animation: edge-travel .9s linear 3;
 }
 .connections .occurrence-edge {
   stroke: #90a8d0;
@@ -1222,6 +1351,11 @@ summary {
   background: var(--lime);
   height: 3px;
 }
+.legend-line.given {
+  height: 0;
+  background: none;
+  border-top: 3px dashed #77def1;
+}
 .map-note {
   font-size: .75rem;
   line-height: 1.6;
@@ -1290,8 +1424,12 @@ summary {
   .entry-list {
     max-height: 190px;
   }
-  .graph-large .graph-node {
-    font-size: .875rem;
+  .graph-tools,.graph-playback {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .graph-playback {
+    flex-wrap: wrap;
   }
   .workspace {
     display: contents;
@@ -1301,19 +1439,30 @@ summary {
   }
   .graph-card {
     width: 100%;
-    order: 1;
+    order: 2;
   }
   .inspector {
-    order: 2;
+    order: 4;
   }
   .trace-picker {
     width: 100%;
-    order: 3;
+    order: 1;
     margin: 0;
   }
   .trace-panel,.trace-empty {
     width: 100%;
-    order: 4;
+    order: 3;
     margin: 0;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  .graph-world,.graph-world .graph-node {
+    transition: none;
+  }
+  .node-step-pulse,.connections .current-edge {
+    animation: none;
+  }
+  .node-step-pulse {
+    opacity: .45;
   }
 }
