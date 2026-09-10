@@ -1,0 +1,1234 @@
+{
+  "source_sha256": "3bd6758d4cf7d476d87caddf8f9f73ec7d66bd5d4eaf14398a9fc12cd2eb32a8",
+  "source_repository": "canvalidk/VD-Newton",
+  "local_head": "5ae1797dd5ab9a36b1c0ae56ac360ad4bff0d58a",
+  "entry_count": 26,
+  "unique_headword_count": 21,
+  "source_path": "07_design_2_1/DESIGN_2_1_DRAFT_1_ENTRIES.md",
+  "entries": [
+    {
+      "id": "K1",
+      "code_index": 0,
+      "headword": "time",
+      "definition": "A background ordering value, usually modelled by t ∈ R; a time-value selects\nan instant, and the difference between two time-values is a duration.",
+      "reference_headwords": [],
+      "reference_occurrences": [],
+      "residual_chunks": [
+        "A background ordering value, usually modelled by t ∈ R; a time-value selects an instant, and the difference between two time-values is a duration."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K2",
+      "code_index": 1,
+      "headword": "reference-frame",
+      "definition": "A coordinate-and-clock convention for events: an origin, basis vectors, and a\nclock, supplying the coordinates in which displacement and trajectory values\nare expressed.",
+      "reference_headwords": [
+        "displacement",
+        "trajectory"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "displacement",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K3"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A coordinate-and-clock convention for events: an origin, basis vectors, and a clock, supplying the coordinates in which ",
+        " and ",
+        " values are expressed."
+      ],
+      "forward_references": [
+        "displacement",
+        "trajectory"
+      ]
+    },
+    {
+      "id": "K3",
+      "code_index": 2,
+      "headword": "displacement",
+      "definition": "A spatial vector with units of length, expressed in a chosen reference-frame.",
+      "reference_headwords": [
+        "reference-frame"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A spatial vector with units of length, expressed in a chosen ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K4",
+      "code_index": 3,
+      "headword": "straight-line",
+      "definition": "A geometric locus in a reference-frame whose displacement-vectors have the form\nr0 + λu, with r0 fixed, u nonzero, and λ real.",
+      "reference_headwords": [
+        "reference-frame"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A geometric locus in a ",
+        " whose displacement-vectors have the form r0 + λu, with r0 fixed, u nonzero, and λ real."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K5",
+      "code_index": 4,
+      "headword": "path",
+      "definition": "A timeless spatial locus or form in a reference-frame, such as a point, straight\nline, or curve; it does not yet include particle identity, time, traversal rate,\nor a time-indexed map.",
+      "reference_headwords": [
+        "reference-frame",
+        "time"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A timeless spatial locus or form in a ",
+        ", such as a point, straight line, or curve; it does not yet include particle identity, ",
+        ", traversal rate, or a time-indexed map."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K6",
+      "code_index": 5,
+      "headword": "time-interval",
+      "definition": "A selected span of time from a start-time to an end-time over which a motion\ndescription is considered; it selects a span, not merely a duration.",
+      "reference_headwords": [
+        "time"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A selected span of ",
+        " from a start-time to an end-time over which a motion description is considered; it selects a span, not merely a duration."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K7",
+      "code_index": 6,
+      "headword": "point-particle",
+      "definition": "An idealised object whose spatial extent and internal structure are neglected\nfor the motion description.",
+      "reference_headwords": [],
+      "reference_occurrences": [],
+      "residual_chunks": [
+        "An idealised object whose spatial extent and internal structure are neglected for the motion description."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K8",
+      "code_index": 7,
+      "headword": "trajectory",
+      "definition": "For a point-particle in a reference-frame over a time-interval, a time-indexed\nmap from selected time-values to displacement-vectors in that frame; this is the\nkinematic object from which instant-values and derivatives are read.",
+      "reference_headwords": [
+        "point-particle",
+        "reference-frame",
+        "time-interval"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K7"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "time-interval",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K6"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For a ",
+        " in a ",
+        " over a ",
+        ", a time-indexed map from selected time-values to displacement-vectors in that frame; this is the kinematic object from which instant-values and derivatives are read."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K9",
+      "code_index": 8,
+      "headword": "position",
+      "definition": "For a point-particle with a trajectory, the displacement-vector returned by that\ntrajectory at a selected time in the chosen reference-frame.",
+      "reference_headwords": [
+        "point-particle",
+        "reference-frame",
+        "time",
+        "trajectory"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K7"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For a ",
+        " with a ",
+        ", the displacement-vector returned by that ",
+        " at a selected ",
+        " in the chosen ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K10",
+      "code_index": 9,
+      "headword": "velocity",
+      "definition": "For a point-particle with a trajectory in a reference-frame, the derivative of\nthat trajectory with respect to time at a selected time, when that derivative\nexists.",
+      "reference_headwords": [
+        "point-particle",
+        "reference-frame",
+        "time",
+        "trajectory"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K7"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        },
+        {
+          "position": 5,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For a ",
+        " with a ",
+        " in a ",
+        ", the derivative of that ",
+        " with respect to ",
+        " at a selected ",
+        ", when that derivative exists."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K11",
+      "code_index": 10,
+      "headword": "speed",
+      "definition": "For a point-particle at a selected time in a reference-frame, the scalar\nmagnitude of its velocity.",
+      "reference_headwords": [
+        "point-particle",
+        "reference-frame",
+        "time",
+        "velocity"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K7"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "velocity",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K10"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For a ",
+        " at a selected ",
+        " in a ",
+        ", the scalar magnitude of its ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K12",
+      "code_index": 11,
+      "headword": "acceleration",
+      "definition": "For a point-particle in a reference-frame, the derivative of velocity with\nrespect to time at a selected time; equivalently, the second derivative of the\ntrajectory, when defined.",
+      "reference_headwords": [
+        "point-particle",
+        "reference-frame",
+        "time",
+        "trajectory",
+        "velocity"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K7"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "velocity",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K10"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        },
+        {
+          "position": 5,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For a ",
+        " in a ",
+        ", the derivative of ",
+        " with respect to ",
+        " at a selected ",
+        "; equivalently, the second derivative of the ",
+        ", when defined."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K13",
+      "code_index": 12,
+      "headword": "relative-position",
+      "definition": "For two point-particles in the same reference-frame at the same selected time,\nthe displacement-vector r2 - r1 obtained by subtracting the first position from\nthe second.",
+      "reference_headwords": [
+        "position",
+        "reference-frame",
+        "time"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "position",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K9"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For two point-particles in the same ",
+        " at the same selected ",
+        ", the displacement-vector r2 - r1 obtained by subtracting the first ",
+        " from the second."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K14",
+      "code_index": 13,
+      "headword": "relative-velocity",
+      "definition": "For two point-particles in the same reference-frame at the same selected time,\nthe derivative of relative-position with respect to time; equivalently, the\nsecond velocity minus the first, when defined.",
+      "reference_headwords": [
+        "reference-frame",
+        "relative-position",
+        "time",
+        "velocity"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "relative-position",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K13"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "velocity",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K10"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For two point-particles in the same ",
+        " at the same selected ",
+        ", the derivative of ",
+        " with respect to ",
+        "; equivalently, the second ",
+        " minus the first, when defined."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K15",
+      "code_index": 14,
+      "headword": "path-length",
+      "definition": "A derived scalar length assigned to a supplied path or to a trajectory over a\ntime-interval; for a differentiable trajectory, it is the integral of speed over\nthat interval.",
+      "reference_headwords": [
+        "path",
+        "speed",
+        "time-interval",
+        "trajectory"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "path",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K5"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "time-interval",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K6"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "speed",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K11"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A derived scalar length assigned to a supplied ",
+        " or to a ",
+        " over a ",
+        "; for a differentiable ",
+        ", it is the integral of ",
+        " over that interval."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "K16 / E1",
+      "code_index": 15,
+      "headword": "uniform-motion",
+      "definition": "A frame-indexed interval property of a point-particle: over the selected\ntime-interval, its trajectory either stays at one position in the chosen frame,\nor traces a straight path with constant velocity, i.e. constant speed with\nunchanged direction. It is a kinematic path-pattern, not yet a claim about why\nthe motion occurs.",
+      "reference_headwords": [
+        "path",
+        "point-particle",
+        "position",
+        "speed",
+        "time-interval",
+        "trajectory",
+        "velocity"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K7"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "time-interval",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K6"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "position",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K9"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "path",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K5"
+          ]
+        },
+        {
+          "position": 5,
+          "headword": "velocity",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K10"
+          ]
+        },
+        {
+          "position": 6,
+          "headword": "speed",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K11"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A frame-indexed interval property of a ",
+        ": over the selected ",
+        ", its ",
+        " either stays at one ",
+        " in the chosen frame, or traces a straight ",
+        " with constant ",
+        ", i.e. constant ",
+        " with unchanged direction. It is a kinematic path-pattern, not yet a claim about why the motion occurs."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E2",
+      "code_index": 16,
+      "headword": "uniform-motion",
+      "definition": "Uniform-motion is the motion a free-particle must exhibit when described in an\ninertial-frame.",
+      "reference_headwords": [
+        "free-particle",
+        "inertial-frame"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "uniform-motion",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "K16 / E1",
+            "E2"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "free-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E4",
+            "E6"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "inertial-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3",
+            "E5"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "",
+        " is the motion a ",
+        " must exhibit when described in an ",
+        "."
+      ],
+      "forward_references": [
+        "free-particle",
+        "inertial-frame"
+      ]
+    },
+    {
+      "id": "E3",
+      "code_index": 17,
+      "headword": "inertial-frame",
+      "definition": "An inertial-frame is a reference-frame in which every free-particle must exhibit\nuniform-motion.",
+      "reference_headwords": [
+        "free-particle",
+        "reference-frame",
+        "uniform-motion"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "inertial-frame",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E3",
+            "E5"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "free-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E4",
+            "E6"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "uniform-motion",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K16 / E1",
+            "E2"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "An ",
+        " is a ",
+        " in which every ",
+        " must exhibit ",
+        "."
+      ],
+      "forward_references": [
+        "free-particle"
+      ]
+    },
+    {
+      "id": "E4",
+      "code_index": 18,
+      "headword": "free-particle",
+      "definition": "A free-particle is a point-particle that must exhibit uniform-motion when\ndescribed in an inertial-frame. But a point-particle can exhibit uniform-motion\nwithout being a free-particle.",
+      "reference_headwords": [
+        "inertial-frame",
+        "point-particle",
+        "uniform-motion"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "free-particle",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E4",
+            "E6"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K7"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "uniform-motion",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K16 / E1",
+            "E2"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "inertial-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3",
+            "E5"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K7"
+          ]
+        },
+        {
+          "position": 5,
+          "headword": "uniform-motion",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K16 / E1",
+            "E2"
+          ]
+        },
+        {
+          "position": 6,
+          "headword": "free-particle",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E4",
+            "E6"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A ",
+        " is a ",
+        " that must exhibit ",
+        " when described in an ",
+        ". But a ",
+        " can exhibit ",
+        " without being a ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E5",
+      "code_index": 19,
+      "headword": "inertial-frame",
+      "definition": "An inertial-frame is the standard reference-frame for Newtonian mechanical\nanalysis. It is the frame of an observer treated as non-accelerating and\nnon-rotating. It is sometimes called a Galilean frame or the lab frame. Earth\ncan be treated as an inertial reference-frame in ordinary circumstances, to the\nneeded approximation.",
+      "reference_headwords": [
+        "reference-frame"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "inertial-frame",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E3",
+            "E5"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K2"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "An ",
+        " is the standard ",
+        " for Newtonian mechanical analysis. It is the frame of an observer treated as non-accelerating and non-rotating. It is sometimes called a Galilean frame or the lab frame. Earth can be treated as an inertial ",
+        " in ordinary circumstances, to the needed approximation."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E6",
+      "code_index": 20,
+      "headword": "free-particle",
+      "definition": "A free-particle or free body is a point-particle whose trajectory is not being\ninfluenced by any other object, i.e. is free from influence. This may be a\nmaterial-object represented as a point-particle, or a massless point-particle\nlike a photon.",
+      "reference_headwords": [
+        "point-particle",
+        "trajectory"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "free-particle",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E4",
+            "E6"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K7"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K7"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K7"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A ",
+        " or free body is a ",
+        " whose ",
+        " is not being influenced by any other object, i.e. is free from influence. This may be a material-object represented as a ",
+        ", or a massless ",
+        " like a photon."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E7",
+      "code_index": 21,
+      "headword": "inertial-acceleration-material-object",
+      "definition": "For a material-object with a trajectory described in an inertial-frame,\nthe acceleration read from that trajectory at a selected time.",
+      "reference_headwords": [
+        "acceleration",
+        "inertial-frame",
+        "time",
+        "trajectory"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "inertial-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3",
+            "E5"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "acceleration",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K12"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K8"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "K1"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For a material-object with a ",
+        " described in an ",
+        ", the ",
+        " read from that ",
+        " at a selected ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E8",
+      "code_index": 22,
+      "headword": "inertial-acceleration-material-object",
+      "definition": "For one material-object, its net-force-material-object divided by\nits inertial-mass-material-object.",
+      "reference_headwords": [
+        "inertial-mass-material-object",
+        "net-force-material-object"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "net-force-material-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E9",
+            "E11"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "inertial-mass-material-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E10"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For one material-object, its ",
+        " divided by its ",
+        "."
+      ],
+      "forward_references": [
+        "inertial-mass-material-object",
+        "net-force-material-object"
+      ]
+    },
+    {
+      "id": "E9",
+      "code_index": 23,
+      "headword": "net-force-material-object",
+      "definition": "For one material-object, its inertial-mass-material-object times\nits inertial-acceleration-material-object.",
+      "reference_headwords": [
+        "inertial-acceleration-material-object",
+        "inertial-mass-material-object"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "inertial-mass-material-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E10"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "inertial-acceleration-material-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E7",
+            "E8"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For one material-object, its ",
+        " times its ",
+        "."
+      ],
+      "forward_references": [
+        "inertial-mass-material-object"
+      ]
+    },
+    {
+      "id": "E10",
+      "code_index": 24,
+      "headword": "inertial-mass-material-object",
+      "definition": "For one material-object, the positive scalar that multiplies its\ninertial-acceleration-material-object to give its net-force-material-object.\nIf both are exact, check that they are codirectional and then divide the\nnet-force magnitude by the inertial-acceleration magnitude; a zero-zero pair\nleaves the scalar undetermined. If either is measured, estimate two underlying\ncodirectional vectors and then recover the positive scalar relating them.",
+      "reference_headwords": [
+        "inertial-acceleration-material-object",
+        "net-force-material-object"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "inertial-acceleration-material-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E7",
+            "E8"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "net-force-material-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E9",
+            "E11"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For one material-object, the positive scalar that multiplies its ",
+        " to give its ",
+        ". If both are exact, check that they are codirectional and then divide the net-force magnitude by the inertial-acceleration magnitude; a zero-zero pair leaves the scalar undetermined. If either is measured, estimate two underlying codirectional vectors and then recover the positive scalar relating them."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E11",
+      "code_index": 25,
+      "headword": "net-force-material-object",
+      "definition": "For a material-object in an inertial-frame, its vector in newtons. There are\nexactly two ways to obtain this vector.",
+      "reference_headwords": [
+        "inertial-frame"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "inertial-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3",
+            "E5"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For a material-object in an ",
+        ", its vector in newtons. There are exactly two ways to obtain this vector."
+      ],
+      "forward_references": []
+    }
+  ]
+}

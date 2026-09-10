@@ -1,0 +1,64 @@
+QUESTION: In an inertial frame R at instant t0, point particle p1 has inertial mass 2 kg and net force (6, 0, 0) N. What is p1's acceleration?
+> set reduce off
+reduce policy: off.
+> set cleanup off
+cleanup policy: off.
+> trace inertial-acceleration
+trace started.
+at: root
+{inertial-acceleration}
+open positions: 0
+INSPECT document E3: An idealised object whose spatial extent and internal structure are neglected.
+INSPECT document E20: The acceleration of a point-particle as measured in an inertial-frame.
+INSPECT document E23: The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.
+> expand
+multiple entries for 'inertial-acceleration':
+  E19: The acceleration of a point-particle as measured in an in...
+  E20: For a point-particle, inertial-acceleration equals net-fo...
+pick E-number: 20
+expanded E20 at position 0; now at child.
+ENTRY: For a {point-particle}, {inertial-acceleration} equals {net-force} divided by {inertial-mass}: a = F/m.
+> inject 0
+text: p1
+injected at position 0; now at child.
+> return
+returned to parent.
+PARTICLE SUBSTITUTED: For a p1, {inertial-acceleration} equals {net-force} divided by {inertial-mass}: a = F/m.
+> flatten 1
+flattened position 1.
+> inject 2
+text: (6, 0, 0) N
+injected at position 2; now at child.
+> return
+returned to parent.
+> inject 3
+text: 2 kg
+injected at position 3; now at child.
+trace complete.
+For a p1, inertial-acceleration equals (6,0,0) N divided by 2 kg: a = F/m.
+> return
+returned to parent.
+INPUTS SUBSTITUTED: For a p1, inertial-acceleration equals (6,0,0) N divided by 2 kg: a = F/m.
+> reduce
+current render:
+  For a p1, inertial-acceleration equals (6,0,0) N divided by 2 kg: a = F/m.
+replacement (empty to abort): (3, 0, 0) m/s^2
+reduced.
+returned to parent.
+> state
+at: root
+(3, 0, 0) m/s^2
+open positions: none
+> worklist
+no open holes; trace is complete.
+CHECKS: p1 substituted; one entry expansion; expected acceleration; degree zero; empty worklist; engine and entry sources unchanged.
+SCOPE: interpreter-guided execution; the REPL manages the trace, and this replay supplies entry choice, input bindings and arithmetic.
+ENTRY SOURCE: local 02_engine/newton.py; 45 available entries.
+SOURCE SHA-256:
+02_engine\newton.py: e5771def38b3c90e176bf7908f28487158e185334020391d8670216c18243e2e
+VDfirst\engine.py: 219a2874cb5d224f85938a501f611c78f8f41add453b6f4f5faad4a777c2153f
+VDfirst\simulator.py: a97d5ff259adc65621bb8306cdd2bf0ee1234d8f21a02439ff6b8fc31d813294
+VDfirst\repl.py: a7209a2c6d42a258500a322c48c304e0cf81c60b155db6485db17d6de681033a
+VDfirst\demand.py: b0459ecc9561ece2320bf9d6a8c5c94b6a30ac076219e8f52a14f7713dc70b69
+VDfirst\definiens.py: 1f517d391787f69845c4eefc316b31c60d5aaf51145aec9fc44e1dee587c126a
+VDfirst\residual.py: 7fcbeb4c7d6eafb140d882664149fd138d8a46b276da79cd3ac2bd8a8e7b7077

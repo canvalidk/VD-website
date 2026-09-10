@@ -1,0 +1,1978 @@
+{
+  "source_sha256": "e5771def38b3c90e176bf7908f28487158e185334020391d8670216c18243e2e",
+  "source_repository": "canvalidk/VD-Newton",
+  "local_head": "5ae1797dd5ab9a36b1c0ae56ac360ad4bff0d58a",
+  "entry_count": 45,
+  "unique_headword_count": 34,
+  "source_path": "02_engine/newton.py",
+  "entries": [
+    {
+      "id": "E1",
+      "code_index": 0,
+      "headword": "time",
+      "definition": "A real parameter t in R used to order events; differences delta t = t2 - t1 are durations.",
+      "reference_headwords": [],
+      "reference_occurrences": [],
+      "residual_chunks": [
+        "A real parameter t in R used to order events; differences delta t = t2 - t1 are durations."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E2",
+      "code_index": 1,
+      "headword": "reference-frame",
+      "definition": "A convention for assigning spatial coordinates and a time coordinate to events: an origin, a set of basis vectors, and a clock.",
+      "reference_headwords": [
+        "time"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E1"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A convention for assigning spatial coordinates and a ",
+        " coordinate to events: an origin, a set of basis vectors, and a clock."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E3",
+      "code_index": 2,
+      "headword": "point-particle",
+      "definition": "An idealised object whose spatial extent and internal structure are neglected.",
+      "reference_headwords": [],
+      "reference_occurrences": [],
+      "residual_chunks": [
+        "An idealised object whose spatial extent and internal structure are neglected."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E4",
+      "code_index": 3,
+      "headword": "position",
+      "definition": "The location of a point-particle at time t in a reference-frame, represented by a vector r(t) in R^3.",
+      "reference_headwords": [
+        "point-particle",
+        "reference-frame",
+        "time"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E1"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E2"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The location of a ",
+        " at ",
+        " t in a ",
+        ", represented by a vector r(t) in R^3."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E5",
+      "code_index": 4,
+      "headword": "displacement",
+      "definition": "The change in position: delta r = r(t2) - r(t1).",
+      "reference_headwords": [
+        "position"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "position",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E4"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The change in ",
+        ": delta r = r(t2) - r(t1)."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E6",
+      "code_index": 5,
+      "headword": "velocity",
+      "definition": "v(t) = dr/dt.",
+      "reference_headwords": [],
+      "reference_occurrences": [],
+      "residual_chunks": [
+        "v(t) = dr/dt."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E7",
+      "code_index": 6,
+      "headword": "speed",
+      "definition": "The scalar magnitude of velocity: speed(t) = ||v(t)||.",
+      "reference_headwords": [
+        "velocity"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "velocity",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E6"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "speed",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E7"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The scalar magnitude of ",
+        ": ",
+        "(t) = ||v(t)||."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E8",
+      "code_index": 7,
+      "headword": "acceleration",
+      "definition": "a(t) = dv/dt = d^2 r/dt^2.",
+      "reference_headwords": [],
+      "reference_occurrences": [],
+      "residual_chunks": [
+        "a(t) = dv/dt = d^2 r/dt^2."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E9",
+      "code_index": 8,
+      "headword": "trajectory",
+      "definition": "The map t -> r(t) giving the position of a point-particle over some interval I subset R.",
+      "reference_headwords": [
+        "point-particle",
+        "position"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "position",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E4"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The map t -> r(t) giving the ",
+        " of a ",
+        " over some interval I subset R."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E10",
+      "code_index": 9,
+      "headword": "straight-line",
+      "definition": "A set of points {r0 + lambda u : lambda in R} for fixed r0 in R^3 and nonzero direction u in R^3.",
+      "reference_headwords": [],
+      "reference_occurrences": [],
+      "residual_chunks": [
+        "A set of points {r0 + lambda u : lambda in R} for fixed r0 in R^3 and nonzero direction u in R^3."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E11",
+      "code_index": 10,
+      "headword": "path-length",
+      "definition": "For a differentiable trajectory from t1 to t2, the arc length is s = integral of ||v(t)|| dt.",
+      "reference_headwords": [
+        "trajectory"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "trajectory",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E9"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For a differentiable ",
+        " from t1 to t2, the arc length is s = integral of ||v(t)|| dt."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E12",
+      "code_index": 11,
+      "headword": "relative-position",
+      "definition": "For two point-particle|s in the same reference-frame, the relative-position is r12(t) = r2(t) - r1(t).",
+      "reference_headwords": [
+        "point-particle",
+        "reference-frame"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E2"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "relative-position",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E12"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For two ",
+        "|s in the same ",
+        ", the ",
+        " is r12(t) = r2(t) - r1(t)."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E13",
+      "code_index": 12,
+      "headword": "relative-velocity",
+      "definition": "For two point-particle|s in the same reference-frame, the relative-velocity is v12(t) = v2(t) - v1(t) = dr12/dt.",
+      "reference_headwords": [
+        "point-particle",
+        "reference-frame"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E2"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "relative-velocity",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E13"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For two ",
+        "|s in the same ",
+        ", the ",
+        " is v12(t) = v2(t) - v1(t) = dr12/dt."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E14",
+      "code_index": 13,
+      "headword": "uniform-motion",
+      "definition": "The state of being either stationary or moving along a straight-line with constant speed. Equivalently, a point-particle is in uniform-motion on an interval I if its velocity is constant throughout I; i.e. for all t1, t2 in I, v(t1) = v(t2). A point-particle is in uniform-motion at time t0 if there exists epsilon > 0 such that it is in uniform-motion on (t0 - epsilon, t0 + epsilon).",
+      "reference_headwords": [
+        "point-particle",
+        "speed",
+        "straight-line",
+        "time",
+        "velocity"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "straight-line",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E10"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "speed",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E7"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "uniform-motion",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E14",
+            "E15"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "velocity",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E6"
+          ]
+        },
+        {
+          "position": 5,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 6,
+          "headword": "uniform-motion",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E14",
+            "E15"
+          ]
+        },
+        {
+          "position": 7,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E1"
+          ]
+        },
+        {
+          "position": 8,
+          "headword": "uniform-motion",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E14",
+            "E15"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The state of being either stationary or moving along a ",
+        " with constant ",
+        ". Equivalently, a ",
+        " is in ",
+        " on an interval I if its ",
+        " is constant throughout I; i.e. for all t1, t2 in I, v(t1) = v(t2). A ",
+        " is in ",
+        " at ",
+        " t0 if there exists epsilon > 0 such that it is in ",
+        " on(t0 - epsilon,t0 + epsilon)."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E15",
+      "code_index": 14,
+      "headword": "uniform-motion",
+      "definition": "The state of motion exhibited by a free-particle when described in an inertial-frame.",
+      "reference_headwords": [
+        "free-particle",
+        "inertial-frame"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "free-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E17",
+            "E19"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "inertial-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E16",
+            "E18"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The state of motion exhibited by a ",
+        " when described in an ",
+        "."
+      ],
+      "forward_references": [
+        "free-particle",
+        "inertial-frame"
+      ]
+    },
+    {
+      "id": "E16",
+      "code_index": 15,
+      "headword": "inertial-frame",
+      "definition": "A reference-frame in which every free-particle exhibits uniform-motion.",
+      "reference_headwords": [
+        "free-particle",
+        "reference-frame",
+        "uniform-motion"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E2"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "free-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E17",
+            "E19"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "uniform-motion",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E14",
+            "E15"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A ",
+        " in which every ",
+        " exhibits ",
+        "."
+      ],
+      "forward_references": [
+        "free-particle"
+      ]
+    },
+    {
+      "id": "E17",
+      "code_index": 16,
+      "headword": "free-particle",
+      "definition": "A point-particle that, when described in an inertial-frame, exhibits uniform-motion.",
+      "reference_headwords": [
+        "inertial-frame",
+        "point-particle",
+        "uniform-motion"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "inertial-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E16",
+            "E18"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "uniform-motion",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E14",
+            "E15"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A ",
+        " that, when described in an ",
+        ", exhibits ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E18",
+      "code_index": 17,
+      "headword": "inertial-frame",
+      "definition": "A reference-frame standard for Newtonian analysis of motion; historically, a Galilean reference frame.",
+      "reference_headwords": [
+        "reference-frame"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "reference-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E2"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A ",
+        " standard for Newtonian analysis of motion; historically, a Galilean reference frame."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E19",
+      "code_index": 18,
+      "headword": "free-particle",
+      "definition": "A point-particle not subject to external influence relevant to its motion.",
+      "reference_headwords": [
+        "point-particle"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A ",
+        " not subject to external influence relevant to its motion."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E20",
+      "code_index": 19,
+      "headword": "inertial-acceleration",
+      "definition": "The acceleration of a point-particle as measured in an inertial-frame.",
+      "reference_headwords": [
+        "acceleration",
+        "inertial-frame",
+        "point-particle"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "acceleration",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E8"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "inertial-frame",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E16",
+            "E18"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The ",
+        " of a ",
+        " as measured in an ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E21",
+      "code_index": 20,
+      "headword": "inertial-acceleration",
+      "definition": "For a point-particle, inertial-acceleration equals net-force divided by inertial-mass: a = F/m.",
+      "reference_headwords": [
+        "inertial-mass",
+        "net-force",
+        "point-particle"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "inertial-acceleration",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E20",
+            "E21"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "net-force",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E22",
+            "E24"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "inertial-mass",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E23"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For a ",
+        ", ",
+        " equals ",
+        " divided by ",
+        ": a = F/m."
+      ],
+      "forward_references": [
+        "inertial-mass",
+        "net-force"
+      ]
+    },
+    {
+      "id": "E22",
+      "code_index": 21,
+      "headword": "net-force",
+      "definition": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
+      "reference_headwords": [
+        "inertial-acceleration",
+        "inertial-mass",
+        "point-particle"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "net-force",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E22",
+            "E24"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "inertial-mass",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E23"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "inertial-acceleration",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E20",
+            "E21"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The vector quantity satisfying ",
+        " = ",
+        " times ",
+        " for a ",
+        "."
+      ],
+      "forward_references": [
+        "inertial-mass"
+      ]
+    },
+    {
+      "id": "E23",
+      "code_index": 22,
+      "headword": "inertial-mass",
+      "definition": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.",
+      "reference_headwords": [
+        "inertial-acceleration",
+        "net-force",
+        "point-particle"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "net-force",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E22",
+            "E24"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "inertial-acceleration",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E20",
+            "E21"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The positive scalar coefficient m such that ",
+        " = m times ",
+        " for a ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E24",
+      "code_index": 23,
+      "headword": "net-force",
+      "definition": "net-force on particle p at time t is the vector sum of the impressed-force contribution supplied to p by every interaction in the closed interaction-set for p at t.",
+      "reference_headwords": [
+        "impressed-force",
+        "interaction-set",
+        "time"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "net-force",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E22",
+            "E24"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E1"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "impressed-force",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E26",
+            "E31"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "interaction-set",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E25"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "",
+        " on particle p at ",
+        " t is the vector sum of the ",
+        " contribution supplied to p by every interaction in the closed ",
+        " for p at t."
+      ],
+      "forward_references": [
+        "impressed-force",
+        "interaction-set"
+      ]
+    },
+    {
+      "id": "E25",
+      "code_index": 24,
+      "headword": "interaction-set",
+      "definition": "The closed set of all and only the independently warranted interaction|s relevant to particle p at time t; each member interaction supplies a target-directed impressed-force on p.",
+      "reference_headwords": [
+        "impressed-force",
+        "time"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E1"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "impressed-force",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E26",
+            "E31"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The closed set of all and only the independently warranted interaction|s relevant to particle p at ",
+        " t; each member interaction supplies a target-directed ",
+        " on p."
+      ],
+      "forward_references": [
+        "impressed-force"
+      ]
+    },
+    {
+      "id": "E26",
+      "code_index": 25,
+      "headword": "impressed-force",
+      "definition": "The target-directed vector force-action that an interaction in a particle's interaction-set supplies to that particle in a fixed context; it is the contribution summed to obtain the particle's net-force.",
+      "reference_headwords": [
+        "interaction-set",
+        "net-force"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "interaction-set",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E25"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "net-force",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E22",
+            "E24"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The target-directed vector force-action that an interaction in a particle's ",
+        " supplies to that particle in a fixed context; it is the contribution summed to obtain the particle's ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E27",
+      "code_index": 26,
+      "headword": "raw-class",
+      "definition": "An abstract object-type.",
+      "reference_headwords": [],
+      "reference_occurrences": [],
+      "residual_chunks": [
+        "An abstract object-type."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E28",
+      "code_index": 27,
+      "headword": "raw-class",
+      "definition": "An abstract object-type specified by class-specific-features; an object x is treated as an instance-of the raw-class when it is recognized as possessing the class-specific-features.",
+      "reference_headwords": [
+        "class-specific-features",
+        "instance-of"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "class-specific-features",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E29"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "instance-of",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E30"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "raw-class",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E27",
+            "E28"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "class-specific-features",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E29"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "An abstract object-type specified by ",
+        "; an object x is treated as an ",
+        " the ",
+        " when it is recognized as possessing the ",
+        "."
+      ],
+      "forward_references": [
+        "class-specific-features",
+        "instance-of"
+      ]
+    },
+    {
+      "id": "E29",
+      "code_index": 28,
+      "headword": "class-specific-features",
+      "definition": "The set of features that specify a raw-class C; these features are whatever a modeler must recognize x as having in order to treat x as an instance-of C.",
+      "reference_headwords": [
+        "instance-of",
+        "raw-class"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "raw-class",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E27",
+            "E28"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "instance-of",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E30"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The set of features that specify a ",
+        " C; these features are whatever a modeler must recognize x as having in order to treat x as an ",
+        " C."
+      ],
+      "forward_references": [
+        "instance-of"
+      ]
+    },
+    {
+      "id": "E30",
+      "code_index": 29,
+      "headword": "instance-of",
+      "definition": "x is treated as an instance of a raw-class C when x is recognized as possessing the class-specific-features of C.",
+      "reference_headwords": [
+        "class-specific-features",
+        "raw-class"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "raw-class",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E27",
+            "E28"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "class-specific-features",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E29"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "x is treated as an instance of a ",
+        " C when x is recognized as possessing the ",
+        " of C."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E31",
+      "code_index": 30,
+      "headword": "impressed-force",
+      "definition": "An impressed-force is a force-contribution that is either a canonical-force_acting-object or a reaction-force_acting-object.",
+      "reference_headwords": [
+        "canonical-force_acting-object",
+        "reaction-force_acting-object"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "impressed-force",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E26",
+            "E31"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "canonical-force_acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E32",
+            "E36"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "reaction-force_acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E33"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "An ",
+        " is a force-contribution that is either a ",
+        " or a ",
+        "."
+      ],
+      "forward_references": [
+        "canonical-force_acting-object",
+        "reaction-force_acting-object"
+      ]
+    },
+    {
+      "id": "E32",
+      "code_index": 31,
+      "headword": "canonical-force_acting-object",
+      "definition": "A canonical-force_acting-object is an impressed-force designated as canonical; the corresponding reaction-force_acting-object is the impressed-force defined as the negative of it.",
+      "reference_headwords": [
+        "impressed-force",
+        "reaction-force_acting-object"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "canonical-force_acting-object",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E32",
+            "E36"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "impressed-force",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E26",
+            "E31"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "reaction-force_acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E33"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "impressed-force",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E26",
+            "E31"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A ",
+        " is an ",
+        " designated as canonical; the corresponding ",
+        " is the ",
+        " defined as the negative of it."
+      ],
+      "forward_references": [
+        "reaction-force_acting-object"
+      ]
+    },
+    {
+      "id": "E33",
+      "code_index": 32,
+      "headword": "reaction-force_acting-object",
+      "definition": "A reaction-force_acting-object is an impressed-force defined as the negative of canonical-force_acting-object.",
+      "reference_headwords": [
+        "canonical-force_acting-object",
+        "impressed-force"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "reaction-force_acting-object",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E33"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "impressed-force",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E26",
+            "E31"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "canonical-force_acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E32",
+            "E36"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A ",
+        " is an ",
+        " defined as the negative of ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E34",
+      "code_index": 33,
+      "headword": "acting-object",
+      "definition": "An acting-object is an object equipped with both an activation-condition_acting-object and a corresponding canonical-force_acting-object.",
+      "reference_headwords": [
+        "activation-condition_acting-object",
+        "canonical-force_acting-object"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "acting-object",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "activation-condition_acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E35"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "canonical-force_acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E32",
+            "E36"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "An ",
+        " is an object equipped with both an ",
+        " and a corresponding ",
+        "."
+      ],
+      "forward_references": [
+        "activation-condition_acting-object"
+      ]
+    },
+    {
+      "id": "E35",
+      "code_index": 34,
+      "headword": "activation-condition_acting-object",
+      "definition": "If a point-particle fulfills the activation-condition_acting-object of an acting-object, the canonical-force_acting-object of that acting-object will be an impressed-force on the point-particle.",
+      "reference_headwords": [
+        "acting-object",
+        "canonical-force_acting-object",
+        "impressed-force",
+        "point-particle"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "activation-condition_acting-object",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E35"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "canonical-force_acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E32",
+            "E36"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 5,
+          "headword": "impressed-force",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E26",
+            "E31"
+          ]
+        },
+        {
+          "position": 6,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "If a ",
+        " fulfills the ",
+        " of an ",
+        ", the ",
+        " of that ",
+        " will be an ",
+        " on the ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E36",
+      "code_index": 35,
+      "headword": "canonical-force_acting-object",
+      "definition": "The canonical-force_acting-object is the impressed-force that an acting-object exerts on a point-particle that fulfills the activation-condition_acting-object.",
+      "reference_headwords": [
+        "acting-object",
+        "activation-condition_acting-object",
+        "impressed-force",
+        "point-particle"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "canonical-force_acting-object",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E32",
+            "E36"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "impressed-force",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E26",
+            "E31"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "activation-condition_acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E35"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The ",
+        " is the ",
+        " that an ",
+        " exerts on a ",
+        " that fulfills the ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E37",
+      "code_index": 36,
+      "headword": "mechanical-composition_point-particle",
+      "definition": "The mechanical-composition_point-particle of a point-particle is the set of acting-object|s that the point-particle has. When a point-particle serves as the representative, or centre of mass, of a body, all acting-object|s of that body are included in the mechanical-composition_point-particle of that point-particle.",
+      "reference_headwords": [
+        "acting-object",
+        "point-particle"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "mechanical-composition_point-particle",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E37"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 5,
+          "headword": "acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 6,
+          "headword": "mechanical-composition_point-particle",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E37"
+          ]
+        },
+        {
+          "position": 7,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The ",
+        " of a ",
+        " is the set of ",
+        "|s that the ",
+        " has. When a ",
+        " serves as the representative, or centre of mass, of a body, all ",
+        "|s of that body are included in the ",
+        " of that ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E38",
+      "code_index": 37,
+      "headword": "paired-particle_acting-object",
+      "definition": "The paired-particle_acting-object of an acting-object is the point-particle whose mechanical-composition_point-particle includes that acting-object. The acting-object is modelled as located at the position of its paired-particle_acting-object.",
+      "reference_headwords": [
+        "acting-object",
+        "mechanical-composition_point-particle",
+        "point-particle",
+        "position"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "paired-particle_acting-object",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E38"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E3"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "mechanical-composition_point-particle",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E37"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 5,
+          "headword": "acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 6,
+          "headword": "position",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E4"
+          ]
+        },
+        {
+          "position": 7,
+          "headword": "paired-particle_acting-object",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E38"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "The ",
+        " of an ",
+        " is the ",
+        " whose ",
+        " includes that ",
+        ". The ",
+        " is modelled as located at the ",
+        " of its ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E39",
+      "code_index": 38,
+      "headword": "mechanical-system",
+      "definition": "An arbitrary subset of particles selected by the observer for analysis.",
+      "reference_headwords": [],
+      "reference_occurrences": [],
+      "residual_chunks": [
+        "An arbitrary subset of particles selected by the observer for analysis."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E40",
+      "code_index": 39,
+      "headword": "interaction-candidate",
+      "definition": "For a particle p in a mechanical-system S at time t, an interaction-candidate is any interaction in the interaction-set for p at t.",
+      "reference_headwords": [
+        "interaction-set",
+        "mechanical-system",
+        "time"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "mechanical-system",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E39"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "time",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E1"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "interaction-candidate",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E40",
+            "E41"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "interaction-set",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E25"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "For a particle p in a ",
+        " S at ",
+        " t, an ",
+        " is any interaction in the ",
+        " for p at t."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E41",
+      "code_index": 40,
+      "headword": "interaction-candidate",
+      "definition": "An interaction-candidate is an elementary force-unit, every one of which must be able to be placed in an interaction-pair for the mechanical-system to be a mechanically-closed-system.",
+      "reference_headwords": [
+        "interaction-pair",
+        "mechanical-system",
+        "mechanically-closed-system"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "interaction-candidate",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E40",
+            "E41"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "interaction-pair",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E42",
+            "E44"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "mechanical-system",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E39"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "mechanically-closed-system",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E43",
+            "E45"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "An ",
+        " is an elementary force-unit, every one of which must be able to be placed in an ",
+        " for the ",
+        " to be a ",
+        "."
+      ],
+      "forward_references": [
+        "interaction-pair",
+        "mechanically-closed-system"
+      ]
+    },
+    {
+      "id": "E42",
+      "code_index": 41,
+      "headword": "interaction-pair",
+      "definition": "An interaction-pair is the form into which each interaction-candidate is placed in a mechanically-closed-system.",
+      "reference_headwords": [
+        "interaction-candidate",
+        "mechanically-closed-system"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "interaction-pair",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E42",
+            "E44"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "interaction-candidate",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E40",
+            "E41"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "mechanically-closed-system",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E43",
+            "E45"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "An ",
+        " is the form into which each ",
+        " is placed in a ",
+        "."
+      ],
+      "forward_references": [
+        "mechanically-closed-system"
+      ]
+    },
+    {
+      "id": "E43",
+      "code_index": 42,
+      "headword": "mechanically-closed-system",
+      "definition": "A mechanically-closed-system is a mechanical-system in which every interaction-candidate can be placed in an interaction-pair.",
+      "reference_headwords": [
+        "interaction-candidate",
+        "interaction-pair",
+        "mechanical-system"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "mechanically-closed-system",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E43",
+            "E45"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "mechanical-system",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E39"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "interaction-candidate",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E40",
+            "E41"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "interaction-pair",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E42",
+            "E44"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A ",
+        " is a ",
+        " in which every ",
+        " can be placed in an ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E44",
+      "code_index": 43,
+      "headword": "interaction-pair",
+      "definition": "Two interaction-candidate|s form an interaction-pair when they correspond to the same acting-object, one being the canonical-force_acting-object associated with that acting-object and the other being the reaction-force_acting-object associated with that acting-object, the latter exerted on the paired-particle_acting-object.",
+      "reference_headwords": [
+        "acting-object",
+        "canonical-force_acting-object",
+        "interaction-candidate",
+        "paired-particle_acting-object",
+        "reaction-force_acting-object"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "interaction-candidate",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E40",
+            "E41"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "interaction-pair",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E42",
+            "E44"
+          ]
+        },
+        {
+          "position": 2,
+          "headword": "acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 3,
+          "headword": "canonical-force_acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E32",
+            "E36"
+          ]
+        },
+        {
+          "position": 4,
+          "headword": "acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 5,
+          "headword": "reaction-force_acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E33"
+          ]
+        },
+        {
+          "position": 6,
+          "headword": "acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E34"
+          ]
+        },
+        {
+          "position": 7,
+          "headword": "paired-particle_acting-object",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E38"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "Two ",
+        "|s form an ",
+        " when they correspond to the same ",
+        ", one being the ",
+        " associated with that ",
+        " and the other being the ",
+        " associated with that ",
+        ", the latter exerted on the ",
+        "."
+      ],
+      "forward_references": []
+    },
+    {
+      "id": "E45",
+      "code_index": 44,
+      "headword": "mechanically-closed-system",
+      "definition": "A mechanically-closed-system is a mechanical-system whose future behaviour is determined by the equations produced from the interactions internal to it.",
+      "reference_headwords": [
+        "mechanical-system"
+      ],
+      "reference_occurrences": [
+        {
+          "position": 0,
+          "headword": "mechanically-closed-system",
+          "self_reference": true,
+          "candidate_target_ids": [
+            "E43",
+            "E45"
+          ]
+        },
+        {
+          "position": 1,
+          "headword": "mechanical-system",
+          "self_reference": false,
+          "candidate_target_ids": [
+            "E39"
+          ]
+        }
+      ],
+      "residual_chunks": [
+        "A ",
+        " is a ",
+        " whose future behaviour is determined by the equations produced from the interactions internal to it."
+      ],
+      "forward_references": []
+    }
+  ]
+}
