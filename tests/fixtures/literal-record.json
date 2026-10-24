@@ -1,0 +1,495 @@
+{
+  "commands": [
+    {
+      "frame_id": "F",
+      "operation": "reduce",
+      "response": "12"
+    },
+    {
+      "frame_id": "F",
+      "operation": "reopen"
+    },
+    {
+      "frame_id": "F",
+      "operation": "reduce",
+      "response": "11"
+    }
+  ],
+  "dictionary": {
+    "entries": [],
+    "name": "literal-only example",
+    "sha256": "eb76afe103bddda334273d6bd022c75b95702d36c1ed2b8d571831042d295f37"
+  },
+  "events": [
+    {
+      "change": null,
+      "detail": "started from '5 + 6'",
+      "id": "event-0",
+      "index": 0,
+      "kind": "trace"
+    },
+    {
+      "change": {
+        "after": {
+          "address": [],
+          "arguments": [],
+          "headwords": [],
+          "latents": [
+            "5 + 6"
+          ],
+          "provenance": "RootProvenance",
+          "reduction": "12",
+          "render": "12",
+          "source_index": null,
+          "source_text": "5 + 6"
+        },
+        "before": {
+          "address": [],
+          "arguments": [],
+          "headwords": [],
+          "latents": [
+            "5 + 6"
+          ],
+          "provenance": "RootProvenance",
+          "reduction": null,
+          "render": "5 + 6",
+          "source_index": null,
+          "source_text": "5 + 6"
+        },
+        "dependencies": [],
+        "dependencies_complete": true,
+        "position": null,
+        "response": "12",
+        "stimulus": "5 + 6"
+      },
+      "detail": "reduce at F",
+      "id": "event-1",
+      "index": 1,
+      "kind": "reduce"
+    },
+    {
+      "change": null,
+      "detail": "reopen at F",
+      "id": "event-2",
+      "index": 2,
+      "kind": "unreduce"
+    },
+    {
+      "change": {
+        "after": {
+          "address": [],
+          "arguments": [],
+          "headwords": [],
+          "latents": [
+            "5 + 6"
+          ],
+          "provenance": "RootProvenance",
+          "reduction": "11",
+          "render": "11",
+          "source_index": null,
+          "source_text": "5 + 6"
+        },
+        "before": {
+          "address": [],
+          "arguments": [],
+          "headwords": [],
+          "latents": [
+            "5 + 6"
+          ],
+          "provenance": "RootProvenance",
+          "reduction": null,
+          "render": "5 + 6",
+          "source_index": null,
+          "source_text": "5 + 6"
+        },
+        "dependencies": [],
+        "dependencies_complete": true,
+        "position": null,
+        "response": "11",
+        "stimulus": "5 + 6"
+      },
+      "detail": "reduce at F",
+      "id": "event-3",
+      "index": 3,
+      "kind": "reduce"
+    }
+  ],
+  "format": "vd-trace-record",
+  "producer": {
+    "engine_sha256": "d335d67294f578501c683ad701cbf538a66a30284f4814c083b126bf12596009",
+    "name": "VDfirst",
+    "protocol_version": 1
+  },
+  "question": {
+    "context": "Responses are scripted test data.",
+    "demand": "5 + 6"
+  },
+  "record_id": "1b526bc0-1a55-4cc2-92f4-d995d49df9c3",
+  "sha256": "0b5505bf0d2d4d496a9401b5dc500fb0822025491c067e7717629fea320bf434",
+  "snapshots": [
+    {
+      "command_index": -1,
+      "event_count": 1,
+      "frames": [
+        {
+          "address": [],
+          "headwords": [],
+          "holes": [],
+          "id": "F",
+          "latents": [
+            "5 + 6"
+          ],
+          "parent_id": null,
+          "reduced": null,
+          "render": "5 + 6",
+          "resolved": true,
+          "source_index": null,
+          "via_position": null
+        }
+      ],
+      "id": "S0",
+      "prediction_set": {
+        "coverage_complete": false,
+        "current_prediction_ids": [],
+        "dependency_selection_complete": true,
+        "historical_prediction_ids": [],
+        "limitations": [
+          "Only recorded reductions, cleanup edits and supplied inputs are covered.",
+          "Current support is recorded response lineage, not a proof or a minimal semantic dependency set.",
+          "Equivalence criteria and input fidelity require human interpretation.",
+          "This is not the full disjunction of alternatives and gives no theory verdict.",
+          "Direct Demand mutations bypass recording; use the Trace recording methods."
+        ],
+        "predictions": [],
+        "result": "5 + 6",
+        "schema_version": 2,
+        "scope": "recorded trace history",
+        "trace_complete": true,
+        "unrecorded_events": []
+      },
+      "root_frame_id": "F",
+      "title": "Trace started"
+    },
+    {
+      "command_index": 0,
+      "event_count": 2,
+      "frames": [
+        {
+          "address": [],
+          "headwords": [],
+          "holes": [],
+          "id": "F",
+          "latents": [
+            "5 + 6"
+          ],
+          "parent_id": null,
+          "reduced": "12",
+          "render": "12",
+          "resolved": true,
+          "source_index": null,
+          "via_position": null
+        }
+      ],
+      "id": "S1",
+      "prediction_set": {
+        "coverage_complete": false,
+        "current_prediction_ids": [
+          "P1"
+        ],
+        "dependency_selection_complete": true,
+        "historical_prediction_ids": [],
+        "limitations": [
+          "Only recorded reductions, cleanup edits and supplied inputs are covered.",
+          "Current support is recorded response lineage, not a proof or a minimal semantic dependency set.",
+          "Equivalence criteria and input fidelity require human interpretation.",
+          "This is not the full disjunction of alternatives and gives no theory verdict.",
+          "Direct Demand mutations bypass recording; use the Trace recording methods."
+        ],
+        "predictions": [
+          {
+            "classification": {
+              "category": "unclassified",
+              "note": ""
+            },
+            "event_index": 1,
+            "evidence": {
+              "after": {
+                "address": [],
+                "arguments": [],
+                "headwords": [],
+                "latents": [
+                  "5 + 6"
+                ],
+                "provenance": "RootProvenance",
+                "reduction": "12",
+                "render": "12",
+                "source_index": null,
+                "source_text": "5 + 6"
+              },
+              "before": {
+                "address": [],
+                "arguments": [],
+                "headwords": [],
+                "latents": [
+                  "5 + 6"
+                ],
+                "provenance": "RootProvenance",
+                "reduction": null,
+                "render": "5 + 6",
+                "source_index": null,
+                "source_text": "5 + 6"
+              },
+              "dependencies": [],
+              "dependencies_complete": true,
+              "position": null,
+              "response": "12",
+              "stimulus": "5 + 6"
+            },
+            "id": "P1",
+            "kind": "meaning_preservation",
+            "operation": "reduce",
+            "statement": "What is meant by '5 + 6' is the same as what is meant by '12' in the recorded context.",
+            "verification": "unchecked"
+          }
+        ],
+        "result": "12",
+        "schema_version": 2,
+        "scope": "recorded trace history",
+        "trace_complete": true,
+        "unrecorded_events": []
+      },
+      "root_frame_id": "F",
+      "title": "Reduce · F"
+    },
+    {
+      "command_index": 1,
+      "event_count": 3,
+      "frames": [
+        {
+          "address": [],
+          "headwords": [],
+          "holes": [],
+          "id": "F",
+          "latents": [
+            "5 + 6"
+          ],
+          "parent_id": null,
+          "reduced": null,
+          "render": "5 + 6",
+          "resolved": true,
+          "source_index": null,
+          "via_position": null
+        }
+      ],
+      "id": "S2",
+      "prediction_set": {
+        "coverage_complete": false,
+        "current_prediction_ids": [],
+        "dependency_selection_complete": true,
+        "historical_prediction_ids": [
+          "P1"
+        ],
+        "limitations": [
+          "Only recorded reductions, cleanup edits and supplied inputs are covered.",
+          "Current support is recorded response lineage, not a proof or a minimal semantic dependency set.",
+          "Equivalence criteria and input fidelity require human interpretation.",
+          "This is not the full disjunction of alternatives and gives no theory verdict.",
+          "Direct Demand mutations bypass recording; use the Trace recording methods."
+        ],
+        "predictions": [
+          {
+            "classification": {
+              "category": "unclassified",
+              "note": ""
+            },
+            "event_index": 1,
+            "evidence": {
+              "after": {
+                "address": [],
+                "arguments": [],
+                "headwords": [],
+                "latents": [
+                  "5 + 6"
+                ],
+                "provenance": "RootProvenance",
+                "reduction": "12",
+                "render": "12",
+                "source_index": null,
+                "source_text": "5 + 6"
+              },
+              "before": {
+                "address": [],
+                "arguments": [],
+                "headwords": [],
+                "latents": [
+                  "5 + 6"
+                ],
+                "provenance": "RootProvenance",
+                "reduction": null,
+                "render": "5 + 6",
+                "source_index": null,
+                "source_text": "5 + 6"
+              },
+              "dependencies": [],
+              "dependencies_complete": true,
+              "position": null,
+              "response": "12",
+              "stimulus": "5 + 6"
+            },
+            "id": "P1",
+            "kind": "meaning_preservation",
+            "operation": "reduce",
+            "statement": "What is meant by '5 + 6' is the same as what is meant by '12' in the recorded context.",
+            "verification": "unchecked"
+          }
+        ],
+        "result": "5 + 6",
+        "schema_version": 2,
+        "scope": "recorded trace history",
+        "trace_complete": true,
+        "unrecorded_events": []
+      },
+      "root_frame_id": "F",
+      "title": "Reopen · F"
+    },
+    {
+      "command_index": 2,
+      "event_count": 4,
+      "frames": [
+        {
+          "address": [],
+          "headwords": [],
+          "holes": [],
+          "id": "F",
+          "latents": [
+            "5 + 6"
+          ],
+          "parent_id": null,
+          "reduced": "11",
+          "render": "11",
+          "resolved": true,
+          "source_index": null,
+          "via_position": null
+        }
+      ],
+      "id": "S3",
+      "prediction_set": {
+        "coverage_complete": false,
+        "current_prediction_ids": [
+          "P3"
+        ],
+        "dependency_selection_complete": true,
+        "historical_prediction_ids": [
+          "P1"
+        ],
+        "limitations": [
+          "Only recorded reductions, cleanup edits and supplied inputs are covered.",
+          "Current support is recorded response lineage, not a proof or a minimal semantic dependency set.",
+          "Equivalence criteria and input fidelity require human interpretation.",
+          "This is not the full disjunction of alternatives and gives no theory verdict.",
+          "Direct Demand mutations bypass recording; use the Trace recording methods."
+        ],
+        "predictions": [
+          {
+            "classification": {
+              "category": "unclassified",
+              "note": ""
+            },
+            "event_index": 1,
+            "evidence": {
+              "after": {
+                "address": [],
+                "arguments": [],
+                "headwords": [],
+                "latents": [
+                  "5 + 6"
+                ],
+                "provenance": "RootProvenance",
+                "reduction": "12",
+                "render": "12",
+                "source_index": null,
+                "source_text": "5 + 6"
+              },
+              "before": {
+                "address": [],
+                "arguments": [],
+                "headwords": [],
+                "latents": [
+                  "5 + 6"
+                ],
+                "provenance": "RootProvenance",
+                "reduction": null,
+                "render": "5 + 6",
+                "source_index": null,
+                "source_text": "5 + 6"
+              },
+              "dependencies": [],
+              "dependencies_complete": true,
+              "position": null,
+              "response": "12",
+              "stimulus": "5 + 6"
+            },
+            "id": "P1",
+            "kind": "meaning_preservation",
+            "operation": "reduce",
+            "statement": "What is meant by '5 + 6' is the same as what is meant by '12' in the recorded context.",
+            "verification": "unchecked"
+          },
+          {
+            "classification": {
+              "category": "unclassified",
+              "note": ""
+            },
+            "event_index": 3,
+            "evidence": {
+              "after": {
+                "address": [],
+                "arguments": [],
+                "headwords": [],
+                "latents": [
+                  "5 + 6"
+                ],
+                "provenance": "RootProvenance",
+                "reduction": "11",
+                "render": "11",
+                "source_index": null,
+                "source_text": "5 + 6"
+              },
+              "before": {
+                "address": [],
+                "arguments": [],
+                "headwords": [],
+                "latents": [
+                  "5 + 6"
+                ],
+                "provenance": "RootProvenance",
+                "reduction": null,
+                "render": "5 + 6",
+                "source_index": null,
+                "source_text": "5 + 6"
+              },
+              "dependencies": [],
+              "dependencies_complete": true,
+              "position": null,
+              "response": "11",
+              "stimulus": "5 + 6"
+            },
+            "id": "P3",
+            "kind": "meaning_preservation",
+            "operation": "reduce",
+            "statement": "What is meant by '5 + 6' is the same as what is meant by '11' in the recorded context.",
+            "verification": "unchecked"
+          }
+        ],
+        "result": "11",
+        "schema_version": 2,
+        "scope": "recorded trace history",
+        "trace_complete": true,
+        "unrecorded_events": []
+      },
+      "root_frame_id": "F",
+      "title": "Reduce · F"
+    }
+  ],
+  "version": 1
+}

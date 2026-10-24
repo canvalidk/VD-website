@@ -6,6 +6,7 @@ import Graph from './Graph';
 import TracePlayer from './TracePlayer';
 import ResultView, { ClaimInspector } from './ResultView';
 import { sourceEntryId } from './predictions';
+import Workbench from './Workbench';
 
 export default function App() {
   const [state, dispatch] = useReducer(explorerReducer, initialState);
@@ -58,7 +59,7 @@ export default function App() {
     <a className="skip-link" href="#explorer">Skip to explorer</a>
     <header className="masthead">
       <a className="brand" href="#explanation"><span className="brand-mark">AD</span><span>Authority Dictionary</span></a>
-      <nav className="section-nav" aria-label="Sections"><a href="#explanation">01 Explanation</a><a href="#explorer">02 Explorer</a></nav>
+      <nav className="section-nav" aria-label="Sections"><a href="#explanation">01 Explanation</a><a href="#explorer">02 Explorer</a><a href="#workbench">03 Workbench</a></nav>
     </header>
     <main>
       <section id="explanation" className="explanation-section" aria-labelledby="explanation-title">
@@ -99,6 +100,7 @@ export default function App() {
             </aside>}
           </div>}
       </section>
+      <Workbench/>
     </main>
     <footer className="page-footer"><span>Authority Dictionary · by Can Valid Kohen</span><span>Definitions, connections, and traces.</span></footer>
   </>;

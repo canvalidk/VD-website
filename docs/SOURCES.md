@@ -1,5 +1,13 @@
 # Example provenance
 
+## Workbench record fixture
+
+`tests/fixtures/workbench-record.json` was produced by the new VDfirst `workbench.py` protocol on the integration branch on 24 October 2026. It contains the exact three correction definitions and nine snapshots: initial demand, expansion, two supplied inputs, mistaken calculation, consuming report, reopening, correction and corrected report. Responses are scripted test data, not engine-verified calculations. The fixture retains its own engine/dictionary/record digests; offline website tests deliberately do not claim replay validation against a changing engine checkout.
+
+The live start form reuses the exact `correction-source.json` dictionary. The workbench imports no additional Newton source and changes no existing Newton extracts. Commands, open holes, frame links, candidate instantiations and evidence are supplied by VDfirst through its local protocol, never inferred by the browser.
+
+`tests/fixtures/literal-record.json` is a second real protocol export from the same working integration: an empty dictionary and literal `5 + 6` demand, with scripted responses `12`, reopening, and `11`. It protects offline display of literal-only traces. Neither fixture is loaded as product playback or silently sent to the bridge.
+
 ## VDfirst mistake and correction export
 
 `src/data/correction-source.json` is the output of `python -B correction_demo.py --json` from [VDfirst commit 0f1a89d511769bc48ce1d52acb63496adfa9cd0e](https://github.com/canvalidk/VDfirst/commit/0f1a89d511769bc48ce1d52acb63496adfa9cd0e). Only line endings are normalized to LF. SHA-256: `57fd1df6292f92ca9e85c9be51bf9403fc43eb693790ad123b9edf77d5cb4eb4`.

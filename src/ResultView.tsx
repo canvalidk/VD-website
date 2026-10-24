@@ -11,9 +11,11 @@ interface Props {
   claim?: RecordedClaim;
   onClaim: (id: string, reveal?: boolean) => void;
   onSeek: (index: number) => void;
+  idPrefix?: string;
+  showStages?: boolean;
 }
 
-export default function ResultView({ trace, index, claim, onClaim, onSeek }: Props) {
+export default function ResultView({ trace, index, claim, onClaim, onSeek, idPrefix = '', showStages = true }: Props) {
   const [view, setView] = useState<'claims' | 'dependencies'>('claims');
   const [filter, setFilter] = useState<'current' | 'historical' | 'unknown'>('current');
   const snapshot = trace.steps[index].predictionSet;
@@ -26,13 +28,13 @@ export default function ResultView({ trace, index, claim, onClaim, onSeek }: Pro
   const claims = effectiveFilter === 'current' ? current : effectiveFilter === 'historical' ? historical : unknown;
   const dependencies = claim ? claimDependencies(snapshot, claim) : [];
   const select = (id: string) => onClaim(id);
-  return <section id="result-view" className="result-panel" aria-labelledby="result-title">
+  return <section id={`${idPrefix}result-view`} className="result-panel" aria-labelledby={`${idPrefix}result-title`}>
     <div className="result-heading"><p className="eyebrow">RECORDED ROOT RESULT</p><span className="response-badge">{trace.scriptedResponses ? 'Scripted responses' : 'Recorded responses'}</span></div>
-    <ol className="result-stages" aria-label="Result snapshots">{trace.steps.map((step, i) => <li key={step.id}><button aria-current={index === i ? 'step' : undefined} onClick={() => onSeek(i)}><span>{String(i + 1).padStart(2, '0')}</span>{step.snapshotLabel ?? step.title}</button></li>)}</ol>
-    <div className="result-output" aria-live="polite" aria-atomic="true"><h2 id="result-title">{snapshot.result}</h2><p>{snapshot.trace_complete ? 'No open demands' : 'Open demands remain'}<span aria-hidden="true"> · </span>{snapshot.predictions.every(item => item.verification === 'unchecked') ? 'Claims unchecked' : 'See claim verification'}</p></div>
+    {showStages && <ol className="result-stages" aria-label="Result snapshots">{trace.steps.map((step, i) => <li key={step.id}><button aria-current={index === i ? 'step' : undefined} onClick={() => onSeek(i)}><span>{String(i + 1).padStart(2, '0')}</span>{step.snapshotLabel ?? step.title}</button></li>)}</ol>}
+    <div className="result-output" aria-live="polite" aria-atomic="true"><h2 id={`${idPrefix}result-title`}>{snapshot.result}</h2><p>{snapshot.trace_complete ? 'No open demands' : 'Open demands remain'}<span aria-hidden="true"> · </span>{snapshot.predictions.every(item => item.verification === 'unchecked') ? 'Claims unchecked' : 'See claim verification'}</p></div>
     <p className="result-narrative">{trace.steps[index].description}</p>
     {index > 0 && <div className="support-change"><span>Since previous snapshot</span><p>{changes.added.length ? `Now used: ${changes.added.join(', ')}. ` : ''}{changes.retired.length ? `Moved to history: ${changes.retired.join(', ')}.` : ''}{!changes.added.length && !changes.retired.length ? 'The same recorded claims support this result.' : ''}</p></div>}
-    <div id="recorded-claims" className="claims-heading" tabIndex={-1}><div><h3>What does this result rely on?</h3><p>Recorded obligations in the partial prediction set.</p></div><div className="result-view-picker" aria-label="Prediction presentation"><button aria-pressed={view === 'claims'} onClick={() => setView('claims')}>Claims</button><button aria-pressed={view === 'dependencies'} onClick={() => setView('dependencies')}>Dependencies</button></div></div>
+    <div id={`${idPrefix}recorded-claims`} className="claims-heading" tabIndex={-1}><div><h3>What does this result rely on?</h3><p>Recorded obligations in the partial prediction set.</p></div><div className="result-view-picker" aria-label="Prediction presentation"><button aria-pressed={view === 'claims'} onClick={() => setView('claims')}>Claims</button><button aria-pressed={view === 'dependencies'} onClick={() => setView('dependencies')}>Dependencies</button></div></div>
     {view === 'claims' ? <>
       <div className="claim-filters" aria-label="Claim relevance">
         <button aria-pressed={effectiveFilter === 'current'} onClick={() => { setFilter('current'); if (current.length) onClaim(current[0].id, false); }}>Used now <span>{current.length}</span></button>
@@ -58,13 +60,14 @@ interface InspectorProps {
   onClaim: (id: string) => void;
   sourceId?: string;
   onSource: () => void;
+  idPrefix?: string;
 }
-export function ClaimInspector({ snapshot, claim, onClaim, sourceId, onSource }: InspectorProps) {
+export function ClaimInspector({ snapshot, claim, onClaim, sourceId, onSource, idPrefix = '' }: InspectorProps) {
   const dependencies = claimDependencies(snapshot, claim);
   const inspector = useRef<HTMLElement>(null);
   useEffect(() => { if (inspector.current) inspector.current.scrollTop = 0; }, [claim.id]);
-  return <aside ref={inspector} id="claim-inspector" className="inspector claim-inspector" tabIndex={-1} aria-label="Selected claim details">
-    <button className="back-to-claims" onClick={() => { const target = document.getElementById('recorded-claims'); target?.focus({ preventScroll: true }); target?.scrollIntoView({ block: 'start' }); }}>↑ Back to claims</button>
+  return <aside ref={inspector} id={`${idPrefix}claim-inspector`} className="inspector claim-inspector" tabIndex={-1} aria-label="Selected claim details">
+    <button className="back-to-claims" onClick={() => { const target = document.getElementById(`${idPrefix}recorded-claims`); target?.focus({ preventScroll: true }); target?.scrollIntoView({ block: 'start' }); }}>↑ Back to claims</button>
     <div className="section-label"><h2>Claim details</h2><span>{claim.id}</span></div>
     <span className={'relevance-badge ' + relevance(snapshot, claim.id)}>{relevanceLabel[relevance(snapshot, claim.id)]}</span>
     <h3>{claim.kind === 'supplied_input' ? 'Supplied input' : 'Meaning preservation'}</h3>
