@@ -58,8 +58,18 @@ Focused view shows the trace's complete participant set or the selected headword
 
 `App.tsx` supplies the timer, which dispatches the same state transitions used by buttons. There is no global keyboard shortcut to conflict with selects or text navigation. Native buttons and selects remain keyboard accessible. Playback pauses when the document is hidden.
 
+## Recorded root results and partial prediction sets
+
+`TraceStep.predictionSet` optionally carries a VDfirst schema-2 frozen snapshot. It is the authoritative **root** render and is independent of `fragment`, which may be nested. `snapshotLabel` supplies a compact stage name; trace-level `scriptedResponses` distinguishes scripted interpreter responses. Neither field changes the engine evidence.
+
+`src/predictions.ts` describes the consumed subset of the export. Original claim IDs, statements, classifications, verification fields and evidence are retained. Current support uses `current_prediction_ids`; history uses `historical_prediction_ids` only when `dependency_selection_complete` is true. Otherwise excluded claims remain unknown. `coverage_complete` is a different field and stays false in this example.
+
+Evidence dependencies are transitive event indexes. The viewer looks up claims by `event_index` and presents a flat support set. A source definition link is made only from an explicit `before.source_index`, matched to the dictionary's source ID. No dictionary matching is inferred from stimulus strings or categories. Original frame renderings stay inert text.
+
+The correction adapter maps five exported snapshots to five display stages. It is not a general trace-event importer. Existing playbacks have no prediction sets until a producer supplies them; the viewer does not synthesize them from stage descriptions. See [the presentation study](RESULT_PRESENTATION.md).
+
 ## Future engine adapter
 
-A later producer can turn real engine events into this ordered-step boundary. Before claiming engine provenance, inspect the actual output and extend the format for event identifiers, occurrence/frame identity, authoritative root state, unresolved work, and reduction/recognition provenance as needed. The current format intentionally lacks those guarantees. Do not relabel these prepared arrays as executed traces.
+A later producer can turn real engine events into this ordered-step boundary. The correction example supplies authoritative root snapshots and claim evidence; the older fragment-only examples do not. General event identifiers, occurrence/frame identity, unresolved work, and reduction/recognition provenance still need a broader adapter. Do not relabel prepared arrays as executed traces.
 
 The checks in `tests/` cover unpicked state, reciprocal path separation, chronological traversal and input binding, occurrence-scoped flattening, full dictionary membership, stable non-overlapping layouts, camera visibility at every step in both views, and preservation of all 71 imported Newton definitions and the new transcript against their checked-in sources.
