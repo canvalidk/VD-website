@@ -68,8 +68,16 @@ Evidence dependencies are transitive event indexes. The viewer looks up claims b
 
 The correction adapter maps five exported snapshots to five display stages. It is not a general trace-event importer. Existing playbacks have no prediction sets until a producer supplies them; the viewer does not synthesize them from stage descriptions. See [the presentation study](RESULT_PRESENTATION.md).
 
-## Future engine adapter
+## Live workbench record
 
-A later producer can turn real engine events into this ordered-step boundary. The correction example supplies authoritative root snapshots and claim evidence; the older fragment-only examples do not. General event identifiers, occurrence/frame identity, unresolved work, and reduction/recognition provenance still need a broader adapter. Do not relabel prepared arrays as executed traces.
+The explicit Workbench section consumes `vd-trace-record` version 1 from the local VDfirst bridge. This is separate from the older prepared-step boundary. `traceRecord.ts` structurally checks imports, then adapts their already supplied frozen prediction snapshots for the result view. It does not generate events, parse prose into holes, or calculate candidate definitions. Frames, addresses, open holes, candidates and instantiated definition wording are all engine output.
+
+Each record carries its exact ordered dictionary entries and digest, original question/context, engine fingerprint, append-only commands/events, stable frame identities, an initial snapshot and one snapshot per successful command, and a full-record digest. Earlier snapshots remain read-only. Importing a file performs bounded structural checks in the browser; it does not validate those digests or replay the commands. Explicit engine validation must succeed before continuation, and the engine validates the supplied record again for every command. No scientific claim gains verified status through consistency validation.
+
+Unknown evidence fields are preserved in the record and its downloaded JSON. Evidence is displayed as escaped text. The importer rejects unsupported versions, bad identities or tree links, inconsistent root renders, invalid support groups, unsupported verification states and files over 8 MiB. Empty dictionaries and literal-only traces are valid. [WORKBENCH.md](WORKBENCH.md) gives the API and interaction boundary.
+
+## Prepared playback adapter
+
+The correction example supplies authoritative root snapshots and claim evidence; the older fragment-only examples do not. The workbench record now carries general event identifiers, frame identity and unresolved work separately. It does not retroactively fill those gaps in the older prepared playbacks. Do not relabel prepared arrays as executed traces.
 
 The checks in `tests/` cover unpicked state, reciprocal path separation, chronological traversal and input binding, occurrence-scoped flattening, full dictionary membership, stable non-overlapping layouts, camera visibility at every step in both views, and preservation of all 71 imported Newton definitions and the new transcript against their checked-in sources.

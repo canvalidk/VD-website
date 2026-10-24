@@ -2,7 +2,7 @@
 
 **by Can Valid Kohen**
 
-A browser-based dictionary and trace explorer. The explanation is a separate first section; the second section starts with one unpicked dictionary selector. The prototype includes five dictionary options, three prepared demonstrations, two condensed recorded Newton II traces, a recorded correction example with scripted responses, and linked entry and claim inspection.
+A browser-based dictionary and trace explorer with a local VDfirst workbench. Prepared and recorded playback stay separate from live operations. The workbench can start a small problem, record interpreter responses, inspect support, and download or reopen its complete JSON record.
 
 ## Run locally
 
@@ -13,13 +13,29 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open the local URL printed by Vite. No API keys, account, backend, or AI-specific tools are required. Fonts use Google Fonts when available, with local system fallbacks.
+Open the local URL printed by Vite. Playback and reopening saved records need no backend. No API keys, account, or AI-specific tools are required. Fonts use Google Fonts when available, with local system fallbacks.
 
 ```sh
 pnpm test       # Data integrity and playback behavior
 pnpm build      # TypeScript check and production build
 pnpm preview    # Serve the production build locally
 ```
+
+## Live workbench
+
+Use a VDfirst checkout containing `workbench.py` and `workbench_server.py`. In that checkout, run:
+
+```sh
+python workbench_server.py --port 8765
+```
+
+Keep `pnpm dev` running in this website checkout, then open **03 Workbench**. Vite forwards `/api/workbench` to the bridge on `127.0.0.1:8765`. The bridge allows website origins on localhost/127.0.0.1 ports 5173 and 5174 by default; if Vite selects a different port, restart it on an available default port or pass the corresponding origin with the bridge's `--allow-origin` option. `pnpm preview` is for static playback and does not provide this development proxy.
+
+Start `force_cart_0` with the bundled three-definition dictionary. Select the root's open hole and **Expand definition**. Choose the resulting `F/0` frame, supply `2 kg` and `5 m/s^2`, then use **Reduction** to record a response such as `12 N`. You can reduce the root again to `Prediction: 12 N`, reopen the child reduction, and supply `10 N` to see the old support move to history. All numerical responses come from the user; the engine does no arithmetic verification.
+
+**Download full record** saves the exact dictionary, question/context, engine identity, commands, event evidence, frames and every snapshot. **Open saved record** reads a JSON file locally, without contacting the bridge. Imported records are read-only until **Validate with local engine** reproduces their history and checks consistency. Scientific claims remain unchecked after this validation. Existing records and entered responses survive failed calls; opening or starting another record keeps the former record available for the current visit. Download to preserve work across page reloads or closure.
+
+The workbench can expand or literally recall candidate definitions, supply input, record/reopen reductions, and edit a frame's literal prose without replacing its holes. Earlier snapshots are read-only. See [the workbench contract and limits](docs/WORKBENCH.md).
 
 ## Explore
 
@@ -36,7 +52,7 @@ pnpm preview    # Serve the production build locally
 - Select a numbered step or a headword in its active fragment to inspect it.
 - Browsing an entry pauses playback. Switching dictionaries preserves each dictionary's step and selection during the current visit. Reloading starts a fresh visit.
 
-The map's lines denote headword references. They do not assert physical causation. Prepared examples and recorded playback have distinct labels. The website does not execute the VD engine or perform the recorded arithmetic. The Newton II run's arithmetic reductions were supplied by its interpreter. The kinematics example preserves literal substitution, even where the resulting prose is awkward.
+The map's lines denote headword references. They do not assert physical causation. Prepared examples and recorded playback have distinct labels. Only explicit Workbench actions contact the local engine; playback never executes it. The website does not perform the recorded arithmetic. The Newton II run's arithmetic reductions were supplied by its interpreter. The kinematics example preserves literal substitution, even where the resulting prose is awkward.
 
 The current Newton Design 2.1 draft has 26 definitions across 21 headwords and is unfinished. The operational snapshot has 45 definitions across 34 headwords and is the exact dictionary used by both saved Newton II runs. These are separate versions; recorded traces are only offered for their matching snapshot. Multiple definitions for a headword are preserved in the inspector.
 
@@ -48,6 +64,9 @@ src/Graph.tsx             Headword network and occurrence overlays
 src/TracePlayer.tsx       Playback controls and active fragments
 src/ResultView.tsx        Root result, claim list and evidence inspector
 src/predictions.ts       Pure relevance and recorded-support selectors
+src/Workbench.tsx        Local trace controls, saved history and record import/export
+src/traceRecord.ts       Structural record validation, API boundary and display adapter
+src/workbench.css        Responsive workbench presentation
 src/data/correction*     Pinned VDfirst export and explicit display adapter
 src/traceGraph.ts         Step-derived start, traversal, input, and flatten state
 src/graphScene.ts         Focused/full layouts and trace-following camera geometry
@@ -60,6 +79,7 @@ src/data/newton-*.ts      Current draft, operational snapshot, and recorded trac
 tests/*.test.ts           Data, playback, source fidelity, and visibility checks
 docs/DATA_FORMAT.md       Provisional interface for examples and future output
 docs/SOURCES.md           Source selection and semantic limitations
+docs/WORKBENCH.md         Live protocol, local execution and saved-record boundary
 VD_WEBSITE_BRIEF.md       Original agreed product brief
 ```
 
@@ -79,4 +99,4 @@ The deployment workflow follows the [Vite static deployment guide](https://vite.
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md). The original brief's engine execution, uploads, saved traces, accounts, and external-agent APIs remain future scope.
+Read [CONTRIBUTING.md](CONTRIBUTING.md). The workbench extends the original brief with explicit local engine operations and browser-local record files. Public uploads, accounts, cloud storage and external-agent APIs remain future scope. Existing VD-Newton source extracts are unchanged.
