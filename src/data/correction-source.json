@@ -1,0 +1,1658 @@
+{
+  "demo": "parameterized mistake and correction",
+  "scripted_responses": true,
+  "dictionary": {
+    "name": "parameterized correction example",
+    "entries": [
+      [
+        "force_p_t",
+        "mass_p times acceleration_p_t"
+      ],
+      [
+        "mass_p",
+        "supplied mass of p"
+      ],
+      [
+        "acceleration_p_t",
+        "supplied acceleration of p at t"
+      ]
+    ]
+  },
+  "stages": [
+    {
+      "title": "Inputs supplied",
+      "description": "The call supplies cart and time 0 to both demands.",
+      "prediction_set": {
+        "result": "2 kg times 5 m/s^2",
+        "trace_complete": true,
+        "predictions": [
+          {
+            "id": "P2",
+            "event_index": 2,
+            "operation": "inject",
+            "kind": "supplied_input",
+            "statement": "The supplied response '2 kg' is appropriate for the demand 'mass_cart' in the recorded context.",
+            "evidence": {
+              "stimulus": "mass_cart",
+              "response": "2 kg",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "{mass_cart} times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "position": 0,
+              "dependencies": [],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "parameter input",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P3",
+            "event_index": 3,
+            "operation": "inject",
+            "kind": "supplied_input",
+            "statement": "The supplied response '5 m/s^2' is appropriate for the demand 'acceleration_cart_0' in the recorded context.",
+            "evidence": {
+              "stimulus": "acceleration_cart_0",
+              "response": "5 m/s^2",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times 5 m/s^2",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "position": 1,
+              "dependencies": [],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "parameter input",
+              "note": ""
+            },
+            "verification": "unchecked"
+          }
+        ],
+        "unrecorded_events": [],
+        "schema_version": 2,
+        "scope": "recorded trace history",
+        "coverage_complete": false,
+        "limitations": [
+          "Only recorded reductions, cleanup edits and supplied inputs are covered.",
+          "Current support is recorded response lineage, not a proof or a minimal semantic dependency set.",
+          "Equivalence criteria and input fidelity require human interpretation.",
+          "This is not the full disjunction of alternatives and gives no theory verdict.",
+          "Direct Demand mutations bypass recording; use the Trace recording methods."
+        ],
+        "current_prediction_ids": [
+          "P2",
+          "P3"
+        ],
+        "historical_prediction_ids": [],
+        "dependency_selection_complete": true
+      }
+    },
+    {
+      "title": "Mistake recorded",
+      "description": "The scripted interpreter supplies 12 N for the product.",
+      "prediction_set": {
+        "result": "12 N",
+        "trace_complete": true,
+        "predictions": [
+          {
+            "id": "P2",
+            "event_index": 2,
+            "operation": "inject",
+            "kind": "supplied_input",
+            "statement": "The supplied response '2 kg' is appropriate for the demand 'mass_cart' in the recorded context.",
+            "evidence": {
+              "stimulus": "mass_cart",
+              "response": "2 kg",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "{mass_cart} times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "position": 0,
+              "dependencies": [],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "parameter input",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P3",
+            "event_index": 3,
+            "operation": "inject",
+            "kind": "supplied_input",
+            "statement": "The supplied response '5 m/s^2' is appropriate for the demand 'acceleration_cart_0' in the recorded context.",
+            "evidence": {
+              "stimulus": "acceleration_cart_0",
+              "response": "5 m/s^2",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times 5 m/s^2",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "position": 1,
+              "dependencies": [],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "parameter input",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P4",
+            "event_index": 4,
+            "operation": "reduce",
+            "kind": "meaning_preservation",
+            "statement": "What is meant by '2 kg times 5 m/s^2' is the same as what is meant by '12 N' in the recorded context.",
+            "evidence": {
+              "stimulus": "2 kg times 5 m/s^2",
+              "response": "12 N",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times 5 m/s^2",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "12 N",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": "12 N"
+              },
+              "position": null,
+              "dependencies": [
+                2,
+                3
+              ],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "calculation",
+              "note": ""
+            },
+            "verification": "unchecked"
+          }
+        ],
+        "unrecorded_events": [],
+        "schema_version": 2,
+        "scope": "recorded trace history",
+        "coverage_complete": false,
+        "limitations": [
+          "Only recorded reductions, cleanup edits and supplied inputs are covered.",
+          "Current support is recorded response lineage, not a proof or a minimal semantic dependency set.",
+          "Equivalence criteria and input fidelity require human interpretation.",
+          "This is not the full disjunction of alternatives and gives no theory verdict.",
+          "Direct Demand mutations bypass recording; use the Trace recording methods."
+        ],
+        "current_prediction_ids": [
+          "P2",
+          "P3",
+          "P4"
+        ],
+        "historical_prediction_ids": [],
+        "dependency_selection_complete": true
+      }
+    },
+    {
+      "title": "Answer uses mistake",
+      "description": "The report inherits the calculation's recorded support.",
+      "prediction_set": {
+        "result": "Prediction: 12 N",
+        "trace_complete": true,
+        "predictions": [
+          {
+            "id": "P2",
+            "event_index": 2,
+            "operation": "inject",
+            "kind": "supplied_input",
+            "statement": "The supplied response '2 kg' is appropriate for the demand 'mass_cart' in the recorded context.",
+            "evidence": {
+              "stimulus": "mass_cart",
+              "response": "2 kg",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "{mass_cart} times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "position": 0,
+              "dependencies": [],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "parameter input",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P3",
+            "event_index": 3,
+            "operation": "inject",
+            "kind": "supplied_input",
+            "statement": "The supplied response '5 m/s^2' is appropriate for the demand 'acceleration_cart_0' in the recorded context.",
+            "evidence": {
+              "stimulus": "acceleration_cart_0",
+              "response": "5 m/s^2",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times 5 m/s^2",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "position": 1,
+              "dependencies": [],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "parameter input",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P4",
+            "event_index": 4,
+            "operation": "reduce",
+            "kind": "meaning_preservation",
+            "statement": "What is meant by '2 kg times 5 m/s^2' is the same as what is meant by '12 N' in the recorded context.",
+            "evidence": {
+              "stimulus": "2 kg times 5 m/s^2",
+              "response": "12 N",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times 5 m/s^2",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "12 N",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": "12 N"
+              },
+              "position": null,
+              "dependencies": [
+                2,
+                3
+              ],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "calculation",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P5",
+            "event_index": 5,
+            "operation": "reduce",
+            "kind": "meaning_preservation",
+            "statement": "What is meant by '12 N' is the same as what is meant by 'Prediction: 12 N' in the recorded context.",
+            "evidence": {
+              "stimulus": "12 N",
+              "response": "Prediction: 12 N",
+              "before": {
+                "address": [],
+                "render": "12 N",
+                "latents": [
+                  "",
+                  ""
+                ],
+                "headwords": [
+                  "force_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "force_cart_0",
+                    "text": "12 N",
+                    "resolution": "ExpandResolution",
+                    "source_index": 0
+                  }
+                ],
+                "provenance": "RootProvenance",
+                "source_index": null,
+                "source_text": "force_cart_0",
+                "reduction": null
+              },
+              "after": {
+                "address": [],
+                "render": "Prediction: 12 N",
+                "latents": [
+                  "",
+                  ""
+                ],
+                "headwords": [
+                  "force_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "force_cart_0",
+                    "text": "12 N",
+                    "resolution": "ExpandResolution",
+                    "source_index": 0
+                  }
+                ],
+                "provenance": "RootProvenance",
+                "source_index": null,
+                "source_text": "force_cart_0",
+                "reduction": "Prediction: 12 N"
+              },
+              "position": null,
+              "dependencies": [
+                2,
+                3,
+                4
+              ],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "report wording",
+              "note": ""
+            },
+            "verification": "unchecked"
+          }
+        ],
+        "unrecorded_events": [],
+        "schema_version": 2,
+        "scope": "recorded trace history",
+        "coverage_complete": false,
+        "limitations": [
+          "Only recorded reductions, cleanup edits and supplied inputs are covered.",
+          "Current support is recorded response lineage, not a proof or a minimal semantic dependency set.",
+          "Equivalence criteria and input fidelity require human interpretation.",
+          "This is not the full disjunction of alternatives and gives no theory verdict.",
+          "Direct Demand mutations bypass recording; use the Trace recording methods."
+        ],
+        "current_prediction_ids": [
+          "P2",
+          "P3",
+          "P4",
+          "P5"
+        ],
+        "historical_prediction_ids": [],
+        "dependency_selection_complete": true
+      }
+    },
+    {
+      "title": "Calculation reopened",
+      "description": "The original product is visible again; the dependent report is invalidated.",
+      "prediction_set": {
+        "result": "2 kg times 5 m/s^2",
+        "trace_complete": true,
+        "predictions": [
+          {
+            "id": "P2",
+            "event_index": 2,
+            "operation": "inject",
+            "kind": "supplied_input",
+            "statement": "The supplied response '2 kg' is appropriate for the demand 'mass_cart' in the recorded context.",
+            "evidence": {
+              "stimulus": "mass_cart",
+              "response": "2 kg",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "{mass_cart} times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "position": 0,
+              "dependencies": [],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "parameter input",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P3",
+            "event_index": 3,
+            "operation": "inject",
+            "kind": "supplied_input",
+            "statement": "The supplied response '5 m/s^2' is appropriate for the demand 'acceleration_cart_0' in the recorded context.",
+            "evidence": {
+              "stimulus": "acceleration_cart_0",
+              "response": "5 m/s^2",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times 5 m/s^2",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "position": 1,
+              "dependencies": [],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "parameter input",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P4",
+            "event_index": 4,
+            "operation": "reduce",
+            "kind": "meaning_preservation",
+            "statement": "What is meant by '2 kg times 5 m/s^2' is the same as what is meant by '12 N' in the recorded context.",
+            "evidence": {
+              "stimulus": "2 kg times 5 m/s^2",
+              "response": "12 N",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times 5 m/s^2",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "12 N",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": "12 N"
+              },
+              "position": null,
+              "dependencies": [
+                2,
+                3
+              ],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "calculation",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P5",
+            "event_index": 5,
+            "operation": "reduce",
+            "kind": "meaning_preservation",
+            "statement": "What is meant by '12 N' is the same as what is meant by 'Prediction: 12 N' in the recorded context.",
+            "evidence": {
+              "stimulus": "12 N",
+              "response": "Prediction: 12 N",
+              "before": {
+                "address": [],
+                "render": "12 N",
+                "latents": [
+                  "",
+                  ""
+                ],
+                "headwords": [
+                  "force_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "force_cart_0",
+                    "text": "12 N",
+                    "resolution": "ExpandResolution",
+                    "source_index": 0
+                  }
+                ],
+                "provenance": "RootProvenance",
+                "source_index": null,
+                "source_text": "force_cart_0",
+                "reduction": null
+              },
+              "after": {
+                "address": [],
+                "render": "Prediction: 12 N",
+                "latents": [
+                  "",
+                  ""
+                ],
+                "headwords": [
+                  "force_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "force_cart_0",
+                    "text": "12 N",
+                    "resolution": "ExpandResolution",
+                    "source_index": 0
+                  }
+                ],
+                "provenance": "RootProvenance",
+                "source_index": null,
+                "source_text": "force_cart_0",
+                "reduction": "Prediction: 12 N"
+              },
+              "position": null,
+              "dependencies": [
+                2,
+                3,
+                4
+              ],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "report wording",
+              "note": ""
+            },
+            "verification": "unchecked"
+          }
+        ],
+        "unrecorded_events": [],
+        "schema_version": 2,
+        "scope": "recorded trace history",
+        "coverage_complete": false,
+        "limitations": [
+          "Only recorded reductions, cleanup edits and supplied inputs are covered.",
+          "Current support is recorded response lineage, not a proof or a minimal semantic dependency set.",
+          "Equivalence criteria and input fidelity require human interpretation.",
+          "This is not the full disjunction of alternatives and gives no theory verdict.",
+          "Direct Demand mutations bypass recording; use the Trace recording methods."
+        ],
+        "current_prediction_ids": [
+          "P2",
+          "P3"
+        ],
+        "historical_prediction_ids": [
+          "P4",
+          "P5"
+        ],
+        "dependency_selection_complete": true
+      }
+    },
+    {
+      "title": "Corrected answer",
+      "description": "The old calculation and report remain in history; current support uses the correction.",
+      "prediction_set": {
+        "result": "Prediction: 10 N",
+        "trace_complete": true,
+        "predictions": [
+          {
+            "id": "P2",
+            "event_index": 2,
+            "operation": "inject",
+            "kind": "supplied_input",
+            "statement": "The supplied response '2 kg' is appropriate for the demand 'mass_cart' in the recorded context.",
+            "evidence": {
+              "stimulus": "mass_cart",
+              "response": "2 kg",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "{mass_cart} times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "position": 0,
+              "dependencies": [],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "parameter input",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P3",
+            "event_index": 3,
+            "operation": "inject",
+            "kind": "supplied_input",
+            "statement": "The supplied response '5 m/s^2' is appropriate for the demand 'acceleration_cart_0' in the recorded context.",
+            "evidence": {
+              "stimulus": "acceleration_cart_0",
+              "response": "5 m/s^2",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times {acceleration_cart_0}",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times 5 m/s^2",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "position": 1,
+              "dependencies": [],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "parameter input",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P4",
+            "event_index": 4,
+            "operation": "reduce",
+            "kind": "meaning_preservation",
+            "statement": "What is meant by '2 kg times 5 m/s^2' is the same as what is meant by '12 N' in the recorded context.",
+            "evidence": {
+              "stimulus": "2 kg times 5 m/s^2",
+              "response": "12 N",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times 5 m/s^2",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "12 N",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": "12 N"
+              },
+              "position": null,
+              "dependencies": [
+                2,
+                3
+              ],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "calculation",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P5",
+            "event_index": 5,
+            "operation": "reduce",
+            "kind": "meaning_preservation",
+            "statement": "What is meant by '12 N' is the same as what is meant by 'Prediction: 12 N' in the recorded context.",
+            "evidence": {
+              "stimulus": "12 N",
+              "response": "Prediction: 12 N",
+              "before": {
+                "address": [],
+                "render": "12 N",
+                "latents": [
+                  "",
+                  ""
+                ],
+                "headwords": [
+                  "force_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "force_cart_0",
+                    "text": "12 N",
+                    "resolution": "ExpandResolution",
+                    "source_index": 0
+                  }
+                ],
+                "provenance": "RootProvenance",
+                "source_index": null,
+                "source_text": "force_cart_0",
+                "reduction": null
+              },
+              "after": {
+                "address": [],
+                "render": "Prediction: 12 N",
+                "latents": [
+                  "",
+                  ""
+                ],
+                "headwords": [
+                  "force_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "force_cart_0",
+                    "text": "12 N",
+                    "resolution": "ExpandResolution",
+                    "source_index": 0
+                  }
+                ],
+                "provenance": "RootProvenance",
+                "source_index": null,
+                "source_text": "force_cart_0",
+                "reduction": "Prediction: 12 N"
+              },
+              "position": null,
+              "dependencies": [
+                2,
+                3,
+                4
+              ],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "report wording",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P7",
+            "event_index": 7,
+            "operation": "reduce",
+            "kind": "meaning_preservation",
+            "statement": "What is meant by '2 kg times 5 m/s^2' is the same as what is meant by '10 N' in the recorded context.",
+            "evidence": {
+              "stimulus": "2 kg times 5 m/s^2",
+              "response": "10 N",
+              "before": {
+                "address": [
+                  0
+                ],
+                "render": "2 kg times 5 m/s^2",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": null
+              },
+              "after": {
+                "address": [
+                  0
+                ],
+                "render": "10 N",
+                "latents": [
+                  "",
+                  " times ",
+                  ""
+                ],
+                "headwords": [
+                  "mass_cart",
+                  "acceleration_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "mass_cart",
+                    "text": "2 kg",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  },
+                  {
+                    "position": 1,
+                    "headword": "acceleration_cart_0",
+                    "text": "5 m/s^2",
+                    "resolution": "InjectResolution",
+                    "source_index": null
+                  }
+                ],
+                "provenance": "ExpandProvenance",
+                "source_index": 0,
+                "source_text": null,
+                "reduction": "10 N"
+              },
+              "position": null,
+              "dependencies": [
+                2,
+                3
+              ],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "calculation",
+              "note": ""
+            },
+            "verification": "unchecked"
+          },
+          {
+            "id": "P8",
+            "event_index": 8,
+            "operation": "reduce",
+            "kind": "meaning_preservation",
+            "statement": "What is meant by '10 N' is the same as what is meant by 'Prediction: 10 N' in the recorded context.",
+            "evidence": {
+              "stimulus": "10 N",
+              "response": "Prediction: 10 N",
+              "before": {
+                "address": [],
+                "render": "10 N",
+                "latents": [
+                  "",
+                  ""
+                ],
+                "headwords": [
+                  "force_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "force_cart_0",
+                    "text": "10 N",
+                    "resolution": "ExpandResolution",
+                    "source_index": 0
+                  }
+                ],
+                "provenance": "RootProvenance",
+                "source_index": null,
+                "source_text": "force_cart_0",
+                "reduction": null
+              },
+              "after": {
+                "address": [],
+                "render": "Prediction: 10 N",
+                "latents": [
+                  "",
+                  ""
+                ],
+                "headwords": [
+                  "force_cart_0"
+                ],
+                "arguments": [
+                  {
+                    "position": 0,
+                    "headword": "force_cart_0",
+                    "text": "10 N",
+                    "resolution": "ExpandResolution",
+                    "source_index": 0
+                  }
+                ],
+                "provenance": "RootProvenance",
+                "source_index": null,
+                "source_text": "force_cart_0",
+                "reduction": "Prediction: 10 N"
+              },
+              "position": null,
+              "dependencies": [
+                2,
+                3,
+                7
+              ],
+              "dependencies_complete": true
+            },
+            "classification": {
+              "category": "report wording",
+              "note": ""
+            },
+            "verification": "unchecked"
+          }
+        ],
+        "unrecorded_events": [],
+        "schema_version": 2,
+        "scope": "recorded trace history",
+        "coverage_complete": false,
+        "limitations": [
+          "Only recorded reductions, cleanup edits and supplied inputs are covered.",
+          "Current support is recorded response lineage, not a proof or a minimal semantic dependency set.",
+          "Equivalence criteria and input fidelity require human interpretation.",
+          "This is not the full disjunction of alternatives and gives no theory verdict.",
+          "Direct Demand mutations bypass recording; use the Trace recording methods."
+        ],
+        "current_prediction_ids": [
+          "P2",
+          "P3",
+          "P7",
+          "P8"
+        ],
+        "historical_prediction_ids": [
+          "P4",
+          "P5"
+        ],
+        "dependency_selection_complete": true
+      }
+    }
+  ]
+}

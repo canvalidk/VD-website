@@ -2,7 +2,7 @@
 
 **by Can Valid Kohen**
 
-A browser-based dictionary and trace explorer. The explanation is a separate first section; the second section starts with one unpicked dictionary selector. The prototype includes four dictionary options, three prepared demonstrations, two condensed recorded Newton II traces, and linked entry inspection.
+A browser-based dictionary and trace explorer. The explanation is a separate first section; the second section starts with one unpicked dictionary selector. The prototype includes five dictionary options, three prepared demonstrations, two condensed recorded Newton II traces, a recorded correction example with scripted responses, and linked entry and claim inspection.
 
 ## Run locally
 
@@ -23,6 +23,8 @@ pnpm preview    # Serve the production build locally
 
 ## Explore
 
+- Choose **Try the correction example** to open a recorded root result and its partial prediction set. Move through Inputs → Mistake → Report → Reopen → Correction. **Used now** and **History only** distinguish support from retained history; every claim remains unchecked.
+- Select a claim to inspect its exact stimulus, response, frame evidence and recorded support. **Dependencies** offers a second presentation of the same data. **Dictionary network** preserves the playback position and links back to the original definition. See [the presentation study](docs/RESULT_PRESENTATION.md) for design findings and limits.
 - Choose a dictionary: Newtonian mechanics current draft, the Newton II operational snapshot, Newton kinematics, or Toy force. No dictionary is selected initially.
 - Select an entry in the list or map to see its definition, references, and incoming references.
 - Browse without a trace, or choose an available trace. Play, pause, move between steps, or restart.
@@ -44,6 +46,9 @@ The current Newton Design 2.1 draft has 26 definitions across 21 headwords and i
 src/App.tsx               Interface and playback timer
 src/Graph.tsx             Headword network and occurrence overlays
 src/TracePlayer.tsx       Playback controls and active fragments
+src/ResultView.tsx        Root result, claim list and evidence inspector
+src/predictions.ts       Pure relevance and recorded-support selectors
+src/data/correction*     Pinned VDfirst export and explicit display adapter
 src/traceGraph.ts         Step-derived start, traversal, input, and flatten state
 src/graphScene.ts         Focused/full layouts and trace-following camera geometry
 src/graphGeometry.ts      Separated directional paths for reciprocal references

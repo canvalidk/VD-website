@@ -1,5 +1,17 @@
 # Example provenance
 
+## VDfirst mistake and correction export
+
+`src/data/correction-source.json` is the output of `python -B correction_demo.py --json` from [VDfirst commit 0f1a89d511769bc48ce1d52acb63496adfa9cd0e](https://github.com/canvalidk/VDfirst/commit/0f1a89d511769bc48ce1d52acb63496adfa9cd0e). Only line endings are normalized to LF. SHA-256: `57fd1df6292f92ca9e85c9be51bf9403fc43eb693790ad123b9edf77d5cb4eb4`.
+
+The export retains three exact parameterized definitions and all five frozen schema-2 prediction sets, including original claims and complete frame evidence. The actual trace operations come from VDfirst; interpreter responses are scripted. The deliberate 12 N error, its consuming report, reopening and replacement with 10 N are supplied by the demonstration. All claims remain unchecked and full prediction coverage remains false.
+
+`src/data/correction.ts` supplies display stage IDs, short labels, source-index links and two explicit input connections. Input bindings are displayed separately from dictionary traversals; this example does not add inferred traversal edges. The adapter does not tokenize calls or reconstruct evidence. Source links identify the recorded containing frame's definition, not an inferred definition of a supplied demand.
+
+To refresh from the pinned VDfirst checkout, run `python -B correction_demo.py --json` there, save its UTF-8 output as `src/data/correction-source.json` here, and normalize CRLF to LF. Change the documented revision and hash deliberately if the source changes. Tests protect exact source fidelity and derived support behavior.
+
+No VD-Newton files or existing Newton source extracts were modified for this study.
+
 ## Newton sources added for Authority Dictionary
 
 The local VD-Newton working surface was inspected on 9 September 2026, on branch `codex/nml2-entry-renumbering`, HEAD `5ae1797dd5ab9a36b1c0ae56ac360ad4bff0d58a`.
