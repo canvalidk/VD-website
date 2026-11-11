@@ -6,6 +6,8 @@ import Graph from './Graph';
 import TracePlayer from './TracePlayer';
 import ResultView, { ClaimInspector } from './ResultView';
 import { sourceEntryId } from './predictions';
+import Explanation from './Explanation';
+import type { ExplanationAction } from './data/explanation';
 
 export default function App() {
   const [state, dispatch] = useReducer(explorerReducer, initialState);
@@ -41,6 +43,14 @@ export default function App() {
     setPresentationVisit(visit => visit + 1);
     window.requestAnimationFrame(() => document.getElementById('result-view')?.scrollIntoView({ block: 'start' }));
   };
+  const openFromExplanation = (action: ExplanationAction) => {
+    if (action.kind === 'correction') return openCorrection();
+    dispatch({ type: 'dictionary', id: action.dictionaryId });
+    dispatch({ type: 'trace', id: action.kind === 'trace' ? action.traceId : '' });
+    setWorkspaceView('dictionary');
+    setSelectedClaimId(null);
+    window.requestAnimationFrame(() => document.getElementById('explorer')?.scrollIntoView({ block: 'start' }));
+  };
 
   useEffect(() => {
     if (!session?.playing) return;
@@ -61,15 +71,7 @@ export default function App() {
       <nav className="section-nav" aria-label="Sections"><a href="#explanation">01 Explanation</a><a href="#explorer">02 Explorer</a></nav>
     </header>
     <main>
-      <section id="explanation" className="explanation-section" aria-labelledby="explanation-title">
-        <p className="eyebrow">01 / EXPLANATION</p>
-        <div className="explanation-heading"><div><h1 id="explanation-title">Authority Dictionary</h1><p className="byline">by Can Valid Kohen</p></div><p className="explanation-lead">Explore dictionaries, the connections between their definitions, and the traces that unfold them.</p></div>
-        <div className="explanation-parts">
-          <div><span className="part-number">01</span><h2>The dictionary</h2><p>A headword can have more than one definition. Select it to read those definitions and the entries they refer to.</p></div>
-          <div><span className="part-number">02</span><h2>The network</h2><p>Lines show headword references. During a trace, the starting node stays marked and the traversed connections remain highlighted.</p></div>
-          <div><span className="part-number">03</span><h2>The trace</h2><p>Move through a route at your own pace. Flattened occurrences fade as they are expended, while the dictionary stays available to explore.</p></div>
-        </div>
-      </section>
+      <Explanation onAction={openFromExplanation}/>
 
       <section id="explorer" className="explorer-section" aria-labelledby="explorer-title">
         <div className="explorer-heading"><div><p className="eyebrow">02 / EXPLORER</p><h2 id="explorer-title">Choose a dictionary. Follow a trace.</h2></div>

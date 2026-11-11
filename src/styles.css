@@ -971,12 +971,20 @@ summary {
   font-size: 1.1rem;
   color: var(--muted);
 }
-.explanation-parts {
-  display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
-  gap: 32px;
+.explanation-ideas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
 }
-.explanation-parts>div {
+.idea {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,2.2fr);
+  gap: 48px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+}
+.idea-heading {
   position: relative;
   padding-left: 38px;
 }
@@ -988,15 +996,74 @@ summary {
   color: var(--accent);
   font-weight: 600;
 }
-.explanation-parts h2 {
+.idea-heading h2 {
   font-weight: 500;
-  font-size: 1.05rem;
-  margin-bottom: 9px;
+  font-size: 1.15rem;
+  line-height: 1.4;
 }
-.explanation-parts p {
+.idea-body p {
+  max-width: 680px;
   font-size: .95rem;
+  line-height: 1.75;
+  color: #46536a;
+}
+.idea-body p+p {
+  margin-top: 10px;
+}
+.idea-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  margin-top: 14px;
+}
+.idea-action {
+  background: #edf2fc;
+  border: 1px solid #cdd9ec;
+  color: #193866;
+  border-radius: 7px;
+  padding: 8px 12px;
+  font-size: .8rem;
+}
+.idea-action:hover {
+  background: #dfe8f9;
+}
+.idea-source {
+  font-size: .75rem;
+  color: var(--muted);
+  text-decoration-color: #b9c3d3;
+  text-underline-offset: 3px;
+}
+.idea-source:hover {
+  color: var(--accent);
+}
+.explorer-notes {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,2.2fr);
+  gap: 0 48px;
+  padding-top: 24px;
+}
+.explorer-notes h2 {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-left: 38px;
+  padding-top: 3px;
+}
+.explorer-notes ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: .875rem;
   line-height: 1.7;
   color: var(--muted);
+}
+.status-note {
+  grid-column: 2;
+  margin-top: 10px;
+  font-size: .8rem;
+  color: #79634d;
 }
 .explorer-section {
   padding-top: 34px;
@@ -1400,9 +1467,22 @@ summary {
     font-size: 1rem;
     margin-top: 20px;
   }
-  .explanation-parts {
+  .idea,.explorer-notes {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 12px;
+  }
+  .idea {
+    padding: 22px 0;
+  }
+  .idea-body {
+    padding-left: 38px;
+  }
+  .status-note {
+    grid-column: 1;
+    padding-left: 38px;
+  }
+  .explorer-notes ul {
+    margin-left: 38px;
   }
   .explanation-section {
     padding-bottom: 28px;
