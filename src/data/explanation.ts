@@ -55,9 +55,10 @@ export const ideas: Idea[] = [
     title: 'A law is three words that define each other',
     paragraphs: [
       'In the dictionary, a physical law is three headwords, each defined by the other two. One of the three already had a definition. The other two are born in the law.',
-      'Three more entries tie the law to the rest of the dictionary, six in all: a law-house. The map in the explorer shows plain references between headwords. It does not show laws yet.',
+      'Three more entries tie the law to the rest of the dictionary, six in all: a law-house. The current Newton draft has two. The first has all six entries. The second is still missing one.',
     ],
     source: { title: 'The VD law-house foundation', url: `${VD_DOCS}Core/VD_LAW_HOUSE_FOUNDATION.md` },
+    action: { kind: 'dictionary', label: 'See the two laws', dictionaryId: 'newton-current' },
   },
   {
     id: 'hypothesis-set',
@@ -74,7 +75,7 @@ export const ideas: Idea[] = [
 
 export const explorerNotes = [
   'Pick a dictionary to browse its entries. A headword can have more than one definition.',
-  'Lines on the map are references between headwords, not physical causes.',
+  'Where a dictionary has laws, the network draws each one as a house and arranges everything by degree. Lines are references between entries, not physical causes.',
   'Traces replay step by step, at your pace. Recorded runs and prepared demonstrations are labelled. The site never runs the engine itself.',
 ];
 export const status = 'Work in progress. The dictionaries shown are drafts.';

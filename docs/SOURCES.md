@@ -13,6 +13,15 @@
 
 The photon example in `Core/vd_dictionary_question_answering.md` (April 2026) is not used, because a later note marks it as historical. The statement that the bundled Newton drafts have no gravity entry is checked by `tests/explanation.test.ts`.
 
+## Law-houses
+
+`src/data/newton-current-houses.json` and `src/data/newton-operational-houses.json` were exported on 11 November 2026 with `tools/export_houses.py` from VDfirst commit `5a57790539ad405134b609e562d30490e19550d9` (`VDInstance.append_many`, then `detect_houses()`), reading the two source extracts in this folder. The engine's references matched the extracts for all 71 definitions.
+
+- **Current draft:** two houses. Newton I has all six entries (chimney K16 / E1, triplet E2 to E4, walls E5 and E6). The second has five (chimney E7, triplet E8 to E10, wall E11); the wall for `inertial-mass-material-object` is not written, which matches the deferred E12 noted below.
+- **Newton II snapshot:** six houses. Two entries play two roles: E36 is a wall of the fourth house and a triplet corner of the fifth; E32 is a corner of the fourth and the chimney of the fifth. Two further reference cycles are not laws by the engine's rule and are listed in the export.
+- **Degrees.** Law degrees are the engine's (R-LAW-07): 1 and 2 in the current draft; 1, 2, 1, 3, 4, 4 in the snapshot. For headwords outside every law the engine defines no degree. The export gives them the highest degree among the laws whose new words they can reach, and 0 otherwise. Every such headword is degree 0 except three in the snapshot at degree 4 (`interaction-set`, `mechanical-composition_point-particle`, `paired-particle_acting-object`). This extension is the site's reading, not a VD rule.
+- **Titles** are display labels. "Newton I" is the source file's own heading. "Newton II" is the project's usual name for the second law; the source file gives it no heading. The other four houses of the snapshot are untitled and shown by their headwords.
+
 ## VDfirst mistake and correction export
 
 `src/data/correction-source.json` is the output of `python -B correction_demo.py --json` from [VDfirst commit 0f1a89d511769bc48ce1d52acb63496adfa9cd0e](https://github.com/canvalidk/VDfirst/commit/0f1a89d511769bc48ce1d52acb63496adfa9cd0e). Only line endings are normalized to LF. SHA-256: `57fd1df6292f92ca9e85c9be51bf9403fc43eb693790ad123b9edf77d5cb4eb4`.

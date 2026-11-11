@@ -1,0 +1,98 @@
+/* Law-houses: columns are the three headwords, rows are before / the law / after. */
+.house-view { display:grid; gap:18px; min-width:0; }
+.house-intro p:last-child { font-size:.85rem; line-height:1.65; color:var(--muted); margin-top:6px; max-width:620px; }
+.house { background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px; scroll-margin-top:18px; min-width:0; }
+.house-heading { display:flex; justify-content:space-between; align-items:start; gap:14px; margin-bottom:18px; }
+.house-heading h3 { font-size:1.3rem; font-weight:500; letter-spacing:-.03em; margin-top:4px; overflow-wrap:anywhere; }
+.house-status { flex-shrink:0; font-size:.72rem; line-height:1.4; padding:5px 9px; border-radius:20px; background:#eef6df; color:#3d5a14; border:1px solid #d5e7b4; text-align:right; }
+.house-status.incomplete { background:#faf2da; color:#64501a; border-color:#ebddaf; }
+
+.house-grid { display:grid; grid-template-columns:64px repeat(3,minmax(0,1fr)); grid-template-rows:auto auto auto auto; gap:8px; }
+.house-rowlabels,.house-column { display:grid; grid-template-rows:subgrid; grid-row:1 / span 4; min-width:0; }
+.house-rowlabel { display:flex; flex-direction:column; justify-content:center; gap:2px; font-size:.75rem; color:var(--ink); padding-right:4px; }
+.house-rowlabel strong { font-weight:600; }
+.house-rowlabel span { font-size:.65rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+.house-rowlabel.law strong { color:var(--accent); }
+
+.house-headword { padding:0 4px 6px; border-bottom:2px solid var(--line); display:grid; gap:3px; align-content:end; min-width:0; }
+.house-headword strong { font-family:'Space Grotesk','DM Sans',sans-serif; font-size:.9rem; font-weight:600; overflow-wrap:anywhere; line-height:1.3; }
+.house-headword span { font-size:.68rem; color:var(--muted); }
+.house-headword.active { border-bottom-color:#7fbf1f; }
+.house-headword em { font-style:normal; color:#3d5a14; }
+
+.house-cell { display:flex; flex-direction:column; gap:7px; text-align:left; width:100%; min-width:0; padding:11px 12px; border-radius:9px; border:1px solid var(--line); background:#fbfcfe; font-size:.82rem; line-height:1.6; color:#33415a; }
+.house-cell:hover { border-color:#7e9cd5; }
+.house-cell.law { background:#edf2fc; border-color:#c3d2f0; color:#1c2f57; }
+.house-cell.selected { border-color:var(--accent); box-shadow:0 0 0 2px #c9d7fb; }
+.house-cell-id { font-size:.68rem; font-weight:600; letter-spacing:.04em; color:#586a82; font-variant-numeric:tabular-nums; }
+.house-cell.law .house-cell-id { color:#3556b0; }
+.house-cell-role { display:none; font-weight:400; }
+.house-cell-text { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:7; line-clamp:7; overflow:hidden; overflow-wrap:anywhere; }
+.house-word { text-decoration:underline; text-decoration-color:#b9c3d3; text-decoration-thickness:1px; text-underline-offset:3px; }
+.house-word.law-word { text-decoration:none; background:#d3defa; color:#17306f; border-radius:4px; padding:1px 4px; font-weight:550; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+.house-none { min-height:8px; }
+.house-missing { display:flex; flex-direction:column; justify-content:center; gap:4px; border:1px dashed #cdb679; border-radius:9px; padding:11px 12px; font-size:.78rem; color:#7a6630; background:#fdfaf0; }
+.house-missing .house-cell-role { display:none; font-size:.68rem; letter-spacing:.04em; font-weight:600; }
+
+.house-links { margin-top:16px; padding-top:14px; border-top:1px solid var(--line); font-size:.78rem; line-height:1.7; color:var(--muted); display:flex; flex-wrap:wrap; gap:2px 14px; }
+.house-links button { background:transparent; padding:0; color:var(--accent); text-decoration:underline; text-underline-offset:3px; font-size:inherit; }
+.house-footnote { font-size:.75rem; line-height:1.65; color:var(--muted); }
+
+/* Outline in the dictionary panel. */
+.outline-heading { display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%; text-align:left; margin-top:14px; padding:8px 10px 6px; font-size:.68rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); background:transparent; border-top:1px solid var(--line); border-radius:0; }
+.outline-heading:first-child { margin-top:0; border-top:0; }
+.outline-heading span { font-weight:400; letter-spacing:0; }
+.outline-heading.law { color:#2448a5; }
+.outline-heading.law:hover { background:#edf2fc; }
+.outline-law { display:grid; gap:5px; }
+
+/* Role tags and the selected definition in the inspector. */
+.role-tag { display:inline-block; margin:8px 6px 0 0; padding:4px 8px; border-radius:5px; background:#edf2fc; border:1px solid #cdd9ec; color:#193866; font-size:.7rem; }
+.role-tag:hover { background:#dfe8f9; }
+.inspector .definition.selected { box-shadow:inset 3px 0 var(--accent); padding-left:14px; margin-left:-14px; }
+
+/* Stack each headword's entries when the view itself is narrow, whatever the screen size. */
+.house-view { container-type:inline-size; }
+@container (max-width:600px) {
+  .house { padding:16px 14px; }
+  .house-heading { display:block; }
+  .house-status { display:inline-block; margin-top:10px; text-align:left; }
+  .house-grid { display:block; }
+  .house-rowlabels,.house-none { display:none; }
+  .house-column { display:grid; grid-template-rows:none; gap:8px; margin-top:18px; }
+  .house-column:first-of-type { margin-top:0; }
+  .house-cell-role { display:inline; }
+  .house-missing .house-cell-role { display:block; }
+}
+
+/* Laws jump list at the top of the dictionary panel. */
+.law-list { display:grid; gap:5px; margin-bottom:26px; }
+.law-row { display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%; text-align:left; padding:11px 10px; border-radius:8px; background:#edf2fc; color:#193866; font-size:.85rem; min-height:44px; }
+.law-row:hover { background:#dfe8f9; }
+.law-row>span:first-child { overflow-wrap:anywhere; }
+.law-count { flex-shrink:0; font-size:.72rem; font-variant-numeric:tabular-nums; padding:3px 7px; border-radius:20px; background:#eef6df; color:#3d5a14; border:1px solid #d5e7b4; }
+.law-count.incomplete { background:#faf2da; color:#64501a; border-color:#ebddaf; }
+.house-headword.selected strong { color:var(--accent); }
+.provenance { overflow-wrap:anywhere; }
+
+/* Law structure in the network: one node per entry, degrees nested, houses drawn by their own links. */
+.graph-viewport.structure { height:clamp(460px,72vh,700px); }
+.graph-world .definition-node { padding:7px 10px; gap:3px; font-size:.8rem; line-height:1.25; border-radius:8px; }
+.graph-world .definition-node .node-id { font-size:.68rem; min-height:0; }
+/* Each frame adds a little light, so deeper degrees read as further in. */
+.degree-frame rect { fill:rgba(150,178,255,.045); stroke:#34507c; stroke-width:1.2; }
+.degree-frame text { fill:#b9cdff; font-size:11px; font-weight:600; letter-spacing:.1em; }
+.degree-frame tspan { fill:#8fa3c0; font-weight:400; letter-spacing:.02em; }
+.house-name { fill:#b9cdff; font-size:11px; font-weight:600; letter-spacing:.1em; }
+.house-title { fill:#ecf1f8; font-size:14px; font-weight:500; letter-spacing:0; }
+.connections line.house-link { stroke:#6f8fd8; stroke-width:3; stroke-linecap:round; }
+.connections line.house-link.roof { stroke:#a9bdff; stroke-width:4; }
+.connections line.house-link.unwritten { stroke:#b89f5e; stroke-width:2; stroke-dasharray:6 6; }
+.connections line.house-link.connected { stroke:#dbe5ff; }
+.connections line.house-link.roof.connected { stroke:#ffffff; }
+.graph-placeholder { position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; justify-content:center; text-align:center; border:1.5px dashed #b89f5e; border-radius:8px; color:#d9c58f; font-size:.72rem; background:#14243b; }
+.connections path.structure-edge { opacity:.28; }
+.connections path.structure-edge.connected { opacity:1; stroke:#9db4d8; }
+.legend-line.roof { height:4px; background:#a9bdff; }
+.legend-line.wall { height:3px; background:#6f8fd8; }
+.legend-mark.unwritten { background:transparent; border:1.5px dashed #b89f5e; }

@@ -72,6 +72,38 @@ Evidence dependencies are transitive event indexes. The viewer looks up claims b
 
 The correction adapter maps five exported snapshots to five display stages in two derivations. It is not a general trace-event importer. Existing playbacks have no prediction sets until a producer supplies them; the viewer does not synthesize them from stage descriptions. See [the presentation study](RESULT_PRESENTATION.md).
 
+## Law-houses
+
+`Dictionary.houses` optionally lists the dictionary's law-houses in log order, with `lawTitles` as optional display names. The site does not detect laws. `tools/export_houses.py` loads a checked-in source extract into a VDfirst `VDInstance` and writes what `detect_houses()` returns to `src/data/<dictionary>-houses.json`:
+
+- `degree`: the law's degree from the engine's `degree_of_law()` (R-LAW-07).
+- `anchor`: the headword that was already defined. `winters`: the two headwords born in the law, in log order.
+- `chimney`: the anchor's earlier entry, or `null`. `triplet`: one entry id per headword. `walls`: one entry id per winter, or `null` when that wall is not written yet.
+- `entries`: for each entry used, its definition as ordered parts. A part is residual text, or a headword occurrence with the definition's own spelling and a `self` flag. The parts rebuild the definition exactly, apart from line wrapping.
+- Top-level `definitions` lists every entry in log order with the headwords the engine's tokeniser found in it. `headword_degrees` gives a degree to each headword outside every law. The engine defines degree for laws only; this is a site extension, stated in `headword_degree_method`: the highest degree among the laws whose two new words the headword can reach by following references, and 0 when it reaches none.
+- `producer.commit` and `source.file_sha256` pin the engine and the extract. `three_cycles_that_are_not_laws` lists reference cycles the engine did not accept as laws.
+
+The export stops if the engine's references differ from the extract's, or if the parts do not rebuild a definition. `src/houses.ts` derives columns, completeness, per-entry roles, the outline, and which other laws use a law's headwords. `tests/houses.test.ts` checks the exports against the dictionaries and the source order.
+
+### Law-structure layout
+
+`src/lawScene.ts` turns the export into the network's law-structure view. It produces the same scene shape as `src/graphScene.ts`, so `Graph.tsx` draws both.
+
+- **Nodes** are definitions, one per entry (`sourceId` set). A headword of a law is a vertical pair: chimney above corner for the old word, corner above wall for each new word.
+- **Houses are drawn by links, not shapes.** `houseSlots()` gives the six positions relative to the chimney. Each house contributes six `houseLinks`: three `roof` links between the triplet corners, which refer to each other, and a `chimney` and two `wall` links, each joining two definitions of one headword. A slot whose entry is `null` becomes a placeholder, and its link is marked `unwritten`. `clusterHouses()` joins houses that share an entry and positions the later house from the shared node; a link two houses share is drawn once.
+- **Degrees nest.** `homeDegrees()` gives each definition a degree: the lowest degree among the laws it belongs to, otherwise its headword's degree. `frames` holds one frame per degree from 0 to the highest; frame d+1 lies inside frame d. Each frame's own entries sit in a band at its top, and the next frame below them. A house that spans two degrees keeps one x position at both. Other levels are centred in their frame.
+- **Other lines.** A reference is to a headword, so its line ends at the nearest entry of that headword. References between the corners of one law are the roof and are not repeated.
+- **Traces** name headwords, not entries. Involved headwords mark all their entries, the start badge goes on the headword's first entry, and traversed or bound paths are drawn between the closest entries of each pair. Self-label occurrences sit in a gutter to the right of the frames, level with the entry they came from.
+
+`tests/lawScene.test.ts` checks one node per definition with no overlaps, house geometry, interlocking, nested frames, that each entry sits in its own degree's frame, that roof links join corners that refer to each other and the other house links join one headword's definitions, label placement, selection, and trace replay at every step.
+
+To refresh, from this repository's root:
+
+```sh
+py -3 tools/export_houses.py <VDfirst checkout> docs/newton-current-source.json src/data/newton-current-houses.json
+py -3 tools/export_houses.py <VDfirst checkout> docs/newton-operational-source.json src/data/newton-operational-houses.json
+```
+
 ## Future engine adapter
 
 A later producer can turn real engine events into this ordered-step boundary. The correction example supplies authoritative root snapshots and claim evidence; the older fragment-only examples do not. General event identifiers, occurrence/frame identity, unresolved work, and reduction/recognition provenance still need a broader adapter. Do not relabel prepared arrays as executed traces.

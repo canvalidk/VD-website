@@ -25,6 +25,8 @@ pnpm preview    # Serve the production build locally
 
 - Choose **Try the correction example** to open a recorded root result and the commitments it rests on. **Derivation 1** reaches 12 N through a deliberate mistake. Its record stays as issued: a found mistake does not count against the dictionary. **Derivation 2** is a new derivation that reaches 10 N. **This derivation** and **Earlier derivation** separate the two derivations' commitments; every claim remains unchecked.
 - Select a claim to inspect its exact stimulus, response, frame evidence and recorded support. **Dependencies** offers a second presentation of the same data. **Dictionary network** preserves the playback position and links back to the original definition. See [the presentation study](docs/RESULT_PRESENTATION.md) for design findings and limits.
+- Open either Newtonian mechanics dictionary to see its **law structure** in the network. Every entry is one node. Degrees nest: degree 0 is the outermost frame, degree 1 lies inside it, degree 2 inside that. A law is drawn by its own links. The three law entries refer to each other, and those references make the roof. The old word's earlier entry stands above as the chimney, and the new words' later entries hang below as the walls. An entry that is not written yet is a dashed slot. Laws that share an entry interlock, even across a degree boundary. Select a node to read that entry and brighten its house; its roles appear in the entry details.
+- **Laws as a table** shows the same houses as a grid, with the three headwords as columns, for reading the entries side by side. The left panel lists the laws with a count such as 5/6, then the headwords grouped by degree and law.
 - Choose a dictionary: Newtonian mechanics current draft, the Newton II operational snapshot, Newton kinematics, or Toy force. No dictionary is selected initially.
 - Select an entry in the list or map to see its definition, references, and incoming references.
 - Browse without a trace, or choose an available trace. Play, pause, move between steps, or restart.
@@ -50,6 +52,11 @@ src/TracePlayer.tsx       Playback controls and active fragments
 src/ResultView.tsx        Root result, claim list and evidence inspector
 src/predictions.ts       Pure relevance and recorded-support selectors
 src/derivations.ts       Groups snapshots into derivations; a corrected derivation is a new one
+src/lawScene.ts          Law-structure layout: definition nodes, house shapes, degree columns
+src/HouseView.tsx        Laws as a table: one six-entry house per law
+src/houses.ts            Pure helpers over exported houses (columns, status, roles, outline)
+src/data/*-houses.json   Law-houses exported from the VDfirst engine
+tools/export_houses.py   Re-export houses from a VDfirst checkout (needs Python and networkx)
 src/data/correction*     Pinned VDfirst export and explicit display adapter
 src/traceGraph.ts         Step-derived start, traversal, input, and flatten state
 src/graphScene.ts         Focused/full layouts and trace-following camera geometry
