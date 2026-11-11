@@ -74,3 +74,20 @@
 .law-count.incomplete { background:#faf2da; color:#64501a; border-color:#ebddaf; }
 .house-headword.selected strong { color:var(--accent); }
 .provenance { overflow-wrap:anywhere; }
+
+/* Law structure in the network: one node per entry, laws drawn as houses, columns by degree. */
+.graph-viewport.structure { height:clamp(460px,72vh,700px); }
+.graph-world .definition-node { padding:7px 10px; gap:3px; font-size:.8rem; line-height:1.25; border-radius:8px; }
+.graph-world .definition-node .node-id { font-size:.68rem; min-height:0; }
+.degree-band text { fill:#b9cdff; font-size:11px; font-weight:600; letter-spacing:.1em; }
+.degree-band tspan { fill:#8fa3c0; font-weight:400; letter-spacing:.02em; }
+.degree-band line { stroke:#2c4263; stroke-width:1; }
+.house-roof { fill:rgba(122,156,255,.14); stroke:#7f9be6; stroke-width:1.5; stroke-linejoin:round; }
+.house-body,.house-stack { fill:rgba(255,255,255,.035); stroke:#56698a; stroke-width:1.5; }
+.house-name { fill:#b9cdff; font-size:11px; font-weight:600; letter-spacing:.1em; }
+.house-title { fill:#ecf1f8; font-size:14px; font-weight:500; letter-spacing:0; }
+.graph-placeholder { position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; justify-content:center; text-align:center; border:1.5px dashed #b89f5e; border-radius:8px; color:#d9c58f; font-size:.72rem; background:rgba(184,159,94,.06); }
+.connections path.structure-edge { opacity:.3; }
+.connections path.structure-edge.connected { opacity:1; stroke:#9db4d8; }
+.legend-mark.roof { background:rgba(122,156,255,.25); border-color:#7f9be6; }
+.legend-mark.unwritten { background:transparent; border:1.5px dashed #b89f5e; }

@@ -1,6 +1,6 @@
 {
   "format": "vd-website-houses",
-  "version": 1,
+  "version": 2,
   "producer": {
     "name": "VDfirst",
     "commit": "5a57790539ad405134b609e562d30490e19550d9",
@@ -12,8 +12,366 @@
     "source_sha256": "e5771def38b3c90e176bf7908f28487158e185334020391d8670216c18243e2e",
     "entry_count": 45
   },
+  "definitions": [
+    {
+      "id": "E1",
+      "headword": "time",
+      "references": []
+    },
+    {
+      "id": "E2",
+      "headword": "reference-frame",
+      "references": [
+        "time"
+      ]
+    },
+    {
+      "id": "E3",
+      "headword": "point-particle",
+      "references": []
+    },
+    {
+      "id": "E4",
+      "headword": "position",
+      "references": [
+        "point-particle",
+        "reference-frame",
+        "time"
+      ]
+    },
+    {
+      "id": "E5",
+      "headword": "displacement",
+      "references": [
+        "position"
+      ]
+    },
+    {
+      "id": "E6",
+      "headword": "velocity",
+      "references": []
+    },
+    {
+      "id": "E7",
+      "headword": "speed",
+      "references": [
+        "velocity"
+      ]
+    },
+    {
+      "id": "E8",
+      "headword": "acceleration",
+      "references": []
+    },
+    {
+      "id": "E9",
+      "headword": "trajectory",
+      "references": [
+        "point-particle",
+        "position"
+      ]
+    },
+    {
+      "id": "E10",
+      "headword": "straight-line",
+      "references": []
+    },
+    {
+      "id": "E11",
+      "headword": "path-length",
+      "references": [
+        "trajectory"
+      ]
+    },
+    {
+      "id": "E12",
+      "headword": "relative-position",
+      "references": [
+        "point-particle",
+        "reference-frame"
+      ]
+    },
+    {
+      "id": "E13",
+      "headword": "relative-velocity",
+      "references": [
+        "point-particle",
+        "reference-frame"
+      ]
+    },
+    {
+      "id": "E14",
+      "headword": "uniform-motion",
+      "references": [
+        "point-particle",
+        "speed",
+        "straight-line",
+        "time",
+        "velocity"
+      ]
+    },
+    {
+      "id": "E15",
+      "headword": "uniform-motion",
+      "references": [
+        "free-particle",
+        "inertial-frame"
+      ]
+    },
+    {
+      "id": "E16",
+      "headword": "inertial-frame",
+      "references": [
+        "free-particle",
+        "reference-frame",
+        "uniform-motion"
+      ]
+    },
+    {
+      "id": "E17",
+      "headword": "free-particle",
+      "references": [
+        "inertial-frame",
+        "point-particle",
+        "uniform-motion"
+      ]
+    },
+    {
+      "id": "E18",
+      "headword": "inertial-frame",
+      "references": [
+        "reference-frame"
+      ]
+    },
+    {
+      "id": "E19",
+      "headword": "free-particle",
+      "references": [
+        "point-particle"
+      ]
+    },
+    {
+      "id": "E20",
+      "headword": "inertial-acceleration",
+      "references": [
+        "acceleration",
+        "inertial-frame",
+        "point-particle"
+      ]
+    },
+    {
+      "id": "E21",
+      "headword": "inertial-acceleration",
+      "references": [
+        "inertial-mass",
+        "net-force",
+        "point-particle"
+      ]
+    },
+    {
+      "id": "E22",
+      "headword": "net-force",
+      "references": [
+        "inertial-acceleration",
+        "inertial-mass",
+        "point-particle"
+      ]
+    },
+    {
+      "id": "E23",
+      "headword": "inertial-mass",
+      "references": [
+        "inertial-acceleration",
+        "net-force",
+        "point-particle"
+      ]
+    },
+    {
+      "id": "E24",
+      "headword": "net-force",
+      "references": [
+        "impressed-force",
+        "interaction-set",
+        "time"
+      ]
+    },
+    {
+      "id": "E25",
+      "headword": "interaction-set",
+      "references": [
+        "impressed-force",
+        "time"
+      ]
+    },
+    {
+      "id": "E26",
+      "headword": "impressed-force",
+      "references": [
+        "interaction-set",
+        "net-force"
+      ]
+    },
+    {
+      "id": "E27",
+      "headword": "raw-class",
+      "references": []
+    },
+    {
+      "id": "E28",
+      "headword": "raw-class",
+      "references": [
+        "class-specific-features",
+        "instance-of"
+      ]
+    },
+    {
+      "id": "E29",
+      "headword": "class-specific-features",
+      "references": [
+        "instance-of",
+        "raw-class"
+      ]
+    },
+    {
+      "id": "E30",
+      "headword": "instance-of",
+      "references": [
+        "class-specific-features",
+        "raw-class"
+      ]
+    },
+    {
+      "id": "E31",
+      "headword": "impressed-force",
+      "references": [
+        "canonical-force_acting-object",
+        "reaction-force_acting-object"
+      ]
+    },
+    {
+      "id": "E32",
+      "headword": "canonical-force_acting-object",
+      "references": [
+        "impressed-force",
+        "reaction-force_acting-object"
+      ]
+    },
+    {
+      "id": "E33",
+      "headword": "reaction-force_acting-object",
+      "references": [
+        "canonical-force_acting-object",
+        "impressed-force"
+      ]
+    },
+    {
+      "id": "E34",
+      "headword": "acting-object",
+      "references": [
+        "activation-condition_acting-object",
+        "canonical-force_acting-object"
+      ]
+    },
+    {
+      "id": "E35",
+      "headword": "activation-condition_acting-object",
+      "references": [
+        "acting-object",
+        "canonical-force_acting-object",
+        "impressed-force",
+        "point-particle"
+      ]
+    },
+    {
+      "id": "E36",
+      "headword": "canonical-force_acting-object",
+      "references": [
+        "acting-object",
+        "activation-condition_acting-object",
+        "impressed-force",
+        "point-particle"
+      ]
+    },
+    {
+      "id": "E37",
+      "headword": "mechanical-composition_point-particle",
+      "references": [
+        "acting-object",
+        "point-particle"
+      ]
+    },
+    {
+      "id": "E38",
+      "headword": "paired-particle_acting-object",
+      "references": [
+        "acting-object",
+        "mechanical-composition_point-particle",
+        "point-particle",
+        "position"
+      ]
+    },
+    {
+      "id": "E39",
+      "headword": "mechanical-system",
+      "references": []
+    },
+    {
+      "id": "E40",
+      "headword": "interaction-candidate",
+      "references": [
+        "interaction-set",
+        "mechanical-system",
+        "time"
+      ]
+    },
+    {
+      "id": "E41",
+      "headword": "interaction-candidate",
+      "references": [
+        "interaction-pair",
+        "mechanical-system",
+        "mechanically-closed-system"
+      ]
+    },
+    {
+      "id": "E42",
+      "headword": "interaction-pair",
+      "references": [
+        "interaction-candidate",
+        "mechanically-closed-system"
+      ]
+    },
+    {
+      "id": "E43",
+      "headword": "mechanically-closed-system",
+      "references": [
+        "interaction-candidate",
+        "interaction-pair",
+        "mechanical-system"
+      ]
+    },
+    {
+      "id": "E44",
+      "headword": "interaction-pair",
+      "references": [
+        "acting-object",
+        "canonical-force_acting-object",
+        "interaction-candidate",
+        "paired-particle_acting-object",
+        "reaction-force_acting-object"
+      ]
+    },
+    {
+      "id": "E45",
+      "headword": "mechanically-closed-system",
+      "references": [
+        "mechanical-system"
+      ]
+    }
+  ],
   "houses": [
     {
+      "degree": 1,
       "anchor": "uniform-motion",
       "winters": [
         "inertial-frame",
@@ -215,6 +573,7 @@
       }
     },
     {
+      "degree": 2,
       "anchor": "inertial-acceleration",
       "winters": [
         "net-force",
@@ -400,6 +759,7 @@
       }
     },
     {
+      "degree": 1,
       "anchor": "raw-class",
       "winters": [
         "class-specific-features",
@@ -503,6 +863,7 @@
       }
     },
     {
+      "degree": 3,
       "anchor": "impressed-force",
       "winters": [
         "canonical-force_acting-object",
@@ -683,6 +1044,7 @@
       }
     },
     {
+      "degree": 4,
       "anchor": "canonical-force_acting-object",
       "winters": [
         "acting-object",
@@ -874,6 +1236,7 @@
       }
     },
     {
+      "degree": 4,
       "anchor": "interaction-candidate",
       "winters": [
         "interaction-pair",
@@ -1123,6 +1486,26 @@
       }
     }
   ],
+  "headword_degrees": {
+    "time": 0,
+    "reference-frame": 0,
+    "point-particle": 0,
+    "position": 0,
+    "displacement": 0,
+    "velocity": 0,
+    "speed": 0,
+    "acceleration": 0,
+    "trajectory": 0,
+    "straight-line": 0,
+    "path-length": 0,
+    "relative-position": 0,
+    "relative-velocity": 0,
+    "interaction-set": 4,
+    "mechanical-composition_point-particle": 4,
+    "paired-particle_acting-object": 4,
+    "mechanical-system": 0
+  },
+  "headword_degree_method": "Site extension of R-LAW-07: highest degree among laws whose winter words are reachable by references; 0 if none.",
   "three_cycles_that_are_not_laws": [
     [
       "activation-condition_acting-object",

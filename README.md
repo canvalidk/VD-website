@@ -25,7 +25,8 @@ pnpm preview    # Serve the production build locally
 
 - Choose **Try the correction example** to open a recorded root result and the commitments it rests on. **Derivation 1** reaches 12 N through a deliberate mistake. Its record stays as issued: a found mistake does not count against the dictionary. **Derivation 2** is a new derivation that reaches 10 N. **This derivation** and **Earlier derivation** separate the two derivations' commitments; every claim remains unchecked.
 - Select a claim to inspect its exact stimulus, response, frame evidence and recorded support. **Dependencies** offers a second presentation of the same data. **Dictionary network** preserves the playback position and links back to the original definition. See [the presentation study](docs/RESULT_PRESENTATION.md) for design findings and limits.
-- Open either Newtonian mechanics dictionary to see its **Laws**: each law is laid out as a house, with the three headwords as columns and the entries before, in and after the law as rows. An entry that is not written yet shows as an empty slot. Select an entry to read it in full; its roles appear in the entry details. The left panel lists the laws with a count such as 5/6, then the headwords grouped into groundwork and laws.
+- Open either Newtonian mechanics dictionary to see its **law structure** in the network. Every entry is one node. Each law is drawn as a house: the old word's earlier entry is the chimney, the three law entries sit in the roof, and the new words' later entries are the walls. An entry that is not written yet is a dashed slot. Entries outside every law form the degree 0 band on top; houses stand in columns by degree. Laws that share an entry interlock. Select a node to read that entry; its roles appear in the entry details.
+- **Laws as a table** shows the same houses as a grid, with the three headwords as columns, for reading the entries side by side. The left panel lists the laws with a count such as 5/6, then the headwords grouped by degree and law.
 - Choose a dictionary: Newtonian mechanics current draft, the Newton II operational snapshot, Newton kinematics, or Toy force. No dictionary is selected initially.
 - Select an entry in the list or map to see its definition, references, and incoming references.
 - Browse without a trace, or choose an available trace. Play, pause, move between steps, or restart.
@@ -51,7 +52,8 @@ src/TracePlayer.tsx       Playback controls and active fragments
 src/ResultView.tsx        Root result, claim list and evidence inspector
 src/predictions.ts       Pure relevance and recorded-support selectors
 src/derivations.ts       Groups snapshots into derivations; a corrected derivation is a new one
-src/HouseView.tsx        Laws view: one six-entry house per law
+src/lawScene.ts          Law-structure layout: definition nodes, house shapes, degree columns
+src/HouseView.tsx        Laws as a table: one six-entry house per law
 src/houses.ts            Pure helpers over exported houses (columns, status, roles, outline)
 src/data/*-houses.json   Law-houses exported from the VDfirst engine
 tools/export_houses.py   Re-export houses from a VDfirst checkout (needs Python and networkx)

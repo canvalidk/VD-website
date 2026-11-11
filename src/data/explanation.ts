@@ -6,7 +6,7 @@
 const VD_DOCS = 'https://github.com/canvalidk/VD-docs/blob/543df65d3cd81a5890416c6cba73ef5296d1fd80/';
 
 export type ExplanationAction =
-  | { kind: 'dictionary'; label: string; dictionaryId: string; view?: 'laws' | 'dictionary' }
+  | { kind: 'dictionary'; label: string; dictionaryId: string }
   | { kind: 'trace'; label: string; dictionaryId: string; traceId: string }
   | { kind: 'correction'; label: string };
 
@@ -38,7 +38,7 @@ export const ideas: Idea[] = [
       'A definition is simply the string the named dictionary gives, so every claim made with it ends “according to” that dictionary. Ordinary usage is a dictionary too. Its name is “convention”.',
     ],
     source: { title: 'Definition and meaning in the Valid Dictionary', url: `${VD_DOCS}Theory/definition_and_meaning/definition_and_meaning_in_the_valid_dictionary_2026-11-10.md` },
-    action: { kind: 'dictionary', label: 'Browse a Newton draft', dictionaryId: 'newton-current', view: 'dictionary' },
+    action: { kind: 'dictionary', label: 'Browse a Newton draft', dictionaryId: 'newton-current' },
   },
   {
     id: 'commitments',
@@ -58,7 +58,7 @@ export const ideas: Idea[] = [
       'Three more entries tie the law to the rest of the dictionary, six in all: a law-house. The current Newton draft has two. The first has all six entries. The second is still missing one.',
     ],
     source: { title: 'The VD law-house foundation', url: `${VD_DOCS}Core/VD_LAW_HOUSE_FOUNDATION.md` },
-    action: { kind: 'dictionary', label: 'See the two laws', dictionaryId: 'newton-current', view: 'laws' },
+    action: { kind: 'dictionary', label: 'See the two laws', dictionaryId: 'newton-current' },
   },
   {
     id: 'hypothesis-set',
@@ -75,7 +75,7 @@ export const ideas: Idea[] = [
 
 export const explorerNotes = [
   'Pick a dictionary to browse its entries. A headword can have more than one definition.',
-  'Where a dictionary has laws, the Laws view lays each one out as a house. Lines on the map are references between headwords, not physical causes.',
+  'Where a dictionary has laws, the network draws each one as a house and arranges everything by degree. Lines are references between entries, not physical causes.',
   'Traces replay step by step, at your pace. Recorded runs and prepared demonstrations are labelled. The site never runs the engine itself.',
 ];
 export const status = 'Work in progress. The dictionaries shown are drafts.';

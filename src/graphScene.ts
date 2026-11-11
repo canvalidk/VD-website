@@ -2,11 +2,18 @@ import type { Dictionary, Entry } from './data/dictionaries.ts';
 import type { PreparedTrace } from './data/traces.ts';
 import { edgeId, traceGraphState } from './traceGraph.ts';
 
-export type GraphView = 'focused' | 'full';
+export type GraphView = 'structure' | 'focused' | 'full';
 export interface Bounds { x: number; y: number; width: number; height: number }
-export interface SceneNode extends Bounds { id: string; entryId: string; label: string; caption: string; entry?: Entry; flattened: boolean; occurrence: boolean; visible: boolean; active: boolean; start: boolean; given?: string }
+/** A node is a headword in the plain views, and one definition in the law-structure view (then sourceId is set). */
+export interface SceneNode extends Bounds { id: string; entryId: string; sourceId?: string; label: string; caption: string; entry?: Entry; flattened: boolean; occurrence: boolean; visible: boolean; active: boolean; start: boolean; selected: boolean; given?: string; parent?: { x: number; y: number }; roles?: string }
+export interface SceneEdge { id: string; source: SceneNode; target: SceneNode; traversed: boolean; current: boolean; bound: boolean; currentInput: boolean; connected: boolean; reciprocal: boolean }
+/** Decoration and overlays only the law-structure view produces. */
+export interface HouseShape { index: number; label: string; title?: string; roof: string; body: Bounds; stack?: Bounds; labelAt: { x: number; y: number } }
+export interface SceneBand { label: string; note: string; x: number; y: number; width: number }
+export interface ScenePlaceholder extends Bounds { id: string; label: string }
+export interface SceneLink { id: string; source: { x: number; y: number }; target: { x: number; y: number }; traversed: boolean; current: boolean; bound: boolean; currentInput: boolean }
 
-function surrounding(nodes: SceneNode[]): Bounds {
+export function surrounding(nodes: SceneNode[]): Bounds {
   if (!nodes.length) return { x: 0, y: 0, width: 1, height: 1 };
   const x = Math.min(...nodes.map(node => node.x - node.width / 2));
   const y = Math.min(...nodes.map(node => node.y - node.height / 2 - (node.start ? 24 : 0)));
@@ -40,7 +47,7 @@ export function createGraphScene(dictionary: Dictionary, selectedId: string, tra
     const row = background ? traceRows + occurrenceRows + Math.floor((position - traceCount) / columns) : Math.floor(position / columns);
     return {
     id: entry.id, entryId: entry.id, label: entry.id, caption: entry.alternatives?.length ? (entry.alternatives.length + 1) + ' definitions' : entry.sourceId,
-    entry, occurrence: false, flattened: false, visible: true, active: !!step?.relatedEntryIds.includes(entry.id), start: entry.id === history.startEntryId,
+    entry, occurrence: false, flattened: false, visible: true, active: !!step?.relatedEntryIds.includes(entry.id), start: entry.id === history.startEntryId, selected: entry.id === selectedId,
     x: columns === 1 ? width / 2 : padding + column * cellWidth, y: 104 + row * cellHeight + (background ? 30 : 0), width: 174, height: 96,
     given: [...history.boundInputs.values()].find(input => input.to === entry.id)?.value,
   }; });
@@ -50,18 +57,20 @@ export function createGraphScene(dictionary: Dictionary, selectedId: string, tra
     const state = history.occurrences.find(item => item.id === occurrence.id);
     return {
       id: occurrence.id, entryId: occurrence.entryId, label: occurrence.entryId, caption: occurrence.label,
-      occurrence: true, flattened: state?.flattened ?? false, visible: !!state, start: false,
+      occurrence: true, flattened: state?.flattened ?? false, visible: !!state, start: false, selected: false,
       active: step?.id === occurrence.appearsAt || step?.id === occurrence.flattenedAt,
       x: width / 2 + (position % occurrenceColumns - (occurrenceColumns - 1) / 2) * 238,
       y: occurrenceStartY + Math.floor(position / occurrenceColumns) * 120, width: 214, height: 96,
     };
   });
   const byId = new Map(nodes.map(node => [node.id, node]));
-  const edges = nodes.flatMap(source => source.entry!.references.filter(id => byId.has(id)).map(id => ({
+  for (const node of occurrences) { const parent = byId.get(trace!.occurrences!.find(item => item.id === node.id)!.parentEntryId); if (parent) node.parent = { x: parent.x, y: parent.y }; }
+  const edges: SceneEdge[] = nodes.flatMap(source => source.entry!.references.filter(id => byId.has(id)).map(id => ({
     id: edgeId(source.id, id), source, target: byId.get(id)!, traversed: history.traversed.has(edgeId(source.id, id)),
     current: !!step?.traversedEdges?.some(edge => edge.from === source.id && edge.to === id),
     bound: history.boundInputs.has(edgeId(source.id, id)),
     currentInput: !!step?.boundInputs?.some(input => input.from === source.id && input.to === id),
+    connected: source.id === selectedId || id === selectedId, reciprocal: !!byId.get(id)!.entry?.references.includes(source.id),
   }))).sort((a, b) => Number(a.traversed || a.bound) - Number(b.traversed || b.bound));
   const currentIds = new Set([...(step?.relatedEntryIds ?? []),
     ...(step?.traversedEdges ?? []).flatMap(edge => [edge.from, edge.to]),
@@ -71,7 +80,7 @@ export function createGraphScene(dictionary: Dictionary, selectedId: string, tra
     ...edges.filter(edge => edge.traversed || edge.bound).flatMap(edge => [edge.source.id, edge.target.id])]);
   const focusNodes = [...nodes.filter(node => trace ? historyIds.has(node.id) : node.id === selectedId), ...occurrences.filter(node => node.visible)];
   const allBounds = surrounding([...nodes, ...occurrences]);
-  return { nodes, occurrences, edges, history, focusBounds: surrounding(focusNodes),
+  return { nodes, occurrences, edges, history, houses: [] as HouseShape[], bands: [] as SceneBand[], placeholders: [] as ScenePlaceholder[], links: [] as SceneLink[], focusBounds: surrounding(focusNodes),
     bounds: { x: 0, y: 0, width: Math.max(width, allBounds.x + allBounds.width + 30), height: allBounds.y + allBounds.height + 35 } };
 }
 
@@ -81,6 +90,16 @@ export interface Viewport { width: number; height: number }
 export function fitCamera(bounds: Bounds, viewport: Viewport): Camera {
   const scale = Math.min(1.25, (viewport.width - 36) / Math.max(1, bounds.width), (viewport.height - 44) / Math.max(1, bounds.height));
   return { scale, x: (viewport.width - bounds.width * scale) / 2 - bounds.x * scale, y: (viewport.height - bounds.height * scale) / 2 - bounds.y * scale };
+}
+
+/** A large map opens at a readable scale from its top-left corner instead of shrinking to fit. */
+export function openingCamera(bounds: Bounds, viewport: Viewport, minimumScale = .62): Camera {
+  const fitting = fitCamera(bounds, viewport);
+  if (fitting.scale >= minimumScale) return fitting;
+  const width = bounds.width * minimumScale, height = bounds.height * minimumScale;
+  return { scale: minimumScale,
+    x: (width <= viewport.width ? (viewport.width - width) / 2 : 14) - bounds.x * minimumScale,
+    y: (height <= viewport.height ? (viewport.height - height) / 2 : 14) - bounds.y * minimumScale };
 }
 
 /** Preserve a manually chosen zoom when it already shows every animated element. */

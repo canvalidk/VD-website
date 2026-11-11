@@ -27,11 +27,16 @@ export default function App() {
   const trace = traces.find(item => item.id === session?.traceId);
   const hasLaws = !!dictionary?.houses?.length;
   // Fall back when the chosen view has nothing to show for this dictionary or trace.
-  const view: WorkspaceView = workspaceView === 'result' ? (trace ? 'result' : hasLaws ? 'laws' : 'dictionary') : workspaceView === 'laws' && !hasLaws ? 'dictionary' : workspaceView;
+  const view: WorkspaceView = workspaceView === 'result' && !trace ? 'dictionary' : workspaceView === 'laws' && !hasLaws ? 'dictionary' : workspaceView;
   const selectEntry = (id: string, sourceId: string | null = null) => { dispatch({ type: 'entry', id }); setSelectedSourceId(sourceId); if (view === 'result') setWorkspaceView('dictionary'); };
-  const defaultView = (dictionaryId: string): WorkspaceView => dictionaries.find(item => item.id === dictionaryId)?.houses?.length ? 'laws' : 'dictionary';
-  const openDictionary = (id: string) => { dispatch({ type: 'dictionary', id }); setWorkspaceView(defaultView(id)); setSelectedSourceId(null); setSelectedClaimId(null); };
-  const showLaw = (index: number) => { setWorkspaceView('laws'); dispatch({ type: 'pause' }); window.requestAnimationFrame(() => document.getElementById(`house-${index}`)?.scrollIntoView({ block: 'start' })); };
+  const openDictionary = (id: string) => { dispatch({ type: 'dictionary', id }); setWorkspaceView('dictionary'); setSelectedSourceId(null); setSelectedClaimId(null); };
+  // In the table, scroll to the law. Otherwise select the top of its roof, so the network brings the house into view.
+  const showLaw = (index: number) => {
+    const house = dictionary?.houses?.[index];
+    if (!house) return;
+    if (view === 'laws') { dispatch({ type: 'pause' }); window.requestAnimationFrame(() => document.getElementById(`house-${index}`)?.scrollIntoView({ block: 'start' })); return; }
+    selectEntry(house.anchor, house.triplet[house.anchor]);
+  };
   const structure = dictionary && hasLaws ? outline(dictionary) : undefined;
   const incoming = dictionary?.entries.filter(entry => entry.references.includes(selected?.id ?? '')) ?? [];
   const demonstrations = traces.filter(item => item.dictionaryId === dictionary?.id);
@@ -61,7 +66,7 @@ export default function App() {
     if (action.kind === 'correction') return openCorrection();
     dispatch({ type: 'dictionary', id: action.dictionaryId });
     dispatch({ type: 'trace', id: action.kind === 'trace' ? action.traceId : '' });
-    setWorkspaceView(action.kind === 'dictionary' ? action.view ?? defaultView(action.dictionaryId) : 'dictionary');
+    setWorkspaceView('dictionary');
     setSelectedClaimId(null); setSelectedSourceId(null);
     window.requestAnimationFrame(() => document.getElementById('explorer')?.scrollIntoView({ block: 'start' }));
   };
@@ -102,22 +107,23 @@ export default function App() {
               <div className="law-list">{structure.laws.map(law => { const status = houseStatus(dictionary.houses![law.house]); return <button className="law-row" key={law.house} onClick={() => showLaw(law.house)}><span>{lawLabel(dictionary, law.house)}</span><span className={'law-count' + (status.missing.length ? ' incomplete' : '')} title={status.missing.length ? 'Entries not written yet' : 'All six entries present'}>{status.present}/{status.total}</span></button>; })}</div></>}
               <div className="section-label"><h2>Headwords</h2><span>{dictionary.entries.length}</span></div>
               <div className="entry-list">{structure ? <>
-                {!!structure.groundwork.length && <p className="outline-heading">Groundwork<span>{structure.groundwork.length}</span></p>}
+                {!!structure.groundwork.length && <p className="outline-heading">Groundwork · degree 0<span>{structure.groundwork.length}</span></p>}
                 {structure.groundwork.map(entryRow)}
-                {structure.laws.map(law => <div className="outline-law" key={law.house}><button className="outline-heading law" onClick={() => showLaw(law.house)} title="Show this law">{lawLabel(dictionary, law.house)}<span aria-hidden="true">→</span></button>{law.entries.map(entryRow)}</div>)}
+                {structure.laws.map(law => <div className="outline-law" key={law.house}><button className="outline-heading law" onClick={() => showLaw(law.house)} title="Show this law">{lawLabel(dictionary, law.house)}<span>degree {dictionary.houses![law.house].degree}</span></button>{law.entries.map(entryRow)}</div>)}
+                {structure.others.map(group => <div className="outline-law" key={group.degree}><p className="outline-heading">Outside laws · degree {group.degree}<span>{group.entries.length}</span></p>{group.entries.map(entryRow)}</div>)}
               </> : dictionary.entries.map(entryRow)}</div>
               <p className="aside-note">{dictionary.definitionCount ?? dictionary.entries.length} definitions. Select a headword to inspect its references.</p>
             </aside>
             <section id="result-workspace" className="workspace" aria-label="Dictionary network and trace">
-              <div className="trace-picker"><label htmlFor="trace-select">Trace</label><select id="trace-select" value={session.traceId ?? ''} onChange={event => { dispatch({ type: 'trace', id: event.target.value }); setSelectedClaimId(null); setWorkspaceView(event.target.value === 'force-correction' ? 'result' : event.target.value === '' ? defaultView(state.dictionaryId) : 'dictionary'); }}><option value="">Browse without a trace</option>{demonstrations.map(item => <option key={item.id} value={item.id}>{item.title}</option>)}</select></div>
+              <div className="trace-picker"><label htmlFor="trace-select">Trace</label><select id="trace-select" value={session.traceId ?? ''} onChange={event => { dispatch({ type: 'trace', id: event.target.value }); setSelectedClaimId(null); setWorkspaceView(event.target.value === 'force-correction' ? 'result' : 'dictionary'); }}><option value="">Browse without a trace</option>{demonstrations.map(item => <option key={item.id} value={item.id}>{item.title}</option>)}</select></div>
               {(trace || hasLaws) && <div className="workspace-view-picker" aria-label="Workspace view">
-                {hasLaws && <button aria-pressed={view === 'laws'} onClick={() => { setWorkspaceView('laws'); dispatch({ type: 'pause' }); }}>Laws</button>}
                 <button aria-pressed={view === 'dictionary'} onClick={() => { setWorkspaceView('dictionary'); dispatch({ type: 'pause' }); }}>Dictionary network</button>
+                {hasLaws && <button aria-pressed={view === 'laws'} onClick={() => { setWorkspaceView('laws'); dispatch({ type: 'pause' }); }}>Laws as a table</button>}
                 {trace && <button aria-pressed={view === 'result'} onClick={() => { setWorkspaceView('result'); dispatch({ type: 'pause' }); }}>Result & commitments</button>}
               </div>}
               {trace && view === 'result' ? <ResultView key={`${trace.id}-${presentationVisit}`} trace={trace} index={session.stepIndex} claim={selectedClaim} onClaim={selectClaim} onSeek={index => dispatch({ type: 'seek', index })}/>
                 : view === 'laws' ? <HouseView dictionary={dictionary} selectedHeadword={selected.id} selectedSourceId={selectedSourceId} activeIds={trace?.steps[session.stepIndex].relatedEntryIds ?? []} onSelect={selectEntry} onLaw={showLaw}/>
-                : <Graph dictionary={dictionary} selected={selected} trace={trace} stepIndex={session.stepIndex} playing={session.playing} onSelect={id => selectEntry(id)} onPlayback={dispatch}/>}
+                : <Graph dictionary={dictionary} selected={selected} selectedSourceId={selectedSourceId} trace={trace} stepIndex={session.stepIndex} playing={session.playing} onSelect={(id, sourceId) => selectEntry(id, sourceId ?? null)} onPlayback={dispatch}/>}
               {trace ? <TracePlayer trace={trace} session={session} selectedId={selected.id} dispatch={dispatch} selectEntry={selectEntry}/> : <div className="trace-empty"><h3>{demonstrations.length ? 'The dictionary is yours to explore.' : 'Browse the current draft.'}</h3><p>{demonstrations.length ? 'Choose a trace above to follow its starting node and traversed edges.' : 'No recorded trace is paired with this draft yet. The Newton II example is available with the operational Newtonian mechanics dictionary.'}</p></div>}
             </section>
             {view === 'result' && snapshot && selectedClaim ? <ClaimInspector snapshot={snapshot} claim={selectedClaim} onClaim={selectClaim} sourceId={claimSource} onSource={() => { if (claimSource) selectEntry(claimSource); setWorkspaceView('dictionary'); }}/> : <aside className="inspector" aria-label="Selected entry details">

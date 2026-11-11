@@ -76,12 +76,26 @@ The correction adapter maps five exported snapshots to five display stages in tw
 
 `Dictionary.houses` optionally lists the dictionary's law-houses in log order, with `lawTitles` as optional display names. The site does not detect laws. `tools/export_houses.py` loads a checked-in source extract into a VDfirst `VDInstance` and writes what `detect_houses()` returns to `src/data/<dictionary>-houses.json`:
 
+- `degree`: the law's degree from the engine's `degree_of_law()` (R-LAW-07).
 - `anchor`: the headword that was already defined. `winters`: the two headwords born in the law, in log order.
 - `chimney`: the anchor's earlier entry, or `null`. `triplet`: one entry id per headword. `walls`: one entry id per winter, or `null` when that wall is not written yet.
 - `entries`: for each entry used, its definition as ordered parts. A part is residual text, or a headword occurrence with the definition's own spelling and a `self` flag. The parts rebuild the definition exactly, apart from line wrapping.
+- Top-level `definitions` lists every entry in log order with the headwords the engine's tokeniser found in it. `headword_degrees` gives a degree to each headword outside every law. The engine defines degree for laws only; this is a site extension, stated in `headword_degree_method`: the highest degree among the laws whose two new words the headword can reach by following references, and 0 when it reaches none.
 - `producer.commit` and `source.file_sha256` pin the engine and the extract. `three_cycles_that_are_not_laws` lists reference cycles the engine did not accept as laws.
 
 The export stops if the engine's references differ from the extract's, or if the parts do not rebuild a definition. `src/houses.ts` derives columns, completeness, per-entry roles, the outline, and which other laws use a law's headwords. `tests/houses.test.ts` checks the exports against the dictionaries and the source order.
+
+### Law-structure layout
+
+`src/lawScene.ts` turns the export into the network's law-structure view. It produces the same scene shape as `src/graphScene.ts`, so `Graph.tsx` draws both.
+
+- **Nodes** are definitions, one per entry (`sourceId` set). A headword of a law is a vertical pair: chimney above corner for the old word, corner above wall for each new word.
+- **Houses.** `houseSlots()` gives the six positions relative to the chimney. `clusterHouses()` joins houses that share an entry and positions the later house from the shared node, so a wall that is the next law's corner puts that law directly below. A slot whose entry is `null` becomes a placeholder.
+- **Degrees.** Entries of degree 0 outside every law form the band on top. Each higher degree is a column, left to right, holding the house clusters whose lowest degree it is and then the loose entries of that degree.
+- **Lines.** A reference is to a headword, so its line ends at the nearest entry of that headword. References between the three corners of one law are not drawn; the roof shows them.
+- **Traces** name headwords, not entries. Involved headwords mark all their entries, the start badge goes on the headword's first entry, and traversed or bound paths are drawn between the closest entries of each pair. Self-label occurrences sit under the column of the entry they came from.
+
+`tests/lawScene.test.ts` checks one node per definition with no overlaps, house geometry, interlocking, degree placement, which lines are drawn, selection, and trace replay at every step.
 
 To refresh, from this repository's root:
 

@@ -26,6 +26,7 @@ test('house exports come from the checked-in source extracts and a pinned engine
     assert.equal(exported.source.file, `${id}-source.json`);
     assert.equal(createHash('sha256').update(bytes).digest('hex'), exported.source.file_sha256, `${id}: houses were exported from a different extract`);
     assert.equal(exported.format, 'vd-website-houses');
+    assert.equal(exported.version, 2);
     assert.match(exported.producer.commit, /^[0-9a-f]{40}$/);
     assert.equal(exported.source.entry_count, byId(id).definitionCount);
   }
@@ -94,7 +95,7 @@ test('the outline puts every headword in groundwork or a law, in log order', () 
   assert.deepEqual(structure.groundwork.map(entry => entry.sourceId), Array.from({ length: 15 }, (_, index) => `K${index + 1}`));
   assert.deepEqual(structure.laws.map(law => law.entries.map(entry => entry.id)), draft.houses!.map(houseHeadwords));
   for (const dictionary of withHouses) {
-    const listed = new Set([...outline(dictionary).groundwork, ...outline(dictionary).laws.flatMap(law => law.entries)].map(entry => entry.id));
+    const listed = new Set([...outline(dictionary).groundwork, ...outline(dictionary).laws.flatMap(law => law.entries), ...outline(dictionary).others.flatMap(group => group.entries)].map(entry => entry.id));
     assert.deepEqual([...listed].sort(), dictionary.entries.map(entry => entry.id).sort(), dictionary.id);
   }
 });
@@ -107,4 +108,17 @@ test('one entry can play a role in two houses, and houses join through shared he
   const draft = byId('newton-current');
   assert.deepEqual(usedBy(draft, 0), [{ house: 1, headwords: ['inertial-frame'] }]);
   assert.deepEqual(usedBy(draft, 1), []);
+});
+
+test('degrees come from the engine: laws by R-LAW-07, other headwords by the laws they reach', () => {
+  assert.deepEqual(byId('newton-current').houses!.map(house => house.degree), [1, 2]);
+  assert.deepEqual(byId('newton-operational').houses!.map(house => house.degree), [1, 2, 1, 3, 4, 4]);
+  const snapshot = outline(byId('newton-operational'));
+  assert.equal(snapshot.groundwork.length, 14);
+  assert.deepEqual(snapshot.others.map(group => [group.degree, group.entries.map(entry => entry.id)]), [[4, ['interaction-set', 'mechanical-composition_point-particle', 'paired-particle_acting-object']]]);
+  assert.deepEqual(outline(byId('newton-current')).others, []);
+  for (const dictionary of withHouses) {
+    assert.deepEqual(dictionary.structure!.definitions.map(item => item.id), [...sourceOrder(dictionary.id).keys()], dictionary.id);
+    for (const house of dictionary.houses!) assert.ok(Number.isInteger(house.degree) && house.degree >= 1);
+  }
 });

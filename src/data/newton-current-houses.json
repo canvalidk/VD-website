@@ -1,6 +1,6 @@
 {
   "format": "vd-website-houses",
-  "version": 1,
+  "version": 2,
   "producer": {
     "name": "VDfirst",
     "commit": "5a57790539ad405134b609e562d30490e19550d9",
@@ -12,8 +12,232 @@
     "source_sha256": "3bd6758d4cf7d476d87caddf8f9f73ec7d66bd5d4eaf14398a9fc12cd2eb32a8",
     "entry_count": 26
   },
+  "definitions": [
+    {
+      "id": "K1",
+      "headword": "time",
+      "references": []
+    },
+    {
+      "id": "K2",
+      "headword": "reference-frame",
+      "references": [
+        "displacement",
+        "trajectory"
+      ]
+    },
+    {
+      "id": "K3",
+      "headword": "displacement",
+      "references": [
+        "reference-frame"
+      ]
+    },
+    {
+      "id": "K4",
+      "headword": "straight-line",
+      "references": [
+        "reference-frame"
+      ]
+    },
+    {
+      "id": "K5",
+      "headword": "path",
+      "references": [
+        "reference-frame",
+        "time"
+      ]
+    },
+    {
+      "id": "K6",
+      "headword": "time-interval",
+      "references": [
+        "time"
+      ]
+    },
+    {
+      "id": "K7",
+      "headword": "point-particle",
+      "references": []
+    },
+    {
+      "id": "K8",
+      "headword": "trajectory",
+      "references": [
+        "point-particle",
+        "reference-frame",
+        "time-interval"
+      ]
+    },
+    {
+      "id": "K9",
+      "headword": "position",
+      "references": [
+        "point-particle",
+        "reference-frame",
+        "time",
+        "trajectory"
+      ]
+    },
+    {
+      "id": "K10",
+      "headword": "velocity",
+      "references": [
+        "point-particle",
+        "reference-frame",
+        "time",
+        "trajectory"
+      ]
+    },
+    {
+      "id": "K11",
+      "headword": "speed",
+      "references": [
+        "point-particle",
+        "reference-frame",
+        "time",
+        "velocity"
+      ]
+    },
+    {
+      "id": "K12",
+      "headword": "acceleration",
+      "references": [
+        "point-particle",
+        "reference-frame",
+        "time",
+        "trajectory",
+        "velocity"
+      ]
+    },
+    {
+      "id": "K13",
+      "headword": "relative-position",
+      "references": [
+        "position",
+        "reference-frame",
+        "time"
+      ]
+    },
+    {
+      "id": "K14",
+      "headword": "relative-velocity",
+      "references": [
+        "reference-frame",
+        "relative-position",
+        "time",
+        "velocity"
+      ]
+    },
+    {
+      "id": "K15",
+      "headword": "path-length",
+      "references": [
+        "path",
+        "speed",
+        "time-interval",
+        "trajectory"
+      ]
+    },
+    {
+      "id": "K16 / E1",
+      "headword": "uniform-motion",
+      "references": [
+        "path",
+        "point-particle",
+        "position",
+        "speed",
+        "time-interval",
+        "trajectory",
+        "velocity"
+      ]
+    },
+    {
+      "id": "E2",
+      "headword": "uniform-motion",
+      "references": [
+        "free-particle",
+        "inertial-frame"
+      ]
+    },
+    {
+      "id": "E3",
+      "headword": "inertial-frame",
+      "references": [
+        "free-particle",
+        "reference-frame",
+        "uniform-motion"
+      ]
+    },
+    {
+      "id": "E4",
+      "headword": "free-particle",
+      "references": [
+        "inertial-frame",
+        "point-particle",
+        "uniform-motion"
+      ]
+    },
+    {
+      "id": "E5",
+      "headword": "inertial-frame",
+      "references": [
+        "reference-frame"
+      ]
+    },
+    {
+      "id": "E6",
+      "headword": "free-particle",
+      "references": [
+        "point-particle",
+        "trajectory"
+      ]
+    },
+    {
+      "id": "E7",
+      "headword": "inertial-acceleration-material-object",
+      "references": [
+        "acceleration",
+        "inertial-frame",
+        "time",
+        "trajectory"
+      ]
+    },
+    {
+      "id": "E8",
+      "headword": "inertial-acceleration-material-object",
+      "references": [
+        "inertial-mass-material-object",
+        "net-force-material-object"
+      ]
+    },
+    {
+      "id": "E9",
+      "headword": "net-force-material-object",
+      "references": [
+        "inertial-acceleration-material-object",
+        "inertial-mass-material-object"
+      ]
+    },
+    {
+      "id": "E10",
+      "headword": "inertial-mass-material-object",
+      "references": [
+        "inertial-acceleration-material-object",
+        "net-force-material-object"
+      ]
+    },
+    {
+      "id": "E11",
+      "headword": "net-force-material-object",
+      "references": [
+        "inertial-frame"
+      ]
+    }
+  ],
   "houses": [
     {
+      "degree": 1,
       "anchor": "uniform-motion",
       "winters": [
         "inertial-frame",
@@ -292,6 +516,7 @@
       }
     },
     {
+      "degree": 2,
       "anchor": "inertial-acceleration-material-object",
       "winters": [
         "net-force-material-object",
@@ -432,5 +657,23 @@
       }
     }
   ],
+  "headword_degrees": {
+    "time": 0,
+    "reference-frame": 0,
+    "displacement": 0,
+    "straight-line": 0,
+    "path": 0,
+    "time-interval": 0,
+    "point-particle": 0,
+    "trajectory": 0,
+    "position": 0,
+    "velocity": 0,
+    "speed": 0,
+    "acceleration": 0,
+    "relative-position": 0,
+    "relative-velocity": 0,
+    "path-length": 0
+  },
+  "headword_degree_method": "Site extension of R-LAW-07: highest degree among laws whose winter words are reachable by references; 0 if none.",
   "three_cycles_that_are_not_laws": []
 }

@@ -1,7 +1,7 @@
 import { newtonDictionaries } from './newton-dictionaries.ts';
 import { correctionDictionary } from './correction.ts';
 import { housesByDictionary } from './houses.ts';
-import type { House } from '../houses.ts';
+import type { House, Structure } from '../houses.ts';
 
 export interface Definition {
   sourceId: string;
@@ -32,11 +32,13 @@ export interface Dictionary {
   houses?: House[];
   /** Optional display names for the laws, by position. */
   lawTitles?: (string | undefined)[];
+  /** Per-definition references and headword degrees for the structured network. */
+  structure?: Structure;
 }
 
 export const dictionaries: Dictionary[] = [
   correctionDictionary,
-  ...newtonDictionaries.map(dictionary => ({ ...dictionary, houses: housesByDictionary[dictionary.id]?.houses, lawTitles: housesByDictionary[dictionary.id]?.titles })),
+  ...newtonDictionaries.map(dictionary => ({ ...dictionary, houses: housesByDictionary[dictionary.id]?.houses, lawTitles: housesByDictionary[dictionary.id]?.titles, structure: housesByDictionary[dictionary.id]?.structure })),
   {
     id: 'kinematics', name: 'Newton kinematics', shortName: 'Kinematics',
     description: 'Six entries about position and motion, selected from the Newton dictionary.',

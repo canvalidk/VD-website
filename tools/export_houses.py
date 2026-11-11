@@ -99,6 +99,7 @@ def main() -> None:
         walls = {house["wall_1"]["headword"]: house["wall_1"]["entry"], house["wall_2"]["headword"]: house["wall_2"]["entry"]}
         used = [e for e in [house["chimney"], *house["triplet"], *walls.values()] if e is not None]
         houses.append({
+            "degree": vd.degree_of_law(law),
             "anchor": law["anchor"],
             "winters": winters,
             "chimney": ident(house["chimney"]),
@@ -108,9 +109,21 @@ def main() -> None:
         })
 
     law_trios = {tuple(sorted([house["anchor"], *house["winters"]])) for house in houses}
+
+    # Degree for headwords outside every law. The engine defines degree for laws only
+    # (R-LAW-07). This extends it: a headword takes the highest degree among the laws whose
+    # winter words it can reach by following references, and 0 when it reaches none.
+    import networkx as nx  # noqa: E402  (VDfirst's own requirement)
+    in_law = {headword for house in houses for headword in [house["anchor"], *house["winters"]]}
+    headword_degrees = {}
+    for headword in dict.fromkeys(item["headword"] for item in entries):
+        if headword in in_law:
+            continue
+        reach = nx.descendants(vd.graph, headword) | {headword}
+        headword_degrees[headword] = max((house["degree"] for house in houses if reach & set(house["winters"])), default=0)
     result = {
         "format": "vd-website-houses",
-        "version": 1,
+        "version": 2,
         "producer": {
             "name": "VDfirst",
             "commit": git(checkout, "rev-parse", "HEAD"),
@@ -122,7 +135,10 @@ def main() -> None:
             "source_sha256": source["source_sha256"],
             "entry_count": len(entries),
         },
+        "definitions": [{"id": item["id"], "headword": item["headword"], "references": sorted(engine_entry.hw_tokens)} for item, engine_entry in zip(entries, vd.entries)],
         "houses": houses,
+        "headword_degrees": headword_degrees,
+        "headword_degree_method": "Site extension of R-LAW-07: highest degree among laws whose winter words are reachable by references; 0 if none.",
         "three_cycles_that_are_not_laws": sorted(list(trio) for trio in set(vd.find_3_cycles()) - law_trios),
     }
     out_path.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")

@@ -7,6 +7,8 @@ export interface HousePart { text: string; headword?: string; self?: boolean }
  * A null chimney or wall is an entry the dictionary does not have yet.
  */
 export interface House {
+  /** Degree of the law, from the engine (R-LAW-07): how many layers of earlier law its old word stands on. */
+  degree: number;
   anchor: string;
   winters: string[];
   chimney: string | null;
@@ -15,6 +17,10 @@ export interface House {
   entries: Record<string, HousePart[]>;
 }
 export type HouseRole = 'chimney' | 'triplet' | 'wall';
+/** One definition with the headwords the engine's tokeniser found in it. */
+export interface StructureDefinition { id: string; headword: string; references: string[] }
+/** Everything the structured network needs beyond the houses themselves. */
+export interface Structure { definitions: StructureDefinition[]; headwordDegrees: Record<string, number> }
 /** `undefined` marks a slot the house never has; `null` marks one that is not written yet. */
 export interface HouseColumn { headword: string; born: boolean; before?: string | null; law: string; after?: string | null }
 
@@ -45,25 +51,24 @@ export function entryRoles(houses: House[], sourceId: string): { house: number; 
   ]);
 }
 
-/** The dictionary's headwords grouped by structure: groundwork outside every law, then each law. */
-export function outline(dictionary: Dictionary): { groundwork: Entry[]; laws: { house: number; entries: Entry[] }[] } {
+/**
+ * The dictionary's headwords grouped by structure: groundwork (degree 0, standing on no law),
+ * each law, and headwords outside every law that stand on one, by degree.
+ */
+export function outline(dictionary: Dictionary): { groundwork: Entry[]; laws: { house: number; entries: Entry[] }[]; others: { degree: number; entries: Entry[] }[] } {
   const houses = dictionary.houses ?? [];
   const inLaw = new Set(houses.flatMap(houseHeadwords));
   const byId = new Map(dictionary.entries.map(entry => [entry.id, entry]));
+  const degree = (entry: Entry) => dictionary.structure?.headwordDegrees[entry.id] ?? 0;
+  const loose = dictionary.entries.filter(entry => !inLaw.has(entry.id));
   return {
-    groundwork: dictionary.entries.filter(entry => !inLaw.has(entry.id)),
+    groundwork: loose.filter(entry => degree(entry) === 0),
     laws: houses.map((house, index) => ({ house: index, entries: houseHeadwords(house).map(id => byId.get(id)!) })),
+    others: [...new Set(loose.map(degree))].filter(value => value > 0).sort((a, b) => a - b).map(value => ({ degree: value, entries: loose.filter(entry => degree(entry) === value) })),
   };
 }
 
-const definitionReferences = (dictionary: Dictionary, sourceId: string) => {
-  for (const entry of dictionary.entries) {
-    if (entry.sourceId === sourceId) return entry.references;
-    const alternative = entry.alternatives?.find(item => item.sourceId === sourceId);
-    if (alternative) return alternative.references;
-  }
-  return [];
-};
+const definitionReferences = (dictionary: Dictionary, sourceId: string) => dictionary.structure?.definitions.find(item => item.id === sourceId)?.references ?? [];
 const houseEntryIds = (house: House) => [house.chimney, ...Object.values(house.triplet), ...Object.values(house.walls)].filter((id): id is string => id !== null);
 
 /** Other laws whose entries use this law's headwords: where houses join. */

@@ -19,6 +19,7 @@ The photon example in `Core/vd_dictionary_question_answering.md` (April 2026) is
 
 - **Current draft:** two houses. Newton I has all six entries (chimney K16 / E1, triplet E2 to E4, walls E5 and E6). The second has five (chimney E7, triplet E8 to E10, wall E11); the wall for `inertial-mass-material-object` is not written, which matches the deferred E12 noted below.
 - **Newton II snapshot:** six houses. Two entries play two roles: E36 is a wall of the fourth house and a triplet corner of the fifth; E32 is a corner of the fourth and the chimney of the fifth. Two further reference cycles are not laws by the engine's rule and are listed in the export.
+- **Degrees.** Law degrees are the engine's (R-LAW-07): 1 and 2 in the current draft; 1, 2, 1, 3, 4, 4 in the snapshot. For headwords outside every law the engine defines no degree. The export gives them the highest degree among the laws whose new words they can reach, and 0 otherwise. Every such headword is degree 0 except three in the snapshot at degree 4 (`interaction-set`, `mechanical-composition_point-particle`, `paired-particle_acting-object`). This extension is the site's reading, not a VD rule.
 - **Titles** are display labels. "Newton I" is the source file's own heading. "Newton II" is the project's usual name for the second law; the source file gives it no heading. The other four houses of the snapshot are untitled and shown by their headwords.
 
 ## VDfirst mistake and correction export
