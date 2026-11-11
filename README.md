@@ -44,6 +44,7 @@ The current Newton Design 2.1 draft has 26 definitions across 21 headwords and i
 
 ```text
 src/App.tsx               Interface and playback timer
+src/Explanation.tsx       The explanation section (text in src/data/explanation.ts)
 src/Graph.tsx             Headword network and occurrence overlays
 src/TracePlayer.tsx       Playback controls and active fragments
 src/ResultView.tsx        Root result, claim list and evidence inspector

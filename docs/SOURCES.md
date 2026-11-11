@@ -1,5 +1,18 @@
 # Example provenance
 
+## Explanation text
+
+`src/data/explanation.ts` summarises five ideas, each from one note in [VD-docs](https://github.com/canvalidk/VD-docs), linked at commit `543df65` so the link shows the text the summary was written from. Examples come from those notes; the explanation adds no new theory claims.
+
+| Idea | Source note |
+| --- | --- |
+| Meaning is what words do; every claim names its dictionary | `Theory/definition_and_meaning/definition_and_meaning_in_the_valid_dictionary_2026-11-10.md` (also `Theory/authority_dictionary_name/`) |
+| Accepting a statement commits you to more | `Theory/theory_logical_structure/THEORY_LOGICAL_STRUCTURE_2026-11-05.md` |
+| A law is three words that define each other | `Core/VD_LAW_HOUSE_FOUNDATION.md` |
+| A theory never predicts a bare outcome | `Theory/_note_hypothesis_set_paper/hypothesis_set_paper_d4.md`, sections 1 and 3 |
+
+The photon example in `Core/vd_dictionary_question_answering.md` (April 2026) is not used, because a later note marks it as historical. The statement that the bundled Newton drafts have no gravity entry is checked by `tests/explanation.test.ts`.
+
 ## VDfirst mistake and correction export
 
 `src/data/correction-source.json` is the output of `python -B correction_demo.py --json` from [VDfirst commit 0f1a89d511769bc48ce1d52acb63496adfa9cd0e](https://github.com/canvalidk/VDfirst/commit/0f1a89d511769bc48ce1d52acb63496adfa9cd0e). Only line endings are normalized to LF. SHA-256: `57fd1df6292f92ca9e85c9be51bf9403fc43eb693790ad123b9edf77d5cb4eb4`.
