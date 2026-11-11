@@ -1,25 +1,32 @@
 import type { Dictionary } from './data/dictionaries.ts';
 import type { PreparedTrace } from './data/traces.ts';
-import type { Bounds, HouseShape, SceneBand, SceneEdge, SceneLink, SceneNode, ScenePlaceholder } from './graphScene.ts';
+import type { Bounds, HouseLabel, HouseLink, SceneEdge, SceneFrame, SceneLink, SceneNode, ScenePlaceholder } from './graphScene.ts';
 import { surrounding } from './graphScene.ts';
 import { edgeId, traceGraphState } from './traceGraph.ts';
 import type { House, HouseRole } from './houses.ts';
 import { houseHeadwords } from './houses.ts';
 
 /**
- * The law-structure layout. Every definition is one node. Each law is drawn as a house:
+ * The law-structure layout. Every definition is one node.
  *
- *        [chimney]            the old word's earlier entry
- *        [corner A]           roof: the triplet, old word at the top
- *   [corner B] [corner C]
- *   [wall B]   [wall C]       body: the new words' later entries
+ * Degrees nest: degree 0 is the outermost frame, degree 1 lies inside it, degree 2 inside
+ * degree 1, and so on. Each frame holds the entries of its own degree in a band at its top,
+ * and the next degree's frame below them.
  *
- * So each headword of a law is a vertical pair. Definitions outside every law sit in a
- * band on top (degree 0) or under the houses of their degree. Houses stand in columns by degree.
+ * A law is not drawn as a shape. Its six entries are placed so that their own links draw it:
+ *
+ *        [chimney]            same headword as the corner below (the old word's earlier entry)
+ *            |
+ *        [corner A]           the triplet: each corner refers to the other two,
+ *         /     \             so the three references form the roof
+ *   [corner B]--[corner C]
+ *        |         |          same headword as the corner above (the new words' later entries)
+ *    [wall B]   [wall C]
  */
 export const NODE = { width: 172, height: 64 };
-const PX = 100, PY = 84, EDGE = 28, EDGE_Y = 18, GRID_X = NODE.width + 14, GRID_Y = NODE.height + 16;
-const LEFT = 30, TOP = 26, COLUMN_GAP = 44, CLUSTER_GAP = 34;
+// House spacing is wide enough that the links between entries, not the boxes, carry the shape.
+const PX = 150, PY = 116, GRID_X = NODE.width + 14, GRID_Y = NODE.height + 16;
+const LEFT = 24, TOP = 20, INSET = 26, PAD_X = 20, HEADER = 40, LEVEL_GAP = 30, PAD_BOTTOM = 20, ITEM_GAP = 44, GUTTER = 44;
 
 export interface Slot { id: string | null; role: HouseRole; headword: string; col: number; row: number }
 /** The six positions of a house, relative to its chimney. */
@@ -73,83 +80,116 @@ export function clusterHouses(houses: House[]): HouseCluster[] {
   return clusters;
 }
 
-const clusterWidth = (cluster: HouseCluster) => (cluster.max.col - cluster.min.col) * PX + NODE.width + 2 * EDGE;
-const clusterHeight = (cluster: HouseCluster) => (cluster.max.row - cluster.min.row) * PY + NODE.height + 2 * EDGE_Y;
+/** The degree a definition belongs to: the lowest degree among the laws it is part of, else its headword's degree. */
+export function homeDegrees(dictionary: Dictionary): Map<string, number> {
+  const houses = dictionary.houses ?? [];
+  const degrees = new Map<string, number>();
+  houses.forEach(house => { for (const slot of houseSlots(house)) if (slot.id !== null) degrees.set(slot.id, Math.min(degrees.get(slot.id) ?? Infinity, house.degree)); });
+  for (const definition of dictionary.structure?.definitions ?? []) if (!degrees.has(definition.id)) degrees.set(definition.id, dictionary.structure!.headwordDegrees[definition.headword] ?? 0);
+  return degrees;
+}
+
+const placeholderId = (house: number, slot: Slot) => `${house}-${slot.role}-${slot.headword}`;
 const distance = (a: { x: number; y: number }, b: { x: number; y: number }) => Math.hypot(a.x - b.x, a.y - b.y);
 const roleWord: Record<HouseRole, string> = { chimney: 'chimney', triplet: 'triplet corner', wall: 'wall' };
+const frameNote = (degree: number) => degree === 0 ? 'Groundwork: entries that stand on no law' : degree === 1 ? 'Laws that stand on groundwork only' : `Laws that stand on a degree ${degree - 1} law`;
 
 export function createLawScene(dictionary: Dictionary, selectedId: string, selectedSourceId: string | null, trace: PreparedTrace | undefined, index: number) {
   const houses = dictionary.houses ?? [];
   const definitions = dictionary.structure?.definitions ?? [];
-  const headwordDegrees = dictionary.structure?.headwordDegrees ?? {};
   const history = traceGraphState(trace, index);
   const step = trace?.steps[index];
+  const home = homeDegrees(dictionary);
   const clusters = clusterHouses(houses);
-  const lawHeadwords = new Set(houses.flatMap(houseHeadwords));
-  const loose = definitions.filter(definition => !lawHeadwords.has(definition.headword));
-  const looseAt = (degree: number) => loose.filter(definition => (headwordDegrees[definition.headword] ?? 0) === degree);
-  const degrees = [...new Set([...clusters.map(cluster => cluster.degree), ...loose.map(definition => headwordDegrees[definition.headword] ?? 0)])].filter(degree => degree > 0).sort((a, b) => a - b);
+  const inHouse = new Set(houses.flatMap(house => houseSlots(house).flatMap(slot => slot.id === null ? [] : [slot.id])));
 
-  // Columns for degree 1 and up: their houses stacked, then their loose definitions.
-  const columns = degrees.map(degree => {
-    const own = clusters.filter(cluster => cluster.degree === degree);
-    const extra = looseAt(degree);
-    const width = Math.max(GRID_X + 14, ...own.map(clusterWidth));
-    const perRow = Math.max(1, Math.floor((width + 14) / GRID_X));
-    return { degree, own, extra, width, perRow };
+  // Everything a cluster draws, with the degree each item belongs to.
+  const groups = clusters.map((cluster, order) => {
+    const items = [
+      ...[...cluster.cells].map(([id, cell]) => ({ id, cell, degree: home.get(id)!, placeholder: false })),
+      ...cluster.houses.flatMap(({ index: houseIndex, origin }) => houseSlots(houses[houseIndex]).filter(slot => slot.id === null)
+        .map(slot => ({ id: placeholderId(houseIndex, slot), cell: { col: origin.col + slot.col, row: origin.row + slot.row }, degree: houses[houseIndex].degree, placeholder: true }))),
+    ];
+    const levels = [...new Set(items.map(item => item.degree))].sort((a, b) => a - b);
+    return { cluster, order, items, levels, top: levels[0], deepest: levels.at(-1)!, width: (cluster.max.col - cluster.min.col) * PX + NODE.width, x: 0 };
   });
-  const columnsWidth = columns.reduce((total, column) => total + column.width, 0) + COLUMN_GAP * Math.max(0, columns.length - 1);
-  const ground = looseAt(0);
-  const groundPerRow = Math.max(3, Math.min(ground.length || 3, Math.floor((columnsWidth + 14) / GRID_X)));
-  const groundWidth = groundPerRow * GRID_X - 14;
-  const contentWidth = Math.max(columnsWidth, ground.length ? groundWidth : 0);
+  const loose = definitions.filter(definition => !inHouse.has(definition.id));
+  const looseAt = (degree: number) => loose.filter(definition => home.get(definition.id) === degree);
+  const deepest = Math.max(0, ...groups.map(group => group.deepest), ...loose.map(definition => home.get(definition.id)!));
+  const levels = Array.from({ length: deepest + 1 }, (_, degree) => degree);
+  const contentLeft = (degree: number) => LEFT + degree * INSET + PAD_X;
 
-  const position = new Map<string, { x: number; y: number }>();
-  const bands: SceneBand[] = [];
-  const shapes: HouseShape[] = [];
-  const placeholders: ScenePlaceholder[] = [];
-  let y = TOP;
-  if (ground.length) {
-    bands.push({ label: 'Degree 0', note: 'Groundwork: defined without any law', x: LEFT, y: y + 12, width: contentWidth });
-    const left = LEFT + (contentWidth - groundWidth) / 2;
-    ground.forEach((definition, place) => position.set(definition.id, { x: left + NODE.width / 2 + (place % groundPerRow) * GRID_X, y: y + 34 + NODE.height / 2 + Math.floor(place / groundPerRow) * GRID_Y }));
-    y += 34 + Math.ceil(ground.length / groundPerRow) * GRID_Y + 18;
-  }
-  const columnsTop = y;
-  let x = LEFT + (contentWidth - columnsWidth) / 2;
-  let bottom = columnsTop;
-  const columnEnds: { left: number; right: number; bottom: number }[] = [];
-  for (const column of columns) {
-    bands.push({ label: `Degree ${column.degree}`, note: column.degree === 1 ? 'Laws standing on groundwork only' : `Stands on degree ${column.degree - 1}`, x, y: columnsTop + 12, width: column.width });
-    let cursor = columnsTop + 30;
-    for (const cluster of column.own) {
-      const left = x + (column.width - clusterWidth(cluster)) / 2;
-      const at = (cell: Cell) => ({ x: left + EDGE + NODE.width / 2 + (cell.col - cluster.min.col) * PX, y: cursor + EDGE_Y + NODE.height / 2 + (cell.row - cluster.min.row) * PY });
-      for (const [id, cell] of cluster.cells) position.set(id, at(cell));
-      for (const { index: houseIndex, origin } of cluster.houses) {
-        const top = at(origin), half = NODE.width / 2, yA = top.y + PY, yE = top.y + 2 * PY;
-        const roofTop = yA - NODE.height / 2 - 12, roofBottom = yE + NODE.height / 2 + 10;
-        shapes.push({
-          index: houseIndex, label: `Law ${houseIndex + 1}`, title: dictionary.lawTitles?.[houseIndex],
-          roof: [[top.x - half - 12, roofTop], [top.x + half + 12, roofTop], [top.x + PX + half + 20, roofBottom], [top.x - PX - half - 20, roofBottom]].map(point => point.join(',')).join(' '),
-          body: { x: top.x - PX - half - 12, y: roofBottom, width: 2 * PX + NODE.width + 24, height: PY + 4 },
-          stack: { x: top.x - half - 8, y: top.y - NODE.height / 2 - 8, width: NODE.width + 16, height: roofTop - (top.y - NODE.height / 2 - 8) },
-          labelAt: { x: top.x - PX - half - 20, y: top.y - NODE.height / 2 + 6 },
-        });
-        for (const slot of houseSlots(houses[houseIndex])) if (slot.id === null) {
-          const point = at({ col: origin.col + slot.col, row: origin.row + slot.row });
-          placeholders.push({ id: `${houseIndex}-${slot.role}-${slot.headword}`, label: `${slot.role === 'wall' ? 'Wall' : 'Chimney'} not written`, x: point.x, y: point.y, ...NODE });
-        }
-      }
-      cursor += clusterHeight(cluster) + CLUSTER_GAP;
+  // Horizontal placement. A cluster that spans several degrees keeps one x at every level, so it is
+  // placed first and far enough in to sit inside its deepest frame.
+  const right = levels.map(() => -Infinity);
+  for (const degree of levels) {
+    const starting = groups.filter(group => group.top === degree).sort((a, b) => (b.deepest - b.top) - (a.deepest - a.top) || a.order - b.order);
+    for (const group of starting) {
+      group.x = Math.max(contentLeft(group.deepest), ...group.levels.map(level => right[level] === -Infinity ? -Infinity : right[level] + ITEM_GAP));
+      for (const level of group.levels) right[level] = Math.max(right[level], group.x + group.width);
     }
-    const gridLeft = x + (column.width - (Math.min(column.perRow, Math.max(1, column.extra.length)) * GRID_X - 14)) / 2;
-    column.extra.forEach((definition, place) => position.set(definition.id, { x: gridLeft + NODE.width / 2 + (place % column.perRow) * GRID_X, y: cursor + NODE.height / 2 + Math.floor(place / column.perRow) * GRID_Y }));
-    cursor += Math.ceil(column.extra.length / column.perRow) * GRID_Y;
-    bottom = Math.max(bottom, cursor);
-    columnEnds.push({ left: x, right: x + column.width, bottom: cursor });
-    x += column.width + COLUMN_GAP;
   }
+  const looseStart = (degree: number) => right[degree] === -Infinity ? contentLeft(degree) : right[degree] + ITEM_GAP;
+  const minimumColumns = (degree: number) => Math.min(looseAt(degree).length, degree === 0 ? 5 : 2);
+  const width = Math.max(...levels.map(degree => {
+    const looseRight = minimumColumns(degree) ? looseStart(degree) + minimumColumns(degree) * GRID_X - 14 : -Infinity;
+    const used = Math.max(right[degree], looseRight, contentLeft(degree) + 240);
+    return used + PAD_X + degree * INSET - LEFT;
+  }));
+  const contentRight = (degree: number) => LEFT + width - degree * INSET - PAD_X;
+
+  // Vertical placement, level by level from the outside in.
+  const position = new Map<string, { x: number; y: number }>();
+  const frames: SceneFrame[] = [];
+  let frameTop = TOP, lastBottom = TOP;
+  for (const degree of levels) {
+    const contentTop = frameTop + HEADER;
+    let bandHeight = 0;
+    for (const group of groups) {
+      const items = group.items.filter(item => item.degree === degree);
+      if (!items.length) continue;
+      const minRow = Math.min(...items.map(item => item.cell.row)), maxRow = Math.max(...items.map(item => item.cell.row));
+      for (const item of items) position.set(item.id, { x: group.x + NODE.width / 2 + (item.cell.col - group.cluster.min.col) * PX, y: contentTop + NODE.height / 2 + (item.cell.row - minRow) * PY });
+      bandHeight = Math.max(bandHeight, (maxRow - minRow) * PY + NODE.height);
+    }
+    const extra = looseAt(degree);
+    if (extra.length) {
+      let start = looseStart(degree), top = contentTop;
+      let columns = Math.min(extra.length, Math.floor((contentRight(degree) - start + 14) / GRID_X));
+      if (columns < 1) { start = contentLeft(degree); top = contentTop + bandHeight + 16; columns = Math.max(1, Math.floor((contentRight(degree) - start + 14) / GRID_X)); }
+      extra.forEach((definition, place) => position.set(definition.id, { x: start + NODE.width / 2 + (place % columns) * GRID_X, y: top + NODE.height / 2 + Math.floor(place / columns) * GRID_Y }));
+      bandHeight = Math.max(bandHeight, top - contentTop + Math.ceil(extra.length / columns) * GRID_Y - 16);
+    }
+    frames.push({ degree, note: frameNote(degree), x: LEFT + degree * INSET, y: frameTop, width: width - 2 * degree * INSET, height: 0 });
+    lastBottom = contentTop + bandHeight;
+    frameTop = lastBottom + LEVEL_GAP;
+  }
+  // Centre each level's content in its frame, unless a house reaches into it from another level
+  // (that house keeps one x at every level it spans).
+  const levelOf = new Map<string, number>([
+    ...groups.flatMap(group => group.items.map(item => [item.id, item.degree] as [string, number])),
+    ...loose.map(definition => [definition.id, home.get(definition.id)!] as [string, number]),
+  ]);
+  for (const degree of levels) {
+    if (groups.some(group => group.levels.length > 1 && group.levels.includes(degree))) continue;
+    const ids = [...levelOf].filter(([id, level]) => level === degree && position.has(id)).map(([id]) => id);
+    if (!ids.length) continue;
+    const xs = ids.map(id => position.get(id)!.x);
+    const shift = (contentLeft(degree) + contentRight(degree)) / 2 - (Math.min(...xs) + Math.max(...xs)) / 2;
+    for (const id of ids) position.get(id)!.x += shift;
+  }
+  const innermostBottom = lastBottom + PAD_BOTTOM;
+  for (const frame of frames) frame.height = innermostBottom + (deepest - frame.degree) * PAD_BOTTOM - frame.y;
+
+  const labels: HouseLabel[] = houses.map((house, houseIndex) => {
+    const at = position.get(house.chimney ?? placeholderId(houseIndex, houseSlots(house)[0]))!;
+    return { index: houseIndex, label: `Law ${houseIndex + 1}`, title: dictionary.lawTitles?.[houseIndex], x: at.x - NODE.width / 2 - PX, y: at.y - NODE.height / 2 + 12 };
+  });
+
+  const placeholders: ScenePlaceholder[] = groups.flatMap(group => group.items.filter(item => item.placeholder).map(item => {
+    const role = item.id.split('-')[1];
+    return { id: item.id, label: `${role === 'wall' ? 'Wall' : 'Chimney'} not written`, ...position.get(item.id)!, ...NODE };
+  }));
 
   const roles = new Map<string, string[]>();
   const cornerOf = new Map<string, Set<string>>();
@@ -170,13 +210,36 @@ export function createLawScene(dictionary: Dictionary, selectedId: string, selec
     selected: selectedSourceId ? definition.id === selectedSourceId : definition.headword === selectedId,
     given: firstOf.get(definition.headword) === definition.id ? [...history.boundInputs.values()].find(input => input.to === definition.headword)?.value : undefined,
   }));
+  const selectedIds = new Set(nodes.filter(node => node.selected).map(node => node.id));
+
+  // The house: roof from the triplet's references, chimney and walls from same-headword pairs.
+  // When two laws share an entry pair, their common link is drawn once.
+  const houseLinks: HouseLink[] = [];
+  const byKey = new Map<string, HouseLink>();
+  houses.forEach((house, houseIndex) => {
+    const slots = houseSlots(house);
+    const point = (slot: Slot) => position.get(slot.id ?? placeholderId(houseIndex, slot))!;
+    const connected = slots.some(slot => slot.id !== null && selectedIds.has(slot.id));
+    const add = (kind: HouseLink['kind'], a: Slot, b: Slot) => {
+      const id = [a.id ?? placeholderId(houseIndex, a), b.id ?? placeholderId(houseIndex, b)].sort().join('|');
+      const existing = byKey.get(id);
+      if (existing) { existing.connected ||= connected; return; }
+      const link: HouseLink = { id, house: houseIndex, kind, source: point(a), target: point(b), unwritten: a.id === null || b.id === null, connected };
+      byKey.set(id, link);
+      houseLinks.push(link);
+    };
+    const [chimney, apex, leftCorner, rightCorner, leftWall, rightWall] = slots;
+    add('roof', apex, leftCorner); add('roof', apex, rightCorner); add('roof', leftCorner, rightCorner);
+    add('chimney', chimney, apex); add('wall', leftCorner, leftWall); add('wall', rightCorner, rightWall);
+  });
+
   const byHeadword = new Map<string, SceneNode[]>();
   for (const node of nodes) byHeadword.set(node.entryId, [...(byHeadword.get(node.entryId) ?? []), node]);
   const nearest = (from: { x: number; y: number }, headword: string) => [...(byHeadword.get(headword) ?? [])].sort((a, b) => distance(from, a) - distance(from, b))[0];
   const referencesOf = new Map(definitions.map(definition => [definition.id, definition.references]));
 
-  // A reference is to a headword. Its line ends at the nearest entry of that headword.
-  // References between the three corners of one law are not drawn: the roof shows them.
+  // Other references: from an entry to the nearest entry of the headword it refers to.
+  // References between the corners of one law are the roof, drawn above.
   const edges: SceneEdge[] = nodes.flatMap(source => (referencesOf.get(source.id) ?? []).flatMap(headword => {
     if (headword === source.entryId || cornerOf.get(source.id)?.has(headword)) return [];
     const target = nearest(source, headword);
@@ -197,28 +260,27 @@ export function createLawScene(dictionary: Dictionary, selectedId: string, selec
   for (const item of trace?.steps.slice(0, index + 1) ?? []) for (const edge of item.traversedEdges ?? []) addLink(edge.from, edge.to, 'traversed');
   for (const input of history.boundInputs.values()) addLink(input.from, input.to, 'bound');
 
-  const worldWidth = contentWidth + 2 * LEFT;
-  // A self-label occurrence sits under the column of the entry it came from, so following a trace stays close.
-  const stacked = new Map<number, number>();
-  const occurrences: SceneNode[] = (trace?.occurrences ?? []).map((occurrence, place, all) => {
-    const state = history.occurrences.find(item => item.id === occurrence.id);
-    const parent = [...(byHeadword.get(occurrence.parentEntryId) ?? [])].sort((a, b) => b.y - a.y)[0];
-    const column = parent ? columnEnds.findIndex(range => parent.x >= range.left && parent.x <= range.right) : -1;
-    const order = stacked.get(column) ?? 0;
-    stacked.set(column, order + 1);
-    const point = parent && column >= 0 ? { x: parent.x, y: columnEnds[column].bottom + 70 + order * 112 }
-      : { x: worldWidth / 2 + (place - (all.length - 1) / 2) * 238, y: bottom + 76 };
-    return { id: occurrence.id, entryId: occurrence.entryId, label: occurrence.entryId, caption: occurrence.label,
-      occurrence: true, flattened: state?.flattened ?? false, visible: !!state, start: false, selected: false,
-      active: step?.id === occurrence.appearsAt || step?.id === occurrence.flattenedAt,
-      ...point, width: 214, height: 96, parent: parent ? { x: parent.x, y: parent.y } : undefined };
-  });
+  // Self-label occurrences sit in a gutter to the right of the frames, level with the entry they came from.
+  const occurrenceX = LEFT + width + GUTTER + 107;
+  let previousY = -Infinity;
+  const occurrences: SceneNode[] = (trace?.occurrences ?? [])
+    .map(occurrence => ({ occurrence, parent: [...(byHeadword.get(occurrence.parentEntryId) ?? [])].sort((a, b) => b.y - a.y)[0] }))
+    .sort((a, b) => (a.parent?.y ?? 0) - (b.parent?.y ?? 0))
+    .map(({ occurrence, parent }) => {
+      const state = history.occurrences.find(item => item.id === occurrence.id);
+      const y = Math.max(parent?.y ?? TOP + 48, previousY + 112);
+      previousY = y;
+      return { id: occurrence.id, entryId: occurrence.entryId, label: occurrence.entryId, caption: occurrence.label,
+        occurrence: true, flattened: state?.flattened ?? false, visible: !!state, start: false, selected: false,
+        active: step?.id === occurrence.appearsAt || step?.id === occurrence.flattenedAt,
+        x: occurrenceX, y, width: 214, height: 96, parent: parent ? { x: parent.x, y: parent.y } : undefined };
+    });
 
   const involved = new Set([history.startEntryId, ...(step?.relatedEntryIds ?? []),
     ...(trace?.steps.slice(0, index + 1) ?? []).flatMap(item => (item.traversedEdges ?? []).flatMap(edge => [edge.from, edge.to])),
     ...[...history.boundInputs.values()].flatMap(input => [input.from, input.to])]);
   const focusNodes = [...nodes.filter(node => trace ? involved.has(node.entryId) || node.selected : node.selected), ...occurrences.filter(node => node.visible)];
   const all = surrounding([...nodes, ...occurrences]);
-  const bounds: Bounds = { x: 0, y: 0, width: Math.max(worldWidth, all.x + all.width + LEFT), height: Math.max(bottom, all.y + all.height) + 30 };
-  return { nodes, occurrences, edges, history, houses: shapes, bands, placeholders, links, focusBounds: surrounding(focusNodes.length ? focusNodes : nodes), bounds };
+  const bounds: Bounds = { x: 0, y: 0, width: Math.max(LEFT + width + LEFT, all.x + all.width + LEFT), height: Math.max(frames[0].y + frames[0].height, all.y + all.height) + TOP };
+  return { nodes, occurrences, edges, history, houseLabels: labels, frames, houseLinks, placeholders, links, focusBounds: surrounding(focusNodes.length ? focusNodes : nodes), bounds };
 }

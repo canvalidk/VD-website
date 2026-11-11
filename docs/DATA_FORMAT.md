@@ -90,12 +90,12 @@ The export stops if the engine's references differ from the extract's, or if the
 `src/lawScene.ts` turns the export into the network's law-structure view. It produces the same scene shape as `src/graphScene.ts`, so `Graph.tsx` draws both.
 
 - **Nodes** are definitions, one per entry (`sourceId` set). A headword of a law is a vertical pair: chimney above corner for the old word, corner above wall for each new word.
-- **Houses.** `houseSlots()` gives the six positions relative to the chimney. `clusterHouses()` joins houses that share an entry and positions the later house from the shared node, so a wall that is the next law's corner puts that law directly below. A slot whose entry is `null` becomes a placeholder.
-- **Degrees.** Entries of degree 0 outside every law form the band on top. Each higher degree is a column, left to right, holding the house clusters whose lowest degree it is and then the loose entries of that degree.
-- **Lines.** A reference is to a headword, so its line ends at the nearest entry of that headword. References between the three corners of one law are not drawn; the roof shows them.
-- **Traces** name headwords, not entries. Involved headwords mark all their entries, the start badge goes on the headword's first entry, and traversed or bound paths are drawn between the closest entries of each pair. Self-label occurrences sit under the column of the entry they came from.
+- **Houses are drawn by links, not shapes.** `houseSlots()` gives the six positions relative to the chimney. Each house contributes six `houseLinks`: three `roof` links between the triplet corners, which refer to each other, and a `chimney` and two `wall` links, each joining two definitions of one headword. A slot whose entry is `null` becomes a placeholder, and its link is marked `unwritten`. `clusterHouses()` joins houses that share an entry and positions the later house from the shared node; a link two houses share is drawn once.
+- **Degrees nest.** `homeDegrees()` gives each definition a degree: the lowest degree among the laws it belongs to, otherwise its headword's degree. `frames` holds one frame per degree from 0 to the highest; frame d+1 lies inside frame d. Each frame's own entries sit in a band at its top, and the next frame below them. A house that spans two degrees keeps one x position at both. Other levels are centred in their frame.
+- **Other lines.** A reference is to a headword, so its line ends at the nearest entry of that headword. References between the corners of one law are the roof and are not repeated.
+- **Traces** name headwords, not entries. Involved headwords mark all their entries, the start badge goes on the headword's first entry, and traversed or bound paths are drawn between the closest entries of each pair. Self-label occurrences sit in a gutter to the right of the frames, level with the entry they came from.
 
-`tests/lawScene.test.ts` checks one node per definition with no overlaps, house geometry, interlocking, degree placement, which lines are drawn, selection, and trace replay at every step.
+`tests/lawScene.test.ts` checks one node per definition with no overlaps, house geometry, interlocking, nested frames, that each entry sits in its own degree's frame, that roof links join corners that refer to each other and the other house links join one headword's definitions, label placement, selection, and trace replay at every step.
 
 To refresh, from this repository's root:
 

@@ -4,7 +4,7 @@ import { dictionaries } from '../src/data/dictionaries.ts';
 import { traces } from '../src/data/traces.ts';
 import { fitCamera, openingCamera } from '../src/graphScene.ts';
 import type { Bounds } from '../src/graphScene.ts';
-import { clusterHouses, createLawScene, houseSlots } from '../src/lawScene.ts';
+import { clusterHouses, createLawScene, homeDegrees, houseSlots } from '../src/lawScene.ts';
 import { houseHeadwords } from '../src/houses.ts';
 
 const withHouses = dictionaries.filter(dictionary => dictionary.houses?.length);
@@ -13,6 +13,9 @@ const snapshot = dictionaries.find(dictionary => dictionary.id === 'newton-opera
 const scene = (dictionary = draft, sourceId: string | null = null, headword = dictionary.entries[0].id) => createLawScene(dictionary, headword, sourceId, undefined, 0);
 const box = (item: Bounds) => ({ left: item.x - item.width / 2, right: item.x + item.width / 2, top: item.y - item.height / 2, bottom: item.y + item.height / 2 });
 const overlap = (a: Bounds, b: Bounds) => { const p = box(a), q = box(b); return p.left < q.right && q.left < p.right && p.top < q.bottom && q.top < p.bottom; };
+/** Frames are given by their top-left corner. */
+const inside = (item: Bounds, frame: Bounds) => { const edges = box(item); return edges.left >= frame.x && edges.right <= frame.x + frame.width && edges.top >= frame.y && edges.bottom <= frame.y + frame.height; };
+const centred = (frame: Bounds): Bounds => ({ ...frame, x: frame.x + frame.width / 2, y: frame.y + frame.height / 2 });
 
 test('every definition is exactly one node, inside the map, overlapping nothing', () => {
   for (const dictionary of withHouses) {
@@ -64,22 +67,83 @@ test('houses that share entries interlock instead of duplicating them', () => {
   assert.equal(nodes.get('E36')!.roles, 'wall of law 4, triplet corner of law 5');
 });
 
-test('degree 0 is the band on top; higher degrees are columns from left to right', () => {
+test('degrees nest: each frame lies inside the one before it', () => {
   for (const dictionary of withHouses) {
-    const { bands, nodes, houses } = scene(dictionary);
-    assert.equal(bands[0].label, 'Degree 0');
-    const columns = bands.slice(1);
-    assert.deepEqual(columns.map(band => band.label), [...new Set(dictionary.houses!.map(house => house.degree))].sort((a, b) => a - b).map(degree => `Degree ${degree}`));
-    for (const [index, band] of columns.entries()) if (index) assert.ok(band.x >= columns[index - 1].x + columns[index - 1].width);
-    const groundBottom = Math.max(...nodes.filter(node => !dictionary.houses!.some(house => houseHeadwords(house).includes(node.entryId)) && (dictionary.structure!.headwordDegrees[node.entryId] ?? 0) === 0).map(node => node.y));
-    assert.ok(columns.every(band => band.y > groundBottom));
-    assert.equal(houses.length, dictionary.houses!.length);
-    // A house that starts its own cluster stands inside the column of its degree.
-    for (const cluster of clusterHouses(dictionary.houses!)) {
-      const first = dictionary.houses![cluster.houses[0].index];
-      const band = columns.find(item => item.label === `Degree ${cluster.degree}`)!;
-      const top = nodes.find(node => node.id === first.triplet[first.anchor])!;
-      assert.ok(top.x > band.x && top.x < band.x + band.width, `${dictionary.id} law ${cluster.houses[0].index + 1}`);
+    const { frames, bounds } = scene(dictionary);
+    assert.deepEqual(frames.map(frame => frame.degree), Array.from({ length: frames.length }, (_, degree) => degree), dictionary.id);
+    assert.equal(frames.length, Math.max(...dictionary.houses!.map(house => house.degree)) + 1);
+    assert.ok(frames[0].x >= 0 && frames[0].y >= 0 && frames[0].x + frames[0].width <= bounds.width && frames[0].y + frames[0].height <= bounds.height);
+    for (const [index, frame] of frames.entries()) if (index) {
+      const outer = frames[index - 1];
+      assert.ok(frame.x > outer.x && frame.y > outer.y && frame.x + frame.width < outer.x + outer.width && frame.y + frame.height < outer.y + outer.height, `${dictionary.id}: degree ${frame.degree} is not inside degree ${outer.degree}`);
+    }
+  }
+});
+
+test('every entry sits in the frame of its degree, outside any deeper frame', () => {
+  for (const dictionary of withHouses) {
+    const { frames, nodes, placeholders } = scene(dictionary);
+    const degrees = homeDegrees(dictionary);
+    const placeholderDegree = (id: string) => dictionary.houses![Number(id.split('-')[0])].degree;
+    for (const item of [...nodes, ...placeholders]) {
+      const degree = degrees.get(item.id) ?? placeholderDegree(item.id);
+      assert.ok(inside(item, frames[degree]), `${dictionary.id} ${item.id} is outside degree ${degree}`);
+      if (frames[degree + 1]) assert.ok(!overlap(item, centred(frames[degree + 1])), `${dictionary.id} ${item.id} is inside degree ${degree + 1}`);
+    }
+  }
+  // The current draft: groundwork at 0, Newton I at 1, Newton II at 2.
+  const degrees = homeDegrees(draft);
+  assert.deepEqual(['K1', 'K15', 'K16 / E1', 'E2', 'E6', 'E7', 'E10', 'E11'].map(id => degrees.get(id)), [0, 0, 1, 1, 1, 2, 2, 2]);
+  // In the snapshot, law 5 shares E32 and E36 with law 4: they stay at degree 3, and its own entries are at 4.
+  const snapshotDegrees = homeDegrees(snapshot);
+  assert.deepEqual(['E32', 'E36', 'E34', 'E35'].map(id => snapshotDegrees.get(id)), [3, 3, 4, 4]);
+});
+
+test('a house is drawn by its own links: roof from the triplet, chimney and walls from same-headword pairs', () => {
+  for (const dictionary of withHouses) {
+    const { houseLinks, nodes, placeholders } = scene(dictionary);
+    const at = new Map([...nodes, ...placeholders].map(item => [item.id, item as Bounds]));
+    const headword = new Map(dictionary.structure!.definitions.map(item => [item.id, item.headword]));
+    const references = new Map(dictionary.structure!.definitions.map(item => [item.id, item.references]));
+    const roof = houseLinks.filter(link => link.kind === 'roof');
+    assert.equal(roof.length, 3 * dictionary.houses!.length, dictionary.id);
+    for (const link of roof) {
+      const [a, b] = link.id.split('|');
+      // The two corners refer to each other.
+      assert.ok(references.get(a)!.includes(headword.get(b)!) && references.get(b)!.includes(headword.get(a)!), `${dictionary.id} ${link.id}`);
+      assert.ok(!link.unwritten);
+    }
+    for (const link of houseLinks.filter(item => item.kind !== 'roof')) {
+      const [a, b] = link.id.split('|');
+      if (link.unwritten) assert.ok(placeholders.some(slot => slot.id === a || slot.id === b), link.id);
+      else assert.equal(headword.get(a), headword.get(b), `${dictionary.id} ${link.id} joins two different headwords`);
+    }
+    for (const link of houseLinks) {
+      const [a, b] = link.id.split('|');
+      assert.deepEqual([link.source, link.target].map(point => `${point.x},${point.y}`).sort(), [at.get(a)!, at.get(b)!].map(point => `${point.x},${point.y}`).sort(), link.id);
+    }
+  }
+  // Six links per house, except where interlocking houses share one: E32 to E36 is law 4's wall and law 5's chimney.
+  const links = scene(snapshot).houseLinks;
+  assert.equal(links.length, 6 * snapshot.houses!.length - 1);
+  assert.deepEqual(links.filter(link => link.id === 'E32|E36').map(link => link.kind), ['wall']);
+  assert.equal(scene().houseLinks.filter(link => link.unwritten).length, 1);
+});
+
+test('selecting an entry brightens the links of every house it belongs to', () => {
+  const draftLinks = scene(draft, 'E3', 'inertial-frame').houseLinks;
+  assert.deepEqual(draftLinks.filter(link => link.connected).map(link => link.house), [0, 0, 0, 0, 0, 0]);
+  const shared = scene(snapshot, 'E36', 'canonical-force_acting-object').houseLinks;
+  assert.deepEqual([...new Set(shared.filter(link => link.connected).map(link => link.house))].sort(), [3, 4]);
+});
+
+test('house labels sit beside the chimney without covering any entry', () => {
+  for (const dictionary of withHouses) {
+    const { houseLabels, nodes, placeholders } = scene(dictionary);
+    assert.equal(houseLabels.length, dictionary.houses!.length);
+    for (const label of houseLabels) {
+      const area = { x: label.x + 60, y: label.y + 8, width: 120, height: 40 };
+      for (const item of [...nodes, ...placeholders]) assert.ok(!overlap(area, item), `${dictionary.id} ${label.label} covers ${item.id}`);
     }
   }
 });
@@ -119,7 +183,8 @@ test('a trace replays on the structure at headword precision without leaving the
     for (const edge of step.traversedEdges ?? []) assert.ok(current.links.some(link => link.traversed && link.current && link.id.endsWith(`${edge.from}→${edge.to}`)), label);
     for (const node of current.occurrences.filter(item => item.visible)) {
       assert.ok(node.parent, label);
-      assert.ok(node.y > node.parent.y && node.y - node.parent.y < 420, `${label}: occurrence is far from its entry`);
+      assert.ok(node.y >= node.parent.y && node.y - node.parent.y < 420, `${label}: occurrence is far below its entry`);
+      assert.ok(node.x > Math.max(...current.frames.map(frame => frame.x + frame.width)), `${label}: occurrence is inside the frames`);
       for (const other of [...current.nodes, ...current.placeholders, ...current.occurrences.filter(item => item !== node)]) assert.ok(!overlap(node, other), `${label}: occurrence overlaps ${other.id}`);
     }
     const focus = current.focusBounds;

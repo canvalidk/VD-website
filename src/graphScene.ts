@@ -8,8 +8,14 @@ export interface Bounds { x: number; y: number; width: number; height: number }
 export interface SceneNode extends Bounds { id: string; entryId: string; sourceId?: string; label: string; caption: string; entry?: Entry; flattened: boolean; occurrence: boolean; visible: boolean; active: boolean; start: boolean; selected: boolean; given?: string; parent?: { x: number; y: number }; roles?: string }
 export interface SceneEdge { id: string; source: SceneNode; target: SceneNode; traversed: boolean; current: boolean; bound: boolean; currentInput: boolean; connected: boolean; reciprocal: boolean }
 /** Decoration and overlays only the law-structure view produces. */
-export interface HouseShape { index: number; label: string; title?: string; roof: string; body: Bounds; stack?: Bounds; labelAt: { x: number; y: number } }
-export interface SceneBand { label: string; note: string; x: number; y: number; width: number }
+export interface HouseLabel { index: number; label: string; title?: string; x: number; y: number }
+/** A degree's region. Frames nest: degree d+1 lies inside degree d. x and y are the top-left corner. */
+export interface SceneFrame { degree: number; note: string; x: number; y: number; width: number; height: number }
+/**
+ * A link that draws a house. roof: two triplet corners, which reference each other.
+ * chimney and wall: two definitions of the same headword, before and inside the law, or inside and after it.
+ */
+export interface HouseLink { id: string; house: number; kind: 'roof' | 'chimney' | 'wall'; source: { x: number; y: number }; target: { x: number; y: number }; unwritten: boolean; connected: boolean }
 export interface ScenePlaceholder extends Bounds { id: string; label: string }
 export interface SceneLink { id: string; source: { x: number; y: number }; target: { x: number; y: number }; traversed: boolean; current: boolean; bound: boolean; currentInput: boolean }
 
@@ -80,7 +86,7 @@ export function createGraphScene(dictionary: Dictionary, selectedId: string, tra
     ...edges.filter(edge => edge.traversed || edge.bound).flatMap(edge => [edge.source.id, edge.target.id])]);
   const focusNodes = [...nodes.filter(node => trace ? historyIds.has(node.id) : node.id === selectedId), ...occurrences.filter(node => node.visible)];
   const allBounds = surrounding([...nodes, ...occurrences]);
-  return { nodes, occurrences, edges, history, houses: [] as HouseShape[], bands: [] as SceneBand[], placeholders: [] as ScenePlaceholder[], links: [] as SceneLink[], focusBounds: surrounding(focusNodes),
+  return { nodes, occurrences, edges, history, houseLabels: [] as HouseLabel[], frames: [] as SceneFrame[], houseLinks: [] as HouseLink[], placeholders: [] as ScenePlaceholder[], links: [] as SceneLink[], focusBounds: surrounding(focusNodes),
     bounds: { x: 0, y: 0, width: Math.max(width, allBounds.x + allBounds.width + 30), height: allBounds.y + allBounds.height + 35 } };
 }
 
