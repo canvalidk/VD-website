@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import { correctionTrace, correctionDictionary, correctionSource } from '../src/data/correction.ts';
 import { traces } from '../src/data/traces.ts';
 import { claimDependencies, relevance, snapshotChanges, sourceEntryId } from '../src/predictions.ts';
+import { earlierDerivations, stageChange, stageGroups } from '../src/derivations.ts';
 
 const snapshots = correctionTrace.steps.map(step => step.predictionSet!);
 
@@ -68,4 +69,41 @@ test('source links use recorded entry indexes, while older playbacks have no inv
   assert.equal(sourceEntryId(final.predictions.find(claim => claim.id === 'P7')!, correctionDictionary.entries), 'force_p_t');
   assert.equal(sourceEntryId(final.predictions.find(claim => claim.id === 'P8')!, correctionDictionary.entries), undefined);
   assert.ok(traces.filter(trace => trace.id !== correctionTrace.id).every(trace => trace.steps.every(step => step.predictionSet === undefined)));
+});
+
+test('the correction splits into a fixed first derivation and a new corrected one', () => {
+  const groups = stageGroups(correctionTrace);
+  assert.deepEqual(groups.map(group => [group.label, group.indexes]), [['Derivation 1', [0, 1, 2]], ['Derivation 2', [3, 4]]]);
+  // Each derivation's last snapshot rests on its own commitments only.
+  assert.deepEqual(snapshots[2].current_prediction_ids, ['P2', 'P3', 'P4', 'P5']);
+  assert.deepEqual(snapshots[4].current_prediction_ids, ['P2', 'P3', 'P7', 'P8']);
+  assert.ok(['P4', 'P5'].every(id => !snapshots[4].current_prediction_ids.includes(id)));
+  // The first derivation is not rewritten by the second: its snapshots never mention P7 or P8.
+  assert.ok(snapshots.slice(0, 3).every(snapshot => snapshot.predictions.every(claim => !['P7', 'P8'].includes(claim.id))));
+});
+
+test('starting the corrected derivation carries the inputs and leaves the mistake behind', () => {
+  assert.deepEqual(stageChange(correctionTrace, 3), { newDerivation: true, label: 'Derivation 2', carried: ['P2', 'P3'], added: [], retired: ['P4', 'P5'] });
+  assert.deepEqual(stageChange(correctionTrace, 4), { newDerivation: false, label: 'Derivation 2', carried: [], added: ['P7', 'P8'], retired: [] });
+  assert.deepEqual(stageChange(correctionTrace, 1)?.added, ['P4']);
+  assert.equal(stageChange(correctionTrace, 0)?.newDerivation, false);
+});
+
+test('earlier derivations are offered as issued only once a later one has started', () => {
+  assert.deepEqual([0, 1, 2].map(index => earlierDerivations(correctionTrace, index).length), [0, 0, 0]);
+  for (const index of [3, 4]) {
+    const [earlier] = earlierDerivations(correctionTrace, index);
+    assert.equal(earlier.label, 'Derivation 1');
+    assert.equal(correctionTrace.steps[earlier.indexes.at(-1)!].predictionSet?.result, 'Prediction: 12 N');
+    assert.ok(earlier.outcome);
+  }
+});
+
+test('derivation ids are declared and contiguous; traces without them form one unlabelled group', () => {
+  for (const trace of traces) {
+    const groups = stageGroups(trace);
+    assert.equal(new Set(groups.map(group => group.id)).size, groups.length, `${trace.id} reuses a derivation after leaving it`);
+    for (const step of trace.steps) if (step.derivationId) assert.ok(trace.derivations?.some(item => item.id === step.derivationId), `${trace.id}/${step.id}`);
+    if (!trace.derivations) assert.deepEqual(groups.map(group => [group.label, group.indexes.length]), [[undefined, trace.steps.length]]);
+  }
 });

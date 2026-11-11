@@ -23,7 +23,7 @@ pnpm preview    # Serve the production build locally
 
 ## Explore
 
-- Choose **Try the correction example** to open a recorded root result and its partial prediction set. Move through Inputs → Mistake → Report → Reopen → Correction. **Used now** and **History only** distinguish support from retained history; every claim remains unchecked.
+- Choose **Try the correction example** to open a recorded root result and the commitments it rests on. **Derivation 1** reaches 12 N through a deliberate mistake. Its record stays as issued: a found mistake does not count against the dictionary. **Derivation 2** is a new derivation that reaches 10 N. **This derivation** and **Earlier derivation** separate the two derivations' commitments; every claim remains unchecked.
 - Select a claim to inspect its exact stimulus, response, frame evidence and recorded support. **Dependencies** offers a second presentation of the same data. **Dictionary network** preserves the playback position and links back to the original definition. See [the presentation study](docs/RESULT_PRESENTATION.md) for design findings and limits.
 - Choose a dictionary: Newtonian mechanics current draft, the Newton II operational snapshot, Newton kinematics, or Toy force. No dictionary is selected initially.
 - Select an entry in the list or map to see its definition, references, and incoming references.
@@ -48,6 +48,7 @@ src/Graph.tsx             Headword network and occurrence overlays
 src/TracePlayer.tsx       Playback controls and active fragments
 src/ResultView.tsx        Root result, claim list and evidence inspector
 src/predictions.ts       Pure relevance and recorded-support selectors
+src/derivations.ts       Groups snapshots into derivations; a corrected derivation is a new one
 src/data/correction*     Pinned VDfirst export and explicit display adapter
 src/traceGraph.ts         Step-derived start, traversal, input, and flatten state
 src/graphScene.ts         Focused/full layouts and trace-following camera geometry

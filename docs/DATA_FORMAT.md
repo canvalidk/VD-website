@@ -58,7 +58,9 @@ Focused view shows the trace's complete participant set or the selected headword
 
 `App.tsx` supplies the timer, which dispatches the same state transitions used by buttons. There is no global keyboard shortcut to conflict with selects or text navigation. Native buttons and selects remain keyboard accessible. Playback pauses when the document is hidden.
 
-## Recorded root results and partial prediction sets
+## Recorded root results and partial hypothesis sets
+
+The producer's export calls its claim list a prediction set (`prediction_set`, claim IDs `P…`). The interface calls the claims recorded commitments: the failure of each one is a member of the derivation's hypothesis set, which also contains the result itself and commitments the trace does not record. Field names in the data are unchanged.
 
 `TraceStep.predictionSet` optionally carries a VDfirst schema-2 frozen snapshot. It is the authoritative **root** render and is independent of `fragment`, which may be nested. `snapshotLabel` supplies a compact stage name; trace-level `scriptedResponses` distinguishes scripted interpreter responses. Neither field changes the engine evidence.
 
@@ -66,7 +68,9 @@ Focused view shows the trace's complete participant set or the selected headword
 
 Evidence dependencies are transitive event indexes. The viewer looks up claims by `event_index` and presents a flat support set. A source definition link is made only from an explicit `before.source_index`, matched to the dictionary's source ID. No dictionary matching is inferred from stimulus strings or categories. Original frame renderings stay inert text.
 
-The correction adapter maps five exported snapshots to five display stages. It is not a general trace-event importer. Existing playbacks have no prediction sets until a producer supplies them; the viewer does not synthesize them from stage descriptions. See [the presentation study](RESULT_PRESENTATION.md).
+`TraceStep.derivationId` optionally names the derivation a snapshot belongs to, declared in trace-level `derivations` (`id`, `label`, optional `outcome`). A derivation as issued is fixed: when a mistake is found and the work is redone, the redone work is a new derivation with its own commitments, not an edit of the old one. `src/derivations.ts` groups contiguous steps by derivation, reports which commitments a new derivation carries over, and lists earlier derivations so the viewer can show each one as issued. Steps without `derivationId` form one unlabelled group. The grouping is a display reading of the export; the producer does not supply it.
+
+The correction adapter maps five exported snapshots to five display stages in two derivations. It is not a general trace-event importer. Existing playbacks have no prediction sets until a producer supplies them; the viewer does not synthesize them from stage descriptions. See [the presentation study](RESULT_PRESENTATION.md).
 
 ## Future engine adapter
 

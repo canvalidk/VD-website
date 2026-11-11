@@ -18,6 +18,8 @@ export interface TraceStep {
   /** An authoritative root snapshot, separate from this step's active fragment. */
   predictionSet?: PredictionSnapshot;
   snapshotLabel?: string;
+  /** The derivation this snapshot belongs to. A corrected derivation is a new derivation, not an edit of the old one. */
+  derivationId?: string;
   traversedEdges?: { from: string; to: string }[];
   boundInputs?: { from: string; to: string; value: string }[];
 }
@@ -39,7 +41,15 @@ export interface PreparedTrace {
   question?: string;
   startEntryId?: string;
   occurrences?: TraceOccurrence[];
+  /** Display grouping for recorded snapshots. Steps refer to these by derivationId. */
+  derivations?: Derivation[];
   steps: TraceStep[];
+}
+export interface Derivation {
+  id: string;
+  label: string;
+  /** Shown once a later derivation has started: what became of this one. */
+  outcome?: string;
 }
 const text = (value: string): FragmentPart => ({ text: value });
 const ref = (entryId: string): FragmentPart => ({ entryId });
