@@ -72,6 +72,24 @@ Evidence dependencies are transitive event indexes. The viewer looks up claims b
 
 The correction adapter maps five exported snapshots to five display stages in two derivations. It is not a general trace-event importer. Existing playbacks have no prediction sets until a producer supplies them; the viewer does not synthesize them from stage descriptions. See [the presentation study](RESULT_PRESENTATION.md).
 
+## Law-houses
+
+`Dictionary.houses` optionally lists the dictionary's law-houses in log order, with `lawTitles` as optional display names. The site does not detect laws. `tools/export_houses.py` loads a checked-in source extract into a VDfirst `VDInstance` and writes what `detect_houses()` returns to `src/data/<dictionary>-houses.json`:
+
+- `anchor`: the headword that was already defined. `winters`: the two headwords born in the law, in log order.
+- `chimney`: the anchor's earlier entry, or `null`. `triplet`: one entry id per headword. `walls`: one entry id per winter, or `null` when that wall is not written yet.
+- `entries`: for each entry used, its definition as ordered parts. A part is residual text, or a headword occurrence with the definition's own spelling and a `self` flag. The parts rebuild the definition exactly, apart from line wrapping.
+- `producer.commit` and `source.file_sha256` pin the engine and the extract. `three_cycles_that_are_not_laws` lists reference cycles the engine did not accept as laws.
+
+The export stops if the engine's references differ from the extract's, or if the parts do not rebuild a definition. `src/houses.ts` derives columns, completeness, per-entry roles, the outline, and which other laws use a law's headwords. `tests/houses.test.ts` checks the exports against the dictionaries and the source order.
+
+To refresh, from this repository's root:
+
+```sh
+py -3 tools/export_houses.py <VDfirst checkout> docs/newton-current-source.json src/data/newton-current-houses.json
+py -3 tools/export_houses.py <VDfirst checkout> docs/newton-operational-source.json src/data/newton-operational-houses.json
+```
+
 ## Future engine adapter
 
 A later producer can turn real engine events into this ordered-step boundary. The correction example supplies authoritative root snapshots and claim evidence; the older fragment-only examples do not. General event identifiers, occurrence/frame identity, unresolved work, and reduction/recognition provenance still need a broader adapter. Do not relabel prepared arrays as executed traces.

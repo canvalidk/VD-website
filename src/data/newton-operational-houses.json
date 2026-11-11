@@ -1,0 +1,1138 @@
+{
+  "format": "vd-website-houses",
+  "version": 1,
+  "producer": {
+    "name": "VDfirst",
+    "commit": "5a57790539ad405134b609e562d30490e19550d9",
+    "method": "VDInstance.append_many, then detect_houses()"
+  },
+  "source": {
+    "file": "newton-operational-source.json",
+    "file_sha256": "a2ab38a2cbbf819efdc94875c2a146bd0390b5109845195faded0f90d30cd6a7",
+    "source_sha256": "e5771def38b3c90e176bf7908f28487158e185334020391d8670216c18243e2e",
+    "entry_count": 45
+  },
+  "houses": [
+    {
+      "anchor": "uniform-motion",
+      "winters": [
+        "inertial-frame",
+        "free-particle"
+      ],
+      "chimney": "E14",
+      "triplet": {
+        "uniform-motion": "E15",
+        "inertial-frame": "E16",
+        "free-particle": "E17"
+      },
+      "walls": {
+        "inertial-frame": "E18",
+        "free-particle": "E19"
+      },
+      "entries": {
+        "E14": [
+          {
+            "text": "The state of being either stationary or moving along a "
+          },
+          {
+            "headword": "straight-line",
+            "text": "straight-line",
+            "self": false
+          },
+          {
+            "text": " with constant "
+          },
+          {
+            "headword": "speed",
+            "text": "speed",
+            "self": false
+          },
+          {
+            "text": ". Equivalently, a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " is in "
+          },
+          {
+            "headword": "uniform-motion",
+            "text": "uniform-motion",
+            "self": true
+          },
+          {
+            "text": " on an interval I if its "
+          },
+          {
+            "headword": "velocity",
+            "text": "velocity",
+            "self": false
+          },
+          {
+            "text": " is constant throughout I; i.e. for all t1, t2 in I, v(t1) = v(t2). A "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " is in "
+          },
+          {
+            "headword": "uniform-motion",
+            "text": "uniform-motion",
+            "self": true
+          },
+          {
+            "text": " at "
+          },
+          {
+            "headword": "time",
+            "text": "time",
+            "self": false
+          },
+          {
+            "text": " t0 if there exists epsilon > 0 such that it is in "
+          },
+          {
+            "headword": "uniform-motion",
+            "text": "uniform-motion",
+            "self": true
+          },
+          {
+            "text": " on (t0 - epsilon, t0 + epsilon)."
+          }
+        ],
+        "E15": [
+          {
+            "text": "The state of motion exhibited by a "
+          },
+          {
+            "headword": "free-particle",
+            "text": "free-particle",
+            "self": false
+          },
+          {
+            "text": " when described in an "
+          },
+          {
+            "headword": "inertial-frame",
+            "text": "inertial-frame",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E16": [
+          {
+            "text": "A "
+          },
+          {
+            "headword": "reference-frame",
+            "text": "reference-frame",
+            "self": false
+          },
+          {
+            "text": " in which every "
+          },
+          {
+            "headword": "free-particle",
+            "text": "free-particle",
+            "self": false
+          },
+          {
+            "text": " exhibits "
+          },
+          {
+            "headword": "uniform-motion",
+            "text": "uniform-motion",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E17": [
+          {
+            "text": "A "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " that, when described in an "
+          },
+          {
+            "headword": "inertial-frame",
+            "text": "inertial-frame",
+            "self": false
+          },
+          {
+            "text": ", exhibits "
+          },
+          {
+            "headword": "uniform-motion",
+            "text": "uniform-motion",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E18": [
+          {
+            "text": "A "
+          },
+          {
+            "headword": "reference-frame",
+            "text": "reference-frame",
+            "self": false
+          },
+          {
+            "text": " standard for Newtonian analysis of motion; historically, a Galilean reference frame."
+          }
+        ],
+        "E19": [
+          {
+            "text": "A "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " not subject to external influence relevant to its motion."
+          }
+        ]
+      }
+    },
+    {
+      "anchor": "inertial-acceleration",
+      "winters": [
+        "net-force",
+        "inertial-mass"
+      ],
+      "chimney": "E20",
+      "triplet": {
+        "inertial-acceleration": "E21",
+        "net-force": "E22",
+        "inertial-mass": "E23"
+      },
+      "walls": {
+        "net-force": "E24",
+        "inertial-mass": null
+      },
+      "entries": {
+        "E20": [
+          {
+            "text": "The "
+          },
+          {
+            "headword": "acceleration",
+            "text": "acceleration",
+            "self": false
+          },
+          {
+            "text": " of a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " as measured in an "
+          },
+          {
+            "headword": "inertial-frame",
+            "text": "inertial-frame",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E21": [
+          {
+            "text": "For a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": ", "
+          },
+          {
+            "headword": "inertial-acceleration",
+            "text": "inertial-acceleration",
+            "self": true
+          },
+          {
+            "text": " equals "
+          },
+          {
+            "headword": "net-force",
+            "text": "net-force",
+            "self": false
+          },
+          {
+            "text": " divided by "
+          },
+          {
+            "headword": "inertial-mass",
+            "text": "inertial-mass",
+            "self": false
+          },
+          {
+            "text": ": a = F/m."
+          }
+        ],
+        "E22": [
+          {
+            "text": "The vector quantity satisfying "
+          },
+          {
+            "headword": "net-force",
+            "text": "net-force",
+            "self": true
+          },
+          {
+            "text": " = "
+          },
+          {
+            "headword": "inertial-mass",
+            "text": "inertial-mass",
+            "self": false
+          },
+          {
+            "text": " times "
+          },
+          {
+            "headword": "inertial-acceleration",
+            "text": "inertial-acceleration",
+            "self": false
+          },
+          {
+            "text": " for a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E23": [
+          {
+            "text": "The positive scalar coefficient m such that "
+          },
+          {
+            "headword": "net-force",
+            "text": "net-force",
+            "self": false
+          },
+          {
+            "text": " = m times "
+          },
+          {
+            "headword": "inertial-acceleration",
+            "text": "inertial-acceleration",
+            "self": false
+          },
+          {
+            "text": " for a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E24": [
+          {
+            "headword": "net-force",
+            "text": "net-force",
+            "self": true
+          },
+          {
+            "text": " on particle p at "
+          },
+          {
+            "headword": "time",
+            "text": "time",
+            "self": false
+          },
+          {
+            "text": " t is the vector sum of the "
+          },
+          {
+            "headword": "impressed-force",
+            "text": "impressed-force",
+            "self": false
+          },
+          {
+            "text": " contribution supplied to p by every interaction in the closed "
+          },
+          {
+            "headword": "interaction-set",
+            "text": "interaction-set",
+            "self": false
+          },
+          {
+            "text": " for p at t."
+          }
+        ]
+      }
+    },
+    {
+      "anchor": "raw-class",
+      "winters": [
+        "class-specific-features",
+        "instance-of"
+      ],
+      "chimney": "E27",
+      "triplet": {
+        "raw-class": "E28",
+        "class-specific-features": "E29",
+        "instance-of": "E30"
+      },
+      "walls": {
+        "class-specific-features": null,
+        "instance-of": null
+      },
+      "entries": {
+        "E27": [
+          {
+            "text": "An abstract object-type."
+          }
+        ],
+        "E28": [
+          {
+            "text": "An abstract object-type specified by "
+          },
+          {
+            "headword": "class-specific-features",
+            "text": "class-specific-features",
+            "self": false
+          },
+          {
+            "text": "; an object x is treated as an "
+          },
+          {
+            "headword": "instance-of",
+            "text": "instance-of",
+            "self": false
+          },
+          {
+            "text": " the "
+          },
+          {
+            "headword": "raw-class",
+            "text": "raw-class",
+            "self": true
+          },
+          {
+            "text": " when it is recognized as possessing the "
+          },
+          {
+            "headword": "class-specific-features",
+            "text": "class-specific-features",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E29": [
+          {
+            "text": "The set of features that specify a "
+          },
+          {
+            "headword": "raw-class",
+            "text": "raw-class",
+            "self": false
+          },
+          {
+            "text": " C; these features are whatever a modeler must recognize x as having in order to treat x as an "
+          },
+          {
+            "headword": "instance-of",
+            "text": "instance-of",
+            "self": false
+          },
+          {
+            "text": " C."
+          }
+        ],
+        "E30": [
+          {
+            "text": "x is treated as an instance of a "
+          },
+          {
+            "headword": "raw-class",
+            "text": "raw-class",
+            "self": false
+          },
+          {
+            "text": " C when x is recognized as possessing the "
+          },
+          {
+            "headword": "class-specific-features",
+            "text": "class-specific-features",
+            "self": false
+          },
+          {
+            "text": " of C."
+          }
+        ]
+      }
+    },
+    {
+      "anchor": "impressed-force",
+      "winters": [
+        "canonical-force_acting-object",
+        "reaction-force_acting-object"
+      ],
+      "chimney": "E26",
+      "triplet": {
+        "impressed-force": "E31",
+        "canonical-force_acting-object": "E32",
+        "reaction-force_acting-object": "E33"
+      },
+      "walls": {
+        "canonical-force_acting-object": "E36",
+        "reaction-force_acting-object": null
+      },
+      "entries": {
+        "E26": [
+          {
+            "text": "The target-directed vector force-action that an interaction in a particle's "
+          },
+          {
+            "headword": "interaction-set",
+            "text": "interaction-set",
+            "self": false
+          },
+          {
+            "text": " supplies to that particle in a fixed context; it is the contribution summed to obtain the particle's "
+          },
+          {
+            "headword": "net-force",
+            "text": "net-force",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E31": [
+          {
+            "text": "An "
+          },
+          {
+            "headword": "impressed-force",
+            "text": "impressed-force",
+            "self": true
+          },
+          {
+            "text": " is a force-contribution that is either a "
+          },
+          {
+            "headword": "canonical-force_acting-object",
+            "text": "canonical-force_acting-object",
+            "self": false
+          },
+          {
+            "text": " or a "
+          },
+          {
+            "headword": "reaction-force_acting-object",
+            "text": "reaction-force_acting-object",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E32": [
+          {
+            "text": "A "
+          },
+          {
+            "headword": "canonical-force_acting-object",
+            "text": "canonical-force_acting-object",
+            "self": true
+          },
+          {
+            "text": " is an "
+          },
+          {
+            "headword": "impressed-force",
+            "text": "impressed-force",
+            "self": false
+          },
+          {
+            "text": " designated as canonical; the corresponding "
+          },
+          {
+            "headword": "reaction-force_acting-object",
+            "text": "reaction-force_acting-object",
+            "self": false
+          },
+          {
+            "text": " is the "
+          },
+          {
+            "headword": "impressed-force",
+            "text": "impressed-force",
+            "self": false
+          },
+          {
+            "text": " defined as the negative of it."
+          }
+        ],
+        "E33": [
+          {
+            "text": "A "
+          },
+          {
+            "headword": "reaction-force_acting-object",
+            "text": "reaction-force_acting-object",
+            "self": true
+          },
+          {
+            "text": " is an "
+          },
+          {
+            "headword": "impressed-force",
+            "text": "impressed-force",
+            "self": false
+          },
+          {
+            "text": " defined as the negative of "
+          },
+          {
+            "headword": "canonical-force_acting-object",
+            "text": "canonical-force_acting-object",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E36": [
+          {
+            "text": "The "
+          },
+          {
+            "headword": "canonical-force_acting-object",
+            "text": "canonical-force_acting-object",
+            "self": true
+          },
+          {
+            "text": " is the "
+          },
+          {
+            "headword": "impressed-force",
+            "text": "impressed-force",
+            "self": false
+          },
+          {
+            "text": " that an "
+          },
+          {
+            "headword": "acting-object",
+            "text": "acting-object",
+            "self": false
+          },
+          {
+            "text": " exerts on a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " that fulfills the "
+          },
+          {
+            "headword": "activation-condition_acting-object",
+            "text": "activation-condition_acting-object",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ]
+      }
+    },
+    {
+      "anchor": "canonical-force_acting-object",
+      "winters": [
+        "acting-object",
+        "activation-condition_acting-object"
+      ],
+      "chimney": "E32",
+      "triplet": {
+        "canonical-force_acting-object": "E36",
+        "acting-object": "E34",
+        "activation-condition_acting-object": "E35"
+      },
+      "walls": {
+        "acting-object": null,
+        "activation-condition_acting-object": null
+      },
+      "entries": {
+        "E32": [
+          {
+            "text": "A "
+          },
+          {
+            "headword": "canonical-force_acting-object",
+            "text": "canonical-force_acting-object",
+            "self": true
+          },
+          {
+            "text": " is an "
+          },
+          {
+            "headword": "impressed-force",
+            "text": "impressed-force",
+            "self": false
+          },
+          {
+            "text": " designated as canonical; the corresponding "
+          },
+          {
+            "headword": "reaction-force_acting-object",
+            "text": "reaction-force_acting-object",
+            "self": false
+          },
+          {
+            "text": " is the "
+          },
+          {
+            "headword": "impressed-force",
+            "text": "impressed-force",
+            "self": false
+          },
+          {
+            "text": " defined as the negative of it."
+          }
+        ],
+        "E34": [
+          {
+            "text": "An "
+          },
+          {
+            "headword": "acting-object",
+            "text": "acting-object",
+            "self": true
+          },
+          {
+            "text": " is an object equipped with both an "
+          },
+          {
+            "headword": "activation-condition_acting-object",
+            "text": "activation-condition_acting-object",
+            "self": false
+          },
+          {
+            "text": " and a corresponding "
+          },
+          {
+            "headword": "canonical-force_acting-object",
+            "text": "canonical-force_acting-object",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E35": [
+          {
+            "text": "If a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " fulfills the "
+          },
+          {
+            "headword": "activation-condition_acting-object",
+            "text": "activation-condition_acting-object",
+            "self": true
+          },
+          {
+            "text": " of an "
+          },
+          {
+            "headword": "acting-object",
+            "text": "acting-object",
+            "self": false
+          },
+          {
+            "text": ", the "
+          },
+          {
+            "headword": "canonical-force_acting-object",
+            "text": "canonical-force_acting-object",
+            "self": false
+          },
+          {
+            "text": " of that "
+          },
+          {
+            "headword": "acting-object",
+            "text": "acting-object",
+            "self": false
+          },
+          {
+            "text": " will be an "
+          },
+          {
+            "headword": "impressed-force",
+            "text": "impressed-force",
+            "self": false
+          },
+          {
+            "text": " on the "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E36": [
+          {
+            "text": "The "
+          },
+          {
+            "headword": "canonical-force_acting-object",
+            "text": "canonical-force_acting-object",
+            "self": true
+          },
+          {
+            "text": " is the "
+          },
+          {
+            "headword": "impressed-force",
+            "text": "impressed-force",
+            "self": false
+          },
+          {
+            "text": " that an "
+          },
+          {
+            "headword": "acting-object",
+            "text": "acting-object",
+            "self": false
+          },
+          {
+            "text": " exerts on a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " that fulfills the "
+          },
+          {
+            "headword": "activation-condition_acting-object",
+            "text": "activation-condition_acting-object",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ]
+      }
+    },
+    {
+      "anchor": "interaction-candidate",
+      "winters": [
+        "interaction-pair",
+        "mechanically-closed-system"
+      ],
+      "chimney": "E40",
+      "triplet": {
+        "interaction-candidate": "E41",
+        "interaction-pair": "E42",
+        "mechanically-closed-system": "E43"
+      },
+      "walls": {
+        "interaction-pair": "E44",
+        "mechanically-closed-system": "E45"
+      },
+      "entries": {
+        "E40": [
+          {
+            "text": "For a particle p in a "
+          },
+          {
+            "headword": "mechanical-system",
+            "text": "mechanical-system",
+            "self": false
+          },
+          {
+            "text": " S at "
+          },
+          {
+            "headword": "time",
+            "text": "time",
+            "self": false
+          },
+          {
+            "text": " t, an "
+          },
+          {
+            "headword": "interaction-candidate",
+            "text": "interaction-candidate",
+            "self": true
+          },
+          {
+            "text": " is any interaction in the "
+          },
+          {
+            "headword": "interaction-set",
+            "text": "interaction-set",
+            "self": false
+          },
+          {
+            "text": " for p at t."
+          }
+        ],
+        "E41": [
+          {
+            "text": "An "
+          },
+          {
+            "headword": "interaction-candidate",
+            "text": "interaction-candidate",
+            "self": true
+          },
+          {
+            "text": " is an elementary force-unit, every one of which must be able to be placed in an "
+          },
+          {
+            "headword": "interaction-pair",
+            "text": "interaction-pair",
+            "self": false
+          },
+          {
+            "text": " for the "
+          },
+          {
+            "headword": "mechanical-system",
+            "text": "mechanical-system",
+            "self": false
+          },
+          {
+            "text": " to be a "
+          },
+          {
+            "headword": "mechanically-closed-system",
+            "text": "mechanically-closed-system",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E42": [
+          {
+            "text": "An "
+          },
+          {
+            "headword": "interaction-pair",
+            "text": "interaction-pair",
+            "self": true
+          },
+          {
+            "text": " is the form into which each "
+          },
+          {
+            "headword": "interaction-candidate",
+            "text": "interaction-candidate",
+            "self": false
+          },
+          {
+            "text": " is placed in a "
+          },
+          {
+            "headword": "mechanically-closed-system",
+            "text": "mechanically-closed-system",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E43": [
+          {
+            "text": "A "
+          },
+          {
+            "headword": "mechanically-closed-system",
+            "text": "mechanically-closed-system",
+            "self": true
+          },
+          {
+            "text": " is a "
+          },
+          {
+            "headword": "mechanical-system",
+            "text": "mechanical-system",
+            "self": false
+          },
+          {
+            "text": " in which every "
+          },
+          {
+            "headword": "interaction-candidate",
+            "text": "interaction-candidate",
+            "self": false
+          },
+          {
+            "text": " can be placed in an "
+          },
+          {
+            "headword": "interaction-pair",
+            "text": "interaction-pair",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E44": [
+          {
+            "text": "Two "
+          },
+          {
+            "headword": "interaction-candidate",
+            "text": "interaction-candidate",
+            "self": false
+          },
+          {
+            "text": "|s form an "
+          },
+          {
+            "headword": "interaction-pair",
+            "text": "interaction-pair",
+            "self": true
+          },
+          {
+            "text": " when they correspond to the same "
+          },
+          {
+            "headword": "acting-object",
+            "text": "acting-object",
+            "self": false
+          },
+          {
+            "text": ", one being the "
+          },
+          {
+            "headword": "canonical-force_acting-object",
+            "text": "canonical-force_acting-object",
+            "self": false
+          },
+          {
+            "text": " associated with that "
+          },
+          {
+            "headword": "acting-object",
+            "text": "acting-object",
+            "self": false
+          },
+          {
+            "text": " and the other being the "
+          },
+          {
+            "headword": "reaction-force_acting-object",
+            "text": "reaction-force_acting-object",
+            "self": false
+          },
+          {
+            "text": " associated with that "
+          },
+          {
+            "headword": "acting-object",
+            "text": "acting-object",
+            "self": false
+          },
+          {
+            "text": ", the latter exerted on the "
+          },
+          {
+            "headword": "paired-particle_acting-object",
+            "text": "paired-particle_acting-object",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E45": [
+          {
+            "text": "A "
+          },
+          {
+            "headword": "mechanically-closed-system",
+            "text": "mechanically-closed-system",
+            "self": true
+          },
+          {
+            "text": " is a "
+          },
+          {
+            "headword": "mechanical-system",
+            "text": "mechanical-system",
+            "self": false
+          },
+          {
+            "text": " whose future behaviour is determined by the equations produced from the interactions internal to it."
+          }
+        ]
+      }
+    }
+  ],
+  "three_cycles_that_are_not_laws": [
+    [
+      "activation-condition_acting-object",
+      "canonical-force_acting-object",
+      "impressed-force"
+    ],
+    [
+      "impressed-force",
+      "interaction-set",
+      "net-force"
+    ]
+  ]
+}

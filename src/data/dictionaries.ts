@@ -1,5 +1,7 @@
 import { newtonDictionaries } from './newton-dictionaries.ts';
 import { correctionDictionary } from './correction.ts';
+import { housesByDictionary } from './houses.ts';
+import type { House } from '../houses.ts';
 
 export interface Definition {
   sourceId: string;
@@ -26,11 +28,15 @@ export interface Dictionary {
   status?: string;
   definitionCount?: number;
   entries: Entry[];
+  /** Law-houses reported by the VDfirst engine, in log order. Absent when none were exported. */
+  houses?: House[];
+  /** Optional display names for the laws, by position. */
+  lawTitles?: (string | undefined)[];
 }
 
 export const dictionaries: Dictionary[] = [
   correctionDictionary,
-  ...newtonDictionaries,
+  ...newtonDictionaries.map(dictionary => ({ ...dictionary, houses: housesByDictionary[dictionary.id]?.houses, lawTitles: housesByDictionary[dictionary.id]?.titles })),
   {
     id: 'kinematics', name: 'Newton kinematics', shortName: 'Kinematics',
     description: 'Six entries about position and motion, selected from the Newton dictionary.',

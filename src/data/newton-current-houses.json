@@ -1,0 +1,436 @@
+{
+  "format": "vd-website-houses",
+  "version": 1,
+  "producer": {
+    "name": "VDfirst",
+    "commit": "5a57790539ad405134b609e562d30490e19550d9",
+    "method": "VDInstance.append_many, then detect_houses()"
+  },
+  "source": {
+    "file": "newton-current-source.json",
+    "file_sha256": "6abe5bc1fc08e767a6908168046e30c1bfa9d70c77e87462ee701eb142abe1d2",
+    "source_sha256": "3bd6758d4cf7d476d87caddf8f9f73ec7d66bd5d4eaf14398a9fc12cd2eb32a8",
+    "entry_count": 26
+  },
+  "houses": [
+    {
+      "anchor": "uniform-motion",
+      "winters": [
+        "inertial-frame",
+        "free-particle"
+      ],
+      "chimney": "K16 / E1",
+      "triplet": {
+        "uniform-motion": "E2",
+        "inertial-frame": "E3",
+        "free-particle": "E4"
+      },
+      "walls": {
+        "inertial-frame": "E5",
+        "free-particle": "E6"
+      },
+      "entries": {
+        "K16 / E1": [
+          {
+            "text": "A frame-indexed interval property of a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": ": over the selected "
+          },
+          {
+            "headword": "time-interval",
+            "text": "time-interval",
+            "self": false
+          },
+          {
+            "text": ", its "
+          },
+          {
+            "headword": "trajectory",
+            "text": "trajectory",
+            "self": false
+          },
+          {
+            "text": " either stays at one "
+          },
+          {
+            "headword": "position",
+            "text": "position",
+            "self": false
+          },
+          {
+            "text": " in the chosen frame, or traces a straight "
+          },
+          {
+            "headword": "path",
+            "text": "path",
+            "self": false
+          },
+          {
+            "text": " with constant "
+          },
+          {
+            "headword": "velocity",
+            "text": "velocity",
+            "self": false
+          },
+          {
+            "text": ", i.e. constant "
+          },
+          {
+            "headword": "speed",
+            "text": "speed",
+            "self": false
+          },
+          {
+            "text": " with unchanged direction. It is a kinematic path-pattern, not yet a claim about why the motion occurs."
+          }
+        ],
+        "E2": [
+          {
+            "headword": "uniform-motion",
+            "text": "Uniform-motion",
+            "self": true
+          },
+          {
+            "text": " is the motion a "
+          },
+          {
+            "headword": "free-particle",
+            "text": "free-particle",
+            "self": false
+          },
+          {
+            "text": " must exhibit when described in an "
+          },
+          {
+            "headword": "inertial-frame",
+            "text": "inertial-frame",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E3": [
+          {
+            "text": "An "
+          },
+          {
+            "headword": "inertial-frame",
+            "text": "inertial-frame",
+            "self": true
+          },
+          {
+            "text": " is a "
+          },
+          {
+            "headword": "reference-frame",
+            "text": "reference-frame",
+            "self": false
+          },
+          {
+            "text": " in which every "
+          },
+          {
+            "headword": "free-particle",
+            "text": "free-particle",
+            "self": false
+          },
+          {
+            "text": " must exhibit "
+          },
+          {
+            "headword": "uniform-motion",
+            "text": "uniform-motion",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E4": [
+          {
+            "text": "A "
+          },
+          {
+            "headword": "free-particle",
+            "text": "free-particle",
+            "self": true
+          },
+          {
+            "text": " is a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " that must exhibit "
+          },
+          {
+            "headword": "uniform-motion",
+            "text": "uniform-motion",
+            "self": false
+          },
+          {
+            "text": " when described in an "
+          },
+          {
+            "headword": "inertial-frame",
+            "text": "inertial-frame",
+            "self": false
+          },
+          {
+            "text": ". But a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " can exhibit "
+          },
+          {
+            "headword": "uniform-motion",
+            "text": "uniform-motion",
+            "self": false
+          },
+          {
+            "text": " without being a "
+          },
+          {
+            "headword": "free-particle",
+            "text": "free-particle",
+            "self": true
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E5": [
+          {
+            "text": "An "
+          },
+          {
+            "headword": "inertial-frame",
+            "text": "inertial-frame",
+            "self": true
+          },
+          {
+            "text": " is the standard "
+          },
+          {
+            "headword": "reference-frame",
+            "text": "reference-frame",
+            "self": false
+          },
+          {
+            "text": " for Newtonian mechanical analysis. It is the frame of an observer treated as non-accelerating and non-rotating. It is sometimes called a Galilean frame or the lab frame. Earth can be treated as an inertial "
+          },
+          {
+            "headword": "reference-frame",
+            "text": "reference-frame",
+            "self": false
+          },
+          {
+            "text": " in ordinary circumstances, to the needed approximation."
+          }
+        ],
+        "E6": [
+          {
+            "text": "A "
+          },
+          {
+            "headword": "free-particle",
+            "text": "free-particle",
+            "self": true
+          },
+          {
+            "text": " or free body is a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " whose "
+          },
+          {
+            "headword": "trajectory",
+            "text": "trajectory",
+            "self": false
+          },
+          {
+            "text": " is not being influenced by any other object, i.e. is free from influence. This may be a material-object represented as a "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": ", or a massless "
+          },
+          {
+            "headword": "point-particle",
+            "text": "point-particle",
+            "self": false
+          },
+          {
+            "text": " like a photon."
+          }
+        ]
+      }
+    },
+    {
+      "anchor": "inertial-acceleration-material-object",
+      "winters": [
+        "net-force-material-object",
+        "inertial-mass-material-object"
+      ],
+      "chimney": "E7",
+      "triplet": {
+        "inertial-acceleration-material-object": "E8",
+        "net-force-material-object": "E9",
+        "inertial-mass-material-object": "E10"
+      },
+      "walls": {
+        "net-force-material-object": "E11",
+        "inertial-mass-material-object": null
+      },
+      "entries": {
+        "E7": [
+          {
+            "text": "For a material-object with a "
+          },
+          {
+            "headword": "trajectory",
+            "text": "trajectory",
+            "self": false
+          },
+          {
+            "text": " described in an "
+          },
+          {
+            "headword": "inertial-frame",
+            "text": "inertial-frame",
+            "self": false
+          },
+          {
+            "text": ", the "
+          },
+          {
+            "headword": "acceleration",
+            "text": "acceleration",
+            "self": false
+          },
+          {
+            "text": " read from that "
+          },
+          {
+            "headword": "trajectory",
+            "text": "trajectory",
+            "self": false
+          },
+          {
+            "text": " at a selected "
+          },
+          {
+            "headword": "time",
+            "text": "time",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E8": [
+          {
+            "text": "For one material-object, its "
+          },
+          {
+            "headword": "net-force-material-object",
+            "text": "net-force-material-object",
+            "self": false
+          },
+          {
+            "text": " divided by its "
+          },
+          {
+            "headword": "inertial-mass-material-object",
+            "text": "inertial-mass-material-object",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E9": [
+          {
+            "text": "For one material-object, its "
+          },
+          {
+            "headword": "inertial-mass-material-object",
+            "text": "inertial-mass-material-object",
+            "self": false
+          },
+          {
+            "text": " times its "
+          },
+          {
+            "headword": "inertial-acceleration-material-object",
+            "text": "inertial-acceleration-material-object",
+            "self": false
+          },
+          {
+            "text": "."
+          }
+        ],
+        "E10": [
+          {
+            "text": "For one material-object, the positive scalar that multiplies its "
+          },
+          {
+            "headword": "inertial-acceleration-material-object",
+            "text": "inertial-acceleration-material-object",
+            "self": false
+          },
+          {
+            "text": " to give its "
+          },
+          {
+            "headword": "net-force-material-object",
+            "text": "net-force-material-object",
+            "self": false
+          },
+          {
+            "text": ". If both are exact, check that they are codirectional and then divide the net-force magnitude by the inertial-acceleration magnitude; a zero-zero pair leaves the scalar undetermined. If either is measured, estimate two underlying codirectional vectors and then recover the positive scalar relating them."
+          }
+        ],
+        "E11": [
+          {
+            "text": "For a material-object in an "
+          },
+          {
+            "headword": "inertial-frame",
+            "text": "inertial-frame",
+            "self": false
+          },
+          {
+            "text": ", its vector in newtons. There are exactly two ways to obtain this vector."
+          }
+        ]
+      }
+    }
+  ],
+  "three_cycles_that_are_not_laws": []
+}
