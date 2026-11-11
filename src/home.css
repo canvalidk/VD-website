@@ -1,0 +1,177 @@
+/*
+ * Introduction: a few plain sentences beside one live picture (a real law-house and its six
+ * log lines), then the doors as a hanging-indent list and the exit-sign line.
+ * Colours keep their single meanings: crimson is the law, blue a headword defined again (and
+ * text links), dashed is "not written yet". The soft yellow only links a log line to its slip.
+ */
+
+/* Page layout: stacked below 1100px; text in columns 1 to 5 and the figure in 6 to 12 above it. */
+.home-top { display: grid; gap: var(--s-6); align-items: start; }
+@media (min-width: 1100px) {
+  .home-top { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s-5); }
+  .home-text { grid-column: 1 / span 5; }
+  .home-figure { grid-column: 6 / span 7; }
+}
+
+.home-title {
+  font-size: var(--fs-hero);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  font-stretch: var(--stretch-head);
+  font-weight: 700;
+  max-width: 16ch;
+  margin-bottom: var(--s-5);
+}
+.home-prose { max-width: 60ch; color: var(--c-ink); }
+.home-prose p + p { margin-top: var(--s-4); }
+
+/* The figure: one white surface holding the log and the drawing, the caption under it. */
+.home-figure { min-width: 0; container-type: inline-size; }
+.home-figure-panel {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-slip);
+  padding: var(--s-5);
+}
+
+/* Log lines, grouped as the rows of Laws as a table. */
+.home-log-group { padding-top: var(--s-2); }
+.home-log-group + .home-log-group { margin-top: var(--s-3); border-top: 1px solid var(--c-border); }
+.home-log-group.home-log-law { border-top: 2px solid var(--c-law); }
+.home-log-head {
+  font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; font-size: var(--fs-ui);
+  color: var(--c-ink); line-height: 1.3; padding: var(--s-1) 0 var(--s-1);
+}
+.home-log-lines { list-style: none; }
+.home-log-line { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--s-3); }
+
+.home-log-entry {
+  display: grid;
+  grid-template-columns: 6px 4.5rem minmax(7.5rem, max-content) minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--s-3);
+  min-height: 44px;
+  width: 100%;
+  padding: var(--s-1) var(--s-2);
+  border: 2px solid transparent;
+  border-left-width: 3px;
+  border-radius: var(--radius-slip);
+  color: var(--c-ink);
+  text-align: left;
+}
+button.home-log-entry:hover, .home-log-entry.is-linked { background: var(--c-tray-1); border-color: var(--c-ink); }
+.home-log-entry[aria-pressed="true"] { border-left-color: var(--c-ink); }
+.home-log-entry[aria-pressed="true"] .home-log-headword { font-weight: 600; }
+.home-stroke { align-self: center; }
+.home-log-id { font-size: var(--fs-ui); line-height: 1.4; color: var(--c-muted); white-space: nowrap; }
+.home-log-headword { font-size: var(--fs-string); color: var(--c-ink); line-height: 1.3; }
+.home-log-role { font-size: var(--fs-ui); line-height: 1.35; }
+
+.home-log-open {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s-1);
+  font-family: var(--font-ui); font-stretch: 100%; font-size: var(--fs-xs); font-weight: 500;
+  color: var(--c-again); white-space: nowrap;
+}
+.home-log-open:hover { color: var(--c-ink); }
+
+/* Miniature Edge strokes: medium blue for a word defined again, full crimson for the law. */
+.home-stroke-law { fill: var(--c-law); }
+.home-stroke-again { fill: var(--c-again); }
+.home-stroke-unwritten { fill: none; stroke: var(--c-pencil); stroke-width: 1.5; stroke-dasharray: 3 2; }
+
+/* Middling figure: the role goes under the headword. Narrow figure: the dictionary link goes under the line too. */
+@container (max-width: 44rem) {
+  .home-log-entry { grid-template-columns: 6px 4.5rem minmax(0, 1fr); row-gap: 0; padding-block: var(--s-2); }
+  .home-stroke { grid-row: 1 / span 2; }
+  .home-log-id { grid-row: 1 / span 2; align-self: start; }
+  .home-log-role { grid-column: 3; }
+}
+@container (max-width: 30rem) {
+  .home-log-line { grid-template-columns: minmax(0, 1fr); }
+  .home-log-open { justify-self: start; margin-left: calc(var(--s-2) + 3px + 6px + 2 * var(--s-3) + 4.5rem - var(--s-1)); }
+}
+
+/* The drawing. Lines are drawn centre to centre and the slips sit on top of them. */
+.home-drawing { position: relative; max-width: 600px; }
+.home-lines { position: absolute; inset: 0; overflow: visible; }
+.home-link-roof { stroke: var(--c-law); stroke-width: var(--w-roof); stroke-linecap: round; }
+.home-link-rail { stroke: var(--c-again); stroke-width: var(--w-rail); }
+.home-link-unwritten { stroke: var(--c-pencil); stroke-width: 2; stroke-dasharray: 6 4; }
+
+.home-slip {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: min(10.75rem, 36%);
+  min-height: 56px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  padding: var(--s-2);
+  background: var(--c-surface);
+  border: 1px solid var(--c-frame);
+  border-top: var(--role-rule) solid var(--c-frame);
+  border-radius: var(--radius-slip);
+  color: var(--c-ink);
+  text-align: center;
+}
+.home-slip-law { border-top-color: var(--c-law); }
+.home-slip-again { border-top-color: var(--c-again); }
+button.home-slip:not([aria-pressed="true"]):hover, .home-slip.is-linked:not([aria-pressed="true"]) {
+  background: var(--c-tray-1);
+  border-left: 2px solid var(--c-ink); border-right: 2px solid var(--c-ink); border-bottom: 2px solid var(--c-ink);
+  padding: var(--s-2) calc(var(--s-2) - 1px) calc(var(--s-2) - 1px);
+}
+.home-slip-id { font-size: 0.75rem; line-height: 1.3; color: var(--c-muted); }
+.home-slip-headword { font-size: 0.875rem; font-weight: 600; line-height: 1.3; max-width: 100%; }
+.home-slip[aria-pressed="true"] { background: var(--c-ink); color: var(--c-on-ink); border-left-color: var(--c-ink); border-right-color: var(--c-ink); border-bottom-color: var(--c-ink); }
+.home-slip[aria-pressed="true"] .home-slip-id { color: var(--c-on-ink-muted); }
+.home-slip-missing { background: transparent; border: 1.5px dashed var(--c-pencil); }
+.home-slip-note { font-size: var(--fs-xs); }
+
+/* The selected entry's exact string. */
+.home-reading { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--c-border); }
+.home-reading-head { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--s-3); row-gap: var(--s-1); }
+.home-reading-id { font-size: var(--fs-ui); color: var(--c-muted); }
+.home-reading-headword { font-size: var(--fs-prose); font-weight: 600; color: var(--c-ink); }
+.home-reading-role { font-size: var(--fs-ui); }
+.home-reading-string { margin-top: var(--s-2); font-size: var(--fs-string); line-height: var(--lh-string); color: var(--c-ink); max-width: 60ch; }
+.home-word { color: var(--c-again); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.home-word:hover { color: var(--c-ink); }
+.home-reading-according { margin-top: var(--s-2); font-size: var(--fs-ui); line-height: 1.4; }
+
+.home-caption {
+  margin-top: var(--s-3);
+  font-family: var(--font-prose); font-style: italic; font-size: var(--fs-xs); line-height: 1.55;
+  color: var(--c-muted); max-width: 70ch;
+}
+
+/* Doors: a hanging-indent list; the whole row is the link. */
+.home-doors { margin-top: var(--s-7); }
+.home-door-list { list-style: none; display: grid; gap: var(--s-2); }
+.home-door {
+  display: grid; grid-template-columns: var(--label-col) minmax(0, 1fr); column-gap: var(--s-5); align-items: baseline;
+  min-height: 44px; padding: var(--s-3) 0;
+  color: var(--c-ink); text-decoration: none;
+}
+.home-door:hover { color: var(--c-ink); }
+.home-door-label {
+  justify-self: start;
+  font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; font-size: 1.0625rem; line-height: 1.35;
+  border-bottom: 2px solid transparent;
+}
+.home-door:hover .home-door-label, .home-door:focus-visible .home-door-label { border-bottom-color: var(--c-ink); }
+.home-door-gloss { font-family: var(--font-prose); font-size: var(--fs-prose); line-height: var(--lh-prose); max-width: var(--measure); }
+
+.home-exit { margin-top: var(--s-6); color: var(--c-ink); }
+
+@media (max-width: 760px) {
+  .home-figure-panel { padding: var(--s-3); }
+  .home-drawing { margin-inline: calc(-1 * var(--s-2)); }
+  .home-door { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-1); }
+  .home-doors { margin-top: var(--s-6); }
+}
+
+/* The drawing leads; the reading follows it; the six log lines come last. */
+.home-figure-panel > .home-log { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--c-border); }
+.home-reading-open { margin-top: var(--s-1); font-family: var(--font-ui); font-size: var(--fs-ui); }
+.home-reading-open a { display: inline-flex; align-items: center; min-height: 44px; }
+.home-word { position: relative; }
+.home-word::after { content: ''; position: absolute; inset: -12px -2px; }

@@ -2,7 +2,7 @@
 
 **by Can Valid Kohen**
 
-A browser-based dictionary and trace explorer. The explanation is a separate first section; the second section starts with one unpicked dictionary selector. The prototype includes five dictionary options, three prepared demonstrations, two condensed recorded Newton II traces, a recorded correction example with scripted responses, and linked entry and claim inspection.
+A website for the Valid Dictionary project: a physical theory written as a named dictionary that only grows. It has four pages: an Introduction with one live law-house, the Dictionary (its network nested by degree, each law drawn by its own links), Traces (recorded runs replayed step by step, with their commitments), and Ideas (the five ideas the project rests on). The current Newton draft opens preselected. Dictionaries, laws and traces come from the VDfirst engine and VD-Newton; the site never runs the engine.
 
 ## Run locally
 
@@ -23,20 +23,17 @@ pnpm preview    # Serve the production build locally
 
 ## Explore
 
-- Choose **Try the correction example** to open a recorded root result and the commitments it rests on. **Derivation 1** reaches 12 N through a deliberate mistake. Its record stays as issued: a found mistake does not count against the dictionary. **Derivation 2** is a new derivation that reaches 10 N. **This derivation** and **Earlier derivation** separate the two derivations' commitments; every claim remains unchecked.
-- Select a claim to inspect its exact stimulus, response, frame evidence and recorded support. **Dependencies** offers a second presentation of the same data. **Dictionary network** preserves the playback position and links back to the original definition. See [the presentation study](docs/RESULT_PRESENTATION.md) for design findings and limits.
-- Open either Newtonian mechanics dictionary to see its **law structure** in the network. Every entry is one node. Degrees nest: degree 0 is the outermost frame, degree 1 lies inside it, degree 2 inside that. A law is drawn by its own links. The three law entries refer to each other, and those references make the roof. The old word's earlier entry stands above as the chimney, and the new words' later entries hang below as the walls. An entry that is not written yet is a dashed slot. Laws that share an entry interlock, even across a degree boundary. Select a node to read that entry and brighten its house; its roles appear in the entry details.
-- **Laws as a table** shows the same houses as a grid, with the three headwords as columns, for reading the entries side by side. The left panel lists the laws with a count such as 5/6, then the headwords grouped by degree and law.
-- Choose a dictionary: Newtonian mechanics current draft, the Newton II operational snapshot, Newton kinematics, or Toy force. No dictionary is selected initially.
-- Select an entry in the list or map to see its definition, references, and incoming references.
-- Browse without a trace, or choose an available trace. Play, pause, move between steps, or restart.
-- Switch between **Focused view** and **Full dictionary** without losing your trace position. Full dictionary includes every headword; select one to read all its definitions.
-- Zoom, drag to pan, or use **Fit all**. **Follow trace** starts enabled and keeps the starting node, highlighted history, current participants, and flattened occurrences in view as you step. Compact playback controls sit directly below the network.
-- The starting headword keeps its START badge. Directed traversed edges accumulate as the trace proceeds; reciprocal edges curve separately.
-- The recorded Newton II trace shows its two self-label occurrences separately. They dim and receive a FLATTENED label at the corresponding events. Other occurrences of the same headword remain available.
-- Choose **Newtonian mechanics · Newton II snapshot** → **Newton II · given inputs** for the new seven-stage run. It binds p1, a net force of (6, 0, 0) N and a mass of 2 kg, flattens the acceleration self-label, then records the supplied result (3, 0, 0) m/s². Cyan dashed connections identify given inputs separately from lime dictionary traversals.
-- Select a numbered step or a headword in its active fragment to inspect it.
-- Browsing an entry pauses playback. Switching dictionaries preserves each dictionary's step and selection during the current visit. Reloading starts a fresh visit.
+The site has four pages, reached from the running head. Addresses are hash routes, so any page, dictionary, entry or trace can be linked directly.
+
+- **Introduction** (`#/`): what an Authority Dictionary is, beside one live picture, Law 1 of the current Newton draft drawn as a house from its six entries. Select an entry in the drawing or the list to read its exact string.
+- **Dictionary** (`#/dictionary?d=newton-current&entry=inertial-frame&src=E5`): the network, nested by degree, with each law drawn by its own links. The roof is the three law entries referring to each other; the chimney and walls are double rails joining two entries of one headword; dashed means not written yet. **Laws as a table** shows the same houses as a grid. The left index lists the laws and every headword by degree; the right column reads the selected entry as a dictionary entry, ending "According to" its dictionary.
+- **Traces** (`#/traces?t=newton-ii-recorded&step=4`): a register of recorded runs and prepared demonstrations, replayed step by step on the network. A yellow band marks where the trace has been; given inputs are teal and end in a circle. Where a step carries recorded commitments, **Result and commitments** lists them. **A corrected mistake** (`#/traces?t=force-correction`) shows two derivations: one reaches 12 N and stays on record as issued, and a new one reaches 10 N.
+- **Ideas** (`#/ideas`): the five ideas the project rests on, each with the VD-docs note it comes from.
+- **Workshop** (`#/workshop`): local development builds only, never in a production build. Reserved for tools that work on the dictionaries directly.
+
+On the Dictionary and Traces pages, **the Edge** under the "According to" line is the dictionary seen side-on: one stroke per entry, in the order added for dictionaries exported from the engine and in the order listed for the small examples. A short grey stroke is an entry outside the laws, a medium blue one a headword defined again (a chimney or wall), a full crimson one a law entry. Selecting an entry, headword or law marks its strokes; a trace leaves a yellow band under the entries it has visited. Use the arrow keys to move along it and Enter to select.
+
+The site never runs the VD engine. Lines are references between entries, not physical causes. Prepared demonstrations and recorded runs are labelled as such.
 
 The map's lines denote headword references. They do not assert physical causation. Prepared examples and recorded playback have distinct labels. The website does not execute the VD engine or perform the recorded arithmetic. The Newton II run's arithmetic reductions were supplied by its interpreter. The kinematics example preserves literal substitution, even where the resulting prose is awkward.
 
@@ -45,29 +42,40 @@ The current Newton Design 2.1 draft has 26 definitions across 21 headwords and i
 ## Project layout
 
 ```text
-src/App.tsx               Interface and playback timer
-src/Explanation.tsx       The explanation section (text in src/data/explanation.ts)
-src/Graph.tsx             Headword network and occurrence overlays
-src/TracePlayer.tsx       Playback controls and active fragments
-src/ResultView.tsx        Root result, claim list and evidence inspector
-src/predictions.ts       Pure relevance and recorded-support selectors
-src/derivations.ts       Groups snapshots into derivations; a corrected derivation is a new one
-src/lawScene.ts          Law-structure layout: definition nodes, house shapes, degree columns
-src/HouseView.tsx        Laws as a table: one six-entry house per law
-src/houses.ts            Pure helpers over exported houses (columns, status, roles, outline)
-src/data/*-houses.json   Law-houses exported from the VDfirst engine
-tools/export_houses.py   Re-export houses from a VDfirst checkout (needs Python and networkx)
-src/data/correction*     Pinned VDfirst export and explicit display adapter
-src/traceGraph.ts         Step-derived start, traversal, input, and flatten state
+src/App.tsx               Shell, routing, shared explorer state and playback timer
+src/router.ts             Hash routes; the workshop exists only in development builds
+src/pages/HomePage.tsx    Introduction
+src/pages/DictionaryPage.tsx  Index, network or laws table, entry inspector
+src/pages/TracesPage.tsx  Trace register, playback, result and commitments
+src/pages/IdeasPage.tsx   The five ideas (text in src/data/explanation.ts)
+src/pages/WorkshopPage.tsx  Local-only shell
+src/pages/AccordingTo.tsx The "According to [dictionary]" line and count sentence
+src/pages/format.ts       Display names and count sentences
+src/IntroHouse.tsx        The Introduction's house figure (logic in src/homeFigure.ts)
+src/Edge.tsx              The Edge (logic in src/edgeModel.ts)
+src/Graph.tsx             The network: law structure, focused and full views, trace overlay
+src/lawScene.ts           Law-structure layout: definition nodes, nested degree frames, house links
 src/graphScene.ts         Focused/full layouts and trace-following camera geometry
-src/graphGeometry.ts      Separated directional paths for reciprocal references
-src/styles.css           Responsive visual design and accessibility states
-src/player.ts            Pure playback and selection state transitions
-src/data/dictionaries.ts Source definitions and explicit references
+src/graphGeometry.ts      Reference paths, double rails, box exits, hyphen-only line breaks
+src/TracePlayer.tsx       Step panel and playback controls
+src/ResultView.tsx        Root result, commitments, claim inspector, derivations
+src/HouseView.tsx         Laws as a table
+src/houses.ts             Pure helpers over exported houses (columns, status, roles, outline)
+src/predictions.ts        Pure relevance and recorded-support selectors
+src/derivations.ts        Groups snapshots into derivations; a corrected derivation is a new one
+src/traceGraph.ts         Step-derived start, traversal, input, and flatten state
+src/player.ts             Pure playback and selection state transitions
+src/theme.css             Design tokens, type roles, controls and shell
+src/{network,edge,dictionary,traces,home,ideas}.css   Styles per area
+src/data/*-houses.json    Law-houses exported from the VDfirst engine
+src/data/correction*      Pinned VDfirst export and explicit display adapter
+src/data/dictionaries.ts  Source definitions and explicit references
 src/data/traces.ts        Trace contract and prepared examples
-src/data/newton-*.ts      Current draft, operational snapshot, and recorded trace
-tests/*.test.ts           Data, playback, source fidelity, and visibility checks
-docs/DATA_FORMAT.md       Provisional interface for examples and future output
+src/data/newton-*.ts      Current draft, operational snapshot, and recorded traces
+tools/export_houses.py    Re-export houses from a VDfirst checkout (needs Python and networkx)
+tests/*.test.ts           Data, layout, routing, playback and source-fidelity checks
+docs/DATA_FORMAT.md       Data formats and the law-structure layout
+docs/DESIGN.md            The visual system: type roles, colour meanings, the Edge
 docs/SOURCES.md           Source selection and semantic limitations
 VD_WEBSITE_BRIEF.md       Original agreed product brief
 ```

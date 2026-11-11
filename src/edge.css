@@ -1,0 +1,103 @@
+/*
+ * The Edge: the dictionary seen side-on, one stroke per entry in the order added.
+ * Colours keep their one meaning each: crimson the law, blue a headword defined again,
+ * grey groundwork, dashed pencil not written yet, yellow only as a band where a trace has been.
+ * Nothing here animates; highlight changes are instant.
+ */
+.edge {
+  --edge-band: 36px;
+  margin: 0 0 var(--s-5);
+  min-width: 0;
+  max-width: 100%;
+}
+@media (pointer: coarse) { .edge { --edge-band: 44px; } }
+
+.edge-stage { position: relative; width: 100%; min-width: 0; }
+
+/* The listbox: one tab stop, as long as the dictionary is thick. */
+.edge-band {
+  position: relative;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  min-height: max(var(--edge-band), 44px);
+  border-radius: var(--radius-slip);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.edge-band--scroll { overflow-x: auto; overscroll-behavior-x: contain; }
+.edge-drawing { display: block; overflow: visible; }
+.edge-band--scroll .edge-drawing { overflow: hidden; }
+
+/* Options carry the names for assistive technology; the pointer is handled by the band. */
+.edge-option { position: absolute; top: 0; bottom: 0; pointer-events: none; }
+
+/* Strokes, by role. */
+.edge-stroke--ground { fill: var(--c-frame); }
+.edge-stroke--again { fill: var(--c-again); }
+.edge-stroke--law { fill: var(--c-law); }
+/* A selected law keeps its strokes; the rest go pale. Fill, not opacity, and never on text. */
+.edge-stroke.is-pale { fill: var(--c-border); }
+
+/* Not written yet: the only dashed thing. */
+.edge-unwritten { fill: none; stroke: var(--c-pencil); stroke-width: 1.5px; stroke-dasharray: 4 2; }
+.edge-unwritten.is-pale { stroke: var(--c-border); }
+
+/* Where a trace has been: a highlighter band under the strokes, never a colour of its own. */
+.edge-visited { fill: var(--c-highlight); }
+
+/* Selection and the current step. */
+.edge-cap { fill: var(--c-ink); }
+.edge-leader { stroke: var(--c-ink); stroke-width: 1px; }
+.edge-bracket line { stroke: var(--c-ink); stroke-width: 1.5px; stroke-linecap: butt; }
+.edge-cursor { fill: none; stroke: var(--c-ink); stroke-width: 2px; }
+
+/* Ids: the dictionary's own strings, never transformed. */
+.edge-id, .edge-end { font-family: var(--font-string); font-size: 12px; font-variant-numeric: tabular-nums lining-nums; }
+.edge-id { fill: var(--c-ink); font-weight: 600; }
+.edge-end { fill: var(--c-muted); }
+
+/* The tooltip slip: white, 1px border, square-ish, no shadow. */
+.edge-tip {
+  position: absolute;
+  top: calc(100% + var(--s-1));
+  left: 0;
+  z-index: 10;
+  display: grid;
+  gap: 2px;
+  width: max-content;
+  max-width: min(320px, 100%);
+  padding: var(--s-2) var(--s-3);
+  background: var(--c-surface);
+  border: 1px solid var(--c-frame);
+  border-radius: var(--radius-slip);
+  color: var(--c-ink);
+  pointer-events: none;
+}
+.edge-tip-id { font-size: var(--fs-xs); color: var(--c-muted); }
+.edge-tip-headword { font-size: var(--fs-ui); font-weight: 600; line-height: 1.35; }
+.edge-tip-role { font-size: var(--fs-xs); line-height: 1.4; }
+
+/* The caption: Literata italic, one line where it fits. */
+.edge-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--s-3);
+  margin-top: var(--s-1);
+  font-family: var(--font-prose);
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+}
+.edge-caption-text { max-width: 90ch; }
+/* A small text control whose touch target is 44px tall without growing the line. */
+.edge-caption-toggle {
+  font-family: var(--font-ui);
+  font-stretch: 100%;
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  padding: 13px 4px;
+  margin: -13px -4px;
+  min-width: 44px;
+}

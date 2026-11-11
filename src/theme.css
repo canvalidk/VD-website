@@ -1,0 +1,199 @@
+/*
+ * Authority Dictionary: design tokens, base type and the page shell.
+ *
+ * Who is speaking shows in the type:
+ *   .vd-string  Atkinson Hyperlegible Next  the dictionary's own strings (headwords, ids, definitions, results)
+ *   .vd-voice   Literata                    the site's commentary (prose, captions, italic labels)
+ *   headings and controls                  Archivo
+ *
+ * Colours have one meaning each:
+ *   --c-law       crimson   the law: roof links, triplet entries
+ *   --c-again     blue      a headword defined again: chimney and walls; also text links
+ *   --c-pencil    dashed    not written yet (dashed means nothing else anywhere on the site)
+ *   --c-highlight yellow    where a recorded trace has been (always a band under ink, never text)
+ *   --c-given     teal      a given input in a trace
+ * Page-area styles live in network.css, edge.css, dictionary.css, traces.css, home.css and ideas.css.
+ */
+:root {
+  /* surfaces */
+  --c-page: #EEF1F4;
+  --c-surface: #FFFFFF;
+  --c-panel: #F7F9FA;
+  --c-tray-0: #EEF1F4;
+  --c-tray-1: #E4EAF0;
+  --c-tray-2: #D9E2EA;
+  --c-tray-3: #CFD9E3;
+  --c-tray-4: #C6D1DC;
+  --c-border: #C3CDD6;
+  --c-frame: #6E7887;
+
+  /* text */
+  --c-ink: #1E2230;
+  --c-muted: #4A5566;
+  --c-on-ink: #FFFFFF;
+  --c-on-ink-muted: #C9D3E0;
+
+  /* meaning */
+  --c-law: #B8234A;
+  --c-again: #2F5F94;
+  --c-pencil: #5C6470;
+  --c-ref: #8A94A3;
+  --c-highlight: #F5D90A;
+  --c-highlight-soft: #FFF3A6;
+  --c-given: #0F7C7C;
+
+  /* type */
+  --font-ui: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --font-string: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", Verdana, sans-serif;
+  --font-prose: "Literata", Georgia, serif;
+  --stretch-head: 87%;
+  --fs-xs: 0.8125rem;
+  --fs-ui: 0.9375rem;
+  --fs-string: 1rem;
+  --fs-prose: 1.0625rem;
+  --fs-h3: 1.3125rem;
+  --fs-headword: 1.75rem;
+  --fs-h1: 2.25rem;
+  --fs-result: 2.5rem;
+  --fs-hero: clamp(2.25rem, 5vw, 3.5rem);
+  --lh-prose: 1.6;
+  --lh-string: 1.55;
+  --measure: 64ch;
+
+  /* space and shape */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 40px; --s-7: 64px;
+  --margin: 40px;
+  --radius-slip: 2px;
+  --radius-tray: 6px;
+  --label-col: 12rem;
+  --index-col: 248px;
+  --inspector-col: 340px;
+  --max-wide: 1440px;
+  --max-intro: 1120px;
+
+  /* lines */
+  --w-roof: 4px;
+  --w-rail: 1.5px;
+  --rail-gap: 5px;
+  --w-ref: 1.25px;
+  --w-trace-band: 8px;
+  --w-trace-line: 2px;
+  --w-trace-current: 3px;
+  --role-rule: 3px;
+
+  color: var(--c-ink);
+  background: var(--c-page);
+  font-family: var(--font-prose);
+  font-size: 16px;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+}
+@media (max-width: 760px) { :root { --margin: 16px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; }
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; }
+button, select, input { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; text-align: inherit; }
+button:disabled { cursor: default; }
+a { color: var(--c-again); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--c-ink); }
+img, svg { display: block; }
+button, a, select, input { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+
+/* One focus ring everywhere: ink, with a white halo so it shows on white, ink and yellow. */
+:focus-visible { outline: 3px solid var(--c-ink); outline-offset: 2px; box-shadow: 0 0 0 5px #FFFFFF; }
+:focus:not(:focus-visible) { outline: none; }
+
+h1, h2, h3, h4 { font-family: var(--font-ui); font-weight: 700; font-stretch: var(--stretch-head); letter-spacing: 0; line-height: 1.15; }
+h1 { font-size: var(--fs-h1); line-height: 1.1; }
+h2 { font-size: var(--fs-h3); }
+h3 { font-size: 1.0625rem; }
+h1:focus { outline: none; }
+
+/* The dictionary's own strings. Exact: no transforms, no ligatures, break only after an existing hyphen. */
+.vd-string {
+  font-family: var(--font-string);
+  text-transform: none;
+  font-variant: normal;
+  font-variant-ligatures: none;
+  font-variant-numeric: tabular-nums lining-nums;
+  hyphens: manual;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.vd-voice { font-family: var(--font-prose); font-size: var(--fs-prose); line-height: var(--lh-prose); max-width: var(--measure); }
+.vd-label { font-family: var(--font-prose); font-style: italic; color: var(--c-muted); }
+.vd-ui { font-family: var(--font-ui); font-stretch: 100%; }
+.vd-muted { color: var(--c-muted); }
+.vd-num { font-variant-numeric: tabular-nums lining-nums; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* Controls: Archivo 15px, 1.5px ink border, white fill; pressed or current is ink with white text. */
+.vd-button {
+  font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; font-size: var(--fs-ui);
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: 44px; padding: 0 var(--s-4);
+  border: 1.5px solid var(--c-ink); border-radius: var(--radius-slip); background: var(--c-surface); color: var(--c-ink);
+}
+.vd-button:hover { background: var(--c-tray-1); }
+.vd-button[aria-pressed="true"]:hover, .vd-button[aria-current]:hover { background: var(--c-ink); }
+.vd-button[aria-pressed="true"], .vd-button[aria-current] { background: var(--c-ink); color: var(--c-on-ink); }
+.vd-button:disabled { border-color: var(--c-border); color: var(--c-muted); background: var(--c-surface); }
+.vd-segmented { display: inline-flex; }
+.vd-segmented .vd-button { border-radius: 0; }
+.vd-segmented .vd-button + .vd-button { margin-left: -1.5px; }
+.vd-segmented .vd-button:first-child { border-radius: var(--radius-slip) 0 0 var(--radius-slip); }
+.vd-segmented .vd-button:last-child { border-radius: 0 var(--radius-slip) var(--radius-slip) 0; }
+.vd-select {
+  font-family: var(--font-ui); font-stretch: 100%; font-size: var(--fs-ui); font-weight: 500;
+  min-height: 44px; padding: 0 var(--s-6) 0 var(--s-3);
+  border: 1.5px solid var(--c-ink); border-radius: var(--radius-slip); background-color: var(--c-surface);
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--c-ink) 50%), linear-gradient(135deg, var(--c-ink) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+  background-size: 5px 5px; background-repeat: no-repeat;
+  max-width: 100%;
+}
+.vd-link-button { color: var(--c-again); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.vd-link-button:hover { color: var(--c-ink); }
+
+/* Shell */
+.skip-link { position: absolute; left: var(--margin); top: -100px; z-index: 20; padding: var(--s-3) var(--s-4); background: var(--c-surface); border: 1.5px solid var(--c-ink); font-family: var(--font-ui); font-weight: 600; }
+.skip-link:focus { top: var(--s-3); }
+
+.running-head { border-bottom: 1px solid var(--c-border); background: var(--c-page); }
+.running-head-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 var(--margin); min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: var(--s-4) var(--s-6); flex-wrap: wrap; }
+.wordmark { display: flex; align-items: baseline; gap: var(--s-3); flex-wrap: wrap; color: var(--c-ink); text-decoration: none; padding: var(--s-3) 0; }
+.wordmark strong { font-family: var(--font-ui); font-weight: 700; font-stretch: var(--stretch-head); font-size: 1.25rem; }
+.wordmark span { font-family: var(--font-prose); font-style: italic; color: var(--c-muted); font-size: var(--fs-ui); }
+.site-nav { display: flex; gap: var(--s-5); align-items: stretch; align-self: stretch; }
+.site-nav a { display: flex; align-items: center; gap: var(--s-2); min-height: 44px; padding: 0 2px; font-family: var(--font-ui); font-stretch: 100%; font-size: var(--fs-ui); font-weight: 500; color: var(--c-ink); text-decoration: none; border-bottom: 3px solid transparent; margin-bottom: -1px; }
+.site-nav a:hover { border-bottom-color: var(--c-border); }
+.site-nav a[aria-current="page"] { border-bottom-color: var(--c-ink); font-weight: 600; }
+.site-nav .vd-label { font-size: var(--fs-xs); }
+@media (max-width: 760px) {
+  .running-head-inner { padding-top: var(--s-2); }
+  .site-nav { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: 0 var(--s-3); }
+}
+
+.page { max-width: var(--max-wide); margin: 0 auto; padding: var(--s-6) var(--margin) var(--s-7); }
+.page-narrow { max-width: var(--max-intro); }
+.page-title { margin-bottom: var(--s-3); }
+.page-lead { margin-bottom: var(--s-6); color: var(--c-ink); }
+
+/* "According to [dictionary]" and its count sentence, on Dictionary and Traces. */
+.according-to { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3) var(--s-5); flex-wrap: wrap; margin-bottom: var(--s-4); }
+.according-to label, .according-to .according-label { font-family: var(--font-prose); font-style: italic; font-size: var(--fs-prose); color: var(--c-ink); display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; }
+.according-to .according-name { font-family: var(--font-ui); font-style: normal; font-weight: 600; }
+.according-count { font-family: var(--font-prose); font-size: var(--fs-ui); color: var(--c-muted); }
+
+.colophon { border-top: 1px solid var(--c-border); }
+.colophon-inner { max-width: var(--max-wide); margin: 0 auto; padding: var(--s-5) var(--margin) var(--s-6); font-family: var(--font-prose); font-size: var(--fs-xs); line-height: 1.6; color: var(--c-muted); max-width: min(var(--max-wide), 100%); }
+.colophon-inner p { max-width: 90ch; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

@@ -62,7 +62,7 @@ Added from `03_trace_and_evaluator/newton_second_law_given_inputs_trace.txt`, co
 
 The question gives particle p1, an inertial frame R, instant t0, a net force of (6, 0, 0) N and a mass of 2 kg. This transcript starts the trace, inspects document E3/E20/E23, expands document E21 (raw zero-based REPL E20), injects p1, flattens the acceleration self-label, injects force and mass, and records the interpreter's reduction to (3, 0, 0) m/s². The viewer condenses this into seven display stages and retains the source's normalized literal residual.
 
-Only the Newton II definition is expanded. There is no particle recall, force-sum expansion, or interaction-set traversal. The three supplied values are shown as cyan input bindings, separately from lime dictionary traversals. Only E21 position 1 is flattened. This source is a text transcript, separate from the earlier 39-event JSON run; no event count or live engine execution is claimed for it.
+Only the Newton II definition is expanded. There is no particle recall, force-sum expansion, or interaction-set traversal. The three supplied values are shown as teal input bindings ending in a circle, separately from the yellow-banded dictionary traversals. Only E21 position 1 is flattened. This source is a text transcript, separate from the earlier 39-event JSON run; no event count or live engine execution is claimed for it.
 
 ## Original small examples
 

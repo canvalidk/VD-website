@@ -28,3 +28,21 @@ test('the explanation does not claim the bundled Newton drafts define gravity', 
   assert.ok(newton.length > 0);
   for (const dictionary of newton) assert.ok(dictionary.entries.every(entry => !/gravit/i.test(entry.id)), dictionary.id);
 });
+
+test('dictionary strings marked in an idea appear verbatim in its paragraphs', () => {
+  // The Ideas page sets these in the dictionary's typeface; a hint that no longer matches the wording would silently do nothing.
+  for (const idea of ideas) {
+    for (const text of idea.strings ?? []) {
+      assert.ok(text.trim().length > 0, idea.id);
+      assert.ok(idea.paragraphs.some(paragraph => paragraph.includes(text)), `${idea.id}: ${text}`);
+    }
+  }
+  assert.ok(ideas.some(idea => idea.strings?.includes('convention')));
+});
+
+test('idea titles and actions carry no numbering or arrow glyphs', () => {
+  for (const idea of ideas) {
+    assert.doesNotMatch(idea.title, /^\s*\d/, idea.id);
+    for (const text of [idea.title, idea.source.title, idea.action?.label ?? '']) assert.doesNotMatch(text, /[←-⇿]/, idea.id);
+  }
+});

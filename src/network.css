@@ -1,0 +1,158 @@
+/*
+ * The dictionary network (Graph.tsx). A light panel on the same paper as the entries.
+ * Every line has one meaning:
+ *   crimson, heavy        the roof of a law
+ *   blue double rail      the same headword, defined again (chimney and walls)
+ *   dashed pencil         not written yet, and nothing else
+ *   thin grey, arrowed    an ordinary reference
+ *   yellow band under ink where the trace has been
+ *   teal with a circle    a given input
+ * Selection never dims text or slips: only other houses' links step back.
+ */
+
+.net { min-width: 0; }
+
+/* Controls */
+.net-tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); margin-bottom: var(--s-3); }
+.net-views { flex-wrap: wrap; max-width: 100%; }
+.net-camera { display: flex; align-items: center; gap: var(--s-1); }
+.net-zoom-step { min-width: 44px; padding: 0 var(--s-2); font-size: 1.125rem; }
+.net-zoom-level { min-width: 3.5em; text-align: center; font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; font-size: var(--fs-ui); color: var(--c-ink); }
+.net-follow { display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; cursor: pointer; font-family: var(--font-ui); font-stretch: 100%; font-weight: 500; font-size: var(--fs-ui); color: var(--c-ink); }
+.net-follow input { width: 20px; height: 20px; margin: 0; accent-color: var(--c-ink); cursor: pointer; }
+
+/* The panel */
+.net-viewport {
+  position: relative; overflow: hidden; contain: layout paint;
+  height: clamp(360px, 53vh, 480px);
+  background: var(--c-panel); border: 1px solid var(--c-border); border-radius: 0;
+  touch-action: none; cursor: grab;
+}
+.net-viewport.is-structure { height: clamp(460px, 72vh, 700px); }
+.net-viewport.is-dragging, .net-viewport.is-dragging .net-world { cursor: grabbing; user-select: none; }
+/* Only the camera moves, and only when following a trace or fitting; never on load of a slip. */
+.net-world { position: absolute; inset: 0 auto auto 0; transform-origin: 0 0; transition: transform .45s ease; }
+.net-viewport.is-dragging .net-world { transition: none; }
+.net-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+
+/* Degree trays: nested, each one tone deeper. Frames are solid; dashed means only "not written yet". */
+.net-frame rect { stroke: var(--c-frame); stroke-width: 1; }
+.net-tray-0 rect { fill: var(--c-tray-0); }
+.net-tray-1 rect { fill: var(--c-tray-1); }
+.net-tray-2 rect { fill: var(--c-tray-2); }
+.net-tray-3 rect { fill: var(--c-tray-3); }
+.net-tray-4 rect { fill: var(--c-tray-4); }
+.net-frame-degree { font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; font-size: 13px; fill: var(--c-ink); }
+.net-frame-note { font-family: var(--font-prose); font-style: italic; font-size: 13px; fill: var(--c-muted); }
+
+/* House labels: "Law 1, Newton I" in Archivo, then the law's old word as the dictionary writes it. */
+.net-house-law { font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; font-size: 13px; fill: var(--c-ink); }
+.net-house-anchor { font-family: var(--font-string); font-size: 13px; fill: var(--c-ink); font-variant-ligatures: none; font-variant-numeric: tabular-nums lining-nums; text-transform: none; }
+
+/* Ordinary references: supplementary, since the inspector lists every reference as text. */
+.net-ref { fill: none; stroke: var(--c-ref); stroke-width: var(--w-ref); vector-effect: non-scaling-stroke; }
+.net-ref.is-connected { stroke: var(--c-ink); stroke-width: 1.75px; }
+.net-ref.is-quiet { opacity: .6; }
+.net-marker-ref path { fill: var(--c-ref); }
+.net-marker-ink path, .net-marker-trace path { fill: var(--c-ink); }
+
+/* House links */
+.net-roof { stroke: var(--c-law); stroke-width: var(--w-roof); stroke-linecap: round; }
+.net-rail { stroke: var(--c-again); stroke-width: var(--w-rail); stroke-linecap: butt; }
+.net-unwritten { stroke: var(--c-pencil); stroke-width: 2px; stroke-dasharray: 6 4; stroke-linecap: butt; }
+.net-placeholder-frame { fill: none; stroke: var(--c-pencil); stroke-width: 1.5px; stroke-dasharray: 6 4; }
+.net-lines .is-dim { opacity: .35; }
+.net-occurrence-line { stroke: var(--c-ref); stroke-width: var(--w-ref); vector-effect: non-scaling-stroke; }
+
+/* Trace: highlighter under pencil. The band is never drawn without its ink line. */
+.net-band { fill: none; stroke: var(--c-highlight); stroke-width: var(--w-trace-band); stroke-linecap: round; stroke-linejoin: round; }
+.net-trace { fill: none; stroke: var(--c-ink); stroke-width: var(--w-trace-line); stroke-linecap: round; }
+.net-trace.is-current { stroke-width: var(--w-trace-current); }
+.net-given { fill: none; stroke: var(--c-given); stroke-width: 2px; stroke-linecap: round; }
+.net-given-link.is-current .net-given { stroke-width: 3px; }
+.net-given-end { fill: var(--c-surface); stroke: var(--c-given); stroke-width: 2px; }
+
+/* Unwritten slots: no fill, so the tray shows through; the dashed outline is drawn in the SVG. */
+.net-placeholder {
+  position: absolute; transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  padding: var(--s-1) var(--s-2); text-align: center; pointer-events: none;
+}
+.net-placeholder-text { font-family: var(--font-prose); font-style: italic; font-size: 13px; line-height: 1.3; color: var(--c-muted); }
+.net-placeholder-word { font-size: 13px; line-height: 1.2; color: var(--c-muted); }
+
+/* Entry slips */
+.net-slip {
+  --net-inset: 0 0 #0000;
+  position: absolute; transform: translate(-50%, -50%);
+  display: grid; grid-template-rows: auto 1fr auto; align-items: center;
+  padding: 7px var(--s-2) 6px;
+  background: var(--c-surface); color: var(--c-ink);
+  border: 1px solid var(--c-frame); border-radius: var(--radius-slip);
+  box-shadow: var(--net-inset);
+  text-align: center;
+}
+.net-slip:hover { border-color: var(--c-ink); }
+.net-slip:focus-visible { outline: 3px solid var(--c-ink); outline-offset: 2px; box-shadow: var(--net-inset), 0 0 0 5px var(--c-surface); }
+/* Role rule along the top edge: crimson for the law's entries, blue for a headword defined again. */
+.net-slip.net-role-law::before, .net-slip.net-role-again::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: var(--role-rule); pointer-events: none; }
+.net-slip.net-role-law::before { background: var(--c-law); }
+.net-slip.net-role-again::before { background: var(--c-again); }
+.net-slip-id { justify-self: start; font-size: 12px; line-height: 1.25; color: var(--c-muted); text-align: left; }
+.net-slip-id.vd-ui { font-weight: 500; }
+.net-slip-word { font-weight: 600; font-size: 14px; line-height: 1.2; }
+.net-slip-state { font-family: var(--font-prose); font-style: italic; font-size: 13px; line-height: 1.3; color: var(--c-ink); }
+
+/* Trace states. Fills change, text never fades. */
+.net-slip.is-visited { background: var(--c-highlight-soft); }
+.net-slip.is-current { background: var(--c-highlight-soft); border-color: var(--c-ink); --net-inset: inset 0 0 0 1.5px var(--c-ink); }
+
+/* Selection: the slip turns to ink, with a white keyline inside so the focus ring still reads. */
+.net-slip.is-selected { background: var(--c-ink); color: var(--c-on-ink); border-color: var(--c-ink); --net-inset: inset 0 0 0 2px var(--c-surface); }
+.net-slip.is-selected .net-slip-id { color: var(--c-on-ink-muted); }
+.net-slip.is-selected .net-slip-state { color: var(--c-on-ink); }
+
+/* Occurrences of a self-label: flattened ones get a hatched strip and a word, nothing struck or faded. */
+.net-slip.is-occurrence { padding-left: 18px; }
+.net-slip.is-flattened::after {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 10px; pointer-events: none;
+  border-right: 1px solid var(--c-ref);
+  background: repeating-linear-gradient(45deg, var(--c-ref) 0 1.5px, transparent 1.5px 5px);
+}
+
+/* Tags: small white labels just outside the slip, so they never cover its text. */
+.net-tag {
+  position: absolute; white-space: nowrap; line-height: 1.3; padding: 0 var(--s-1);
+  background: var(--c-surface); color: var(--c-ink); border-radius: var(--radius-slip);
+}
+.net-tag-start { bottom: 100%; left: -1px; margin-bottom: 3px; font-family: var(--font-prose); font-style: italic; font-size: 13px; }
+.net-tag-step { bottom: 100%; right: -1px; margin-bottom: 3px; font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; font-size: 12px; }
+.net-tag-given { top: 100%; right: var(--s-2); margin-top: -9px; font-size: 12px; border: 1.5px solid var(--c-given); }
+.net-tag-given-word { font-family: var(--font-prose); font-style: italic; }
+
+/* Playback strip under the panel */
+.net-playback { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); margin-top: var(--s-3); }
+.net-playback-buttons { display: flex; gap: var(--s-1); }
+.net-play { min-width: 6.5em; }
+.net-playback-step { font-family: var(--font-prose); font-size: var(--fs-ui); line-height: 1.4; color: var(--c-ink); min-width: 0; }
+.net-playback-count { font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; margin-right: var(--s-2); }
+
+/* Legend: drawn samples at true weight, each followed by a sentence. */
+.net-legend { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin-top: var(--s-3); font-family: var(--font-prose); font-size: var(--fs-xs); line-height: 1.4; color: var(--c-ink); }
+.net-legend li { display: flex; align-items: center; gap: var(--s-2); min-width: 0; }
+.net-sample { flex: none; overflow: visible; }
+.net-sample-hatch {
+  display: inline-block; width: 36px; height: 16px; border: 1px solid var(--c-frame); border-radius: var(--radius-slip);
+  background: repeating-linear-gradient(45deg, var(--c-ref) 0 1.5px, transparent 1.5px 5px) left / 10px 100% no-repeat, var(--c-surface);
+}
+.net-note { margin-top: var(--s-2); max-width: var(--measure); font-family: var(--font-prose); font-size: var(--fs-xs); line-height: 1.6; color: var(--c-muted); }
+
+@media (max-width: 760px) {
+  .net-viewport, .net-viewport.is-structure { height: 62vh; min-height: 320px; }
+  .net-has-trace .net-viewport, .net-has-trace .net-viewport.is-structure { height: 55vh; }
+  .net-legend { gap: var(--s-2) var(--s-4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .net-world { transition: none; }
+}
