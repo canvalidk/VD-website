@@ -1,14 +1,21 @@
 import type { Dictionary, Entry } from './data/dictionaries.ts';
 import type { PreparedTrace } from './data/traces.ts';
 import { edgeId, traceGraphState } from './traceGraph.ts';
+import type { HouseRole } from './houses.ts';
+import { houseHeadwords } from './houses.ts';
 
 export type GraphView = 'structure' | 'focused' | 'full';
 export interface Bounds { x: number; y: number; width: number; height: number }
 /** A node is a headword in the plain views, and one definition in the law-structure view (then sourceId is set). */
-export interface SceneNode extends Bounds { id: string; entryId: string; sourceId?: string; label: string; caption: string; entry?: Entry; flattened: boolean; occurrence: boolean; visible: boolean; active: boolean; start: boolean; selected: boolean; given?: string; parent?: { x: number; y: number }; roles?: string }
+export interface SceneNode extends Bounds { id: string; entryId: string; sourceId?: string; label: string; caption: string; entry?: Entry; flattened: boolean; occurrence: boolean; visible: boolean; active: boolean; start: boolean; selected: boolean; given?: string; parent?: { x: number; y: number }; roles?: string;
+  /** The role rule on the slip: law for a triplet entry (or, in the headword views, a law's headword); again for a chimney or wall entry. */
+  roleKind?: RoleKind;
+  /** The trace has been here: the headword was named by this step or an earlier one, or is the start. */
+  visited?: boolean }
+export type RoleKind = 'law' | 'again';
 export interface SceneEdge { id: string; source: SceneNode; target: SceneNode; traversed: boolean; current: boolean; bound: boolean; currentInput: boolean; connected: boolean; reciprocal: boolean }
 /** Decoration and overlays only the law-structure view produces. */
-export interface HouseLabel { index: number; label: string; title?: string; x: number; y: number }
+export interface HouseLabel { index: number; label: string; title?: string; x: number; y: number; /** The law's old word, the headword of its chimney. */ anchor?: string }
 /** A degree's region. Frames nest: degree d+1 lies inside degree d. x and y are the top-left corner. */
 export interface SceneFrame { degree: number; note: string; x: number; y: number; width: number; height: number }
 /**
@@ -16,13 +23,14 @@ export interface SceneFrame { degree: number; note: string; x: number; y: number
  * chimney and wall: two definitions of the same headword, before and inside the law, or inside and after it.
  */
 export interface HouseLink { id: string; house: number; kind: 'roof' | 'chimney' | 'wall'; source: { x: number; y: number }; target: { x: number; y: number }; unwritten: boolean; connected: boolean }
-export interface ScenePlaceholder extends Bounds { id: string; label: string }
-export interface SceneLink { id: string; source: { x: number; y: number }; target: { x: number; y: number }; traversed: boolean; current: boolean; bound: boolean; currentInput: boolean }
+export interface ScenePlaceholder extends Bounds { id: string; label: string; role?: HouseRole; headword?: string }
+export interface SceneLink { id: string; source: { x: number; y: number }; target: { x: number; y: number }; traversed: boolean; current: boolean; bound: boolean; currentInput: boolean; /** Size of the slip at the target, so a given input's circle can sit at its border. */ targetBox?: { width: number; height: number } }
 
 export function surrounding(nodes: SceneNode[]): Bounds {
   if (!nodes.length) return { x: 0, y: 0, width: 1, height: 1 };
   const x = Math.min(...nodes.map(node => node.x - node.width / 2));
-  const y = Math.min(...nodes.map(node => node.y - node.height / 2 - (node.start ? 24 : 0)));
+  // The start and step tags sit above a slip.
+  const y = Math.min(...nodes.map(node => node.y - node.height / 2 - (node.start || node.active ? 24 : 0)));
   return { x, y, width: Math.max(...nodes.map(node => node.x + node.width / 2)) - x, height: Math.max(...nodes.map(node => node.y + node.height / 2)) - y };
 }
 
@@ -36,6 +44,9 @@ export function createGraphScene(dictionary: Dictionary, selectedId: string, tra
     ...(item.boundInputs ?? []).flatMap(input => [input.from, input.to]),
   ]), ...(trace.occurrences ?? []).flatMap(item => [item.entryId, item.parentEntryId])] : []);
   const selected = dictionary.entries.find(entry => entry.id === selectedId)!;
+  const visitedIds = new Set(trace ? [history.startEntryId!, ...trace.steps.slice(0, index + 1).flatMap(item => item.relatedEntryIds)] : []);
+  // Headwords are drawn once here, so a law's headword carries the law's rule: every headword of a law has its triplet entry.
+  const lawWords = new Set((dictionary.houses ?? []).flatMap(houseHeadwords));
   const focusIds = trace ? new Set([...traceIds, selectedId]) : new Set([selectedId, ...selected.references,
     ...dictionary.entries.filter(entry => entry.references.includes(selectedId)).map(entry => entry.id)]);
   const included = dictionary.entries.filter(entry => view === 'full' || dictionary.entries.length <= 10 || focusIds.has(entry.id));
@@ -56,6 +67,7 @@ export function createGraphScene(dictionary: Dictionary, selectedId: string, tra
     entry, occurrence: false, flattened: false, visible: true, active: !!step?.relatedEntryIds.includes(entry.id), start: entry.id === history.startEntryId, selected: entry.id === selectedId,
     x: columns === 1 ? width / 2 : padding + column * cellWidth, y: 104 + row * cellHeight + (background ? 30 : 0), width: 174, height: 96,
     given: [...history.boundInputs.values()].find(input => input.to === entry.id)?.value,
+    roleKind: lawWords.has(entry.id) ? 'law' : undefined, visited: visitedIds.has(entry.id),
   }; });
   // Keep occurrence animations beside the trace, with the remaining dictionary below.
   const occurrenceStartY = 104 + traceRows * cellHeight + 30;

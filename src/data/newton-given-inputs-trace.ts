@@ -21,7 +21,7 @@ export const newtonGivenInputsTrace: PreparedTrace = {
     { id: 'expand-law', title: 'Open Newton II · E21', operation: 'Expand', context: 'E21 · inertial-acceleration', relatedEntryIds: ['inertial-acceleration', 'point-particle', 'net-force', 'inertial-mass'],
       description: 'Select the a = F/m definition. It is the only definition expanded in this run.', fragment: law(false, false, false, false) },
     { id: 'supply-particle', title: 'Bind the given particle · p1', operation: 'Input', context: 'E21 · position 0', relatedEntryIds: ['point-particle', 'inertial-acceleration'],
-      description: 'Inject p1 into the point-particle demand and return to the law. The cyan connection marks a supplied input; the particle definition is not recalled.',
+      description: 'Inject p1 into the point-particle demand and return to the law. The teal connection ending in a circle marks a supplied input; the particle definition is not recalled.',
       fragment: law(true, false, false, false), boundInputs: [{ from: 'inertial-acceleration', to: 'point-particle', value: 'p1' }] },
     { id: 'flatten-acceleration', title: 'Flatten the acceleration label', operation: 'Flatten', context: 'E21 · position 1', relatedEntryIds: ['inertial-acceleration'],
       description: 'Flatten only the left-side self-label. Its occurrence fades, while the starting node and the open force and mass demands remain available.', fragment: law(true, true, false, false) },

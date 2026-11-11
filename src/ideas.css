@@ -1,0 +1,94 @@
+/*
+ * Ideas and Workshop pages.
+ *
+ * Ideas is one quiet reading column: five ideas set as entries, the title as the headword (no numbers),
+ * the prose in Literata, any dictionary string quoted in the prose in the dictionary's own typeface,
+ * then the source note and a plain link to where the idea can be seen. 64px between ideas, no rules.
+ *
+ * Workshop (local builds only) reuses the Dictionary page's 248 / 1fr / 340 grid so later tools take
+ * the positions their counterparts have there.
+ */
+
+/* Ideas */
+.ideas-column {
+  /* The measure is counted in the prose face, so 64ch is 64 Literata characters at 17px. */
+  font-family: var(--font-prose);
+  font-size: var(--fs-prose);
+  max-width: var(--measure);
+  color: var(--c-ink);
+}
+.ideas-page .page-title { font-size: var(--fs-h1); margin-bottom: var(--s-4); text-wrap: balance; }
+.ideas-page .page-lead { margin-bottom: var(--s-7); }
+
+.ideas-idea + .ideas-idea { margin-top: var(--s-7); }
+.ideas-title {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-stretch: var(--stretch-head);
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  color: var(--c-ink);
+  margin-bottom: var(--s-3);
+  text-wrap: balance;
+}
+.ideas-prose p { text-wrap: pretty; }
+.ideas-prose p + p { margin-top: var(--s-4); }
+
+/* A dictionary string inside the prose (for example the dictionary name convention). Atkinson runs large
+   beside Literata, so it is set a touch smaller to sit on the same line without shouting. */
+.ideas-term { font-size: 0.94em; }
+
+/* The source note, as a hanging indent: wrapped lines of the title stay under the title, not under "Source:". */
+.ideas-source {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.4em;
+  align-items: baseline;
+  margin-top: var(--s-2);
+  font-family: var(--font-prose);
+  font-size: var(--fs-ui);
+  line-height: 1.6;
+}
+.ideas-source-label { color: var(--c-muted); }
+/* The link shrinks to its text; the vertical padding gives it a 44px target without moving the text. */
+.ideas-source a { justify-self: start; padding-block: 10px; min-height: 44px; }
+
+.ideas-action { margin-top: 0; }
+.ideas-action a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-prose);
+  font-size: var(--fs-prose);
+  line-height: 1.4;
+}
+
+/* Workshop */
+.workshop-page .page-title { font-size: var(--fs-h1); margin-bottom: var(--s-4); }
+.workshop-page .page-lead { margin-bottom: var(--s-6); }
+
+.workshop-grid {
+  display: grid;
+  grid-template-columns: var(--index-col) minmax(0, 1fr) var(--inspector-col);
+  gap: var(--s-5);
+  align-items: start;
+}
+/* One reserved slip across the index, network and inspector positions. Solid pencil border:
+   dashed means only "not written yet", and this is reserved, not unwritten. */
+.workshop-slot {
+  grid-column: 1 / -1;
+  min-height: 240px;
+  padding: var(--s-5);
+  background: var(--c-surface);
+  border: 1px solid var(--c-pencil);
+  border-radius: var(--radius-slip);
+}
+.workshop-slot .vd-label { font-size: var(--fs-prose); line-height: var(--lh-prose); }
+
+@media (max-width: 1100px) {
+  .workshop-grid { grid-template-columns: var(--index-col) minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .workshop-grid { grid-template-columns: minmax(0, 1fr); }
+  .workshop-slot { min-height: 160px; padding: var(--s-4); }
+}

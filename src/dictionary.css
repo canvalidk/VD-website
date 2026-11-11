@@ -1,0 +1,234 @@
+/*
+ * Dictionary page: the index of laws and headwords, the map (network or Laws as a table) and the entry inspector.
+ * Markup: src/pages/DictionaryPage.tsx and src/HouseView.tsx. Every class here starts with dict-.
+ * Grid: 248px index, the map, 340px inspector. At 1100px or less the inspector drops below the map;
+ * at 760px or less it is one column: map, inspector, then the index.
+ */
+
+.dict-layout {
+  display: grid;
+  grid-template-columns: var(--index-col) minmax(0, 1fr) var(--inspector-col);
+  grid-template-areas: "index main inspector";
+  gap: var(--s-5);
+  align-items: start;
+  margin-top: var(--s-5);
+}
+.dict-index { grid-area: index; min-width: 0; }
+.dict-main { grid-area: main; min-width: 0; }
+.dict-inspector { grid-area: inspector; min-width: 0; }
+
+@media (max-width: 1100px) {
+  .dict-layout {
+    grid-template-columns: var(--index-col) minmax(0, 1fr);
+    grid-template-areas: "index main" "index inspector";
+  }
+}
+@media (max-width: 760px) {
+  .dict-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "main" "inspector" "index";
+    gap: var(--s-6);
+  }
+}
+
+/* ---------- Index ---------- */
+
+.dict-rows { list-style: none; margin: 0; padding: 0; }
+
+.dict-index-head {
+  font-family: var(--font-ui); font-stretch: var(--stretch-head); font-weight: 700;
+  font-size: 1.0625rem; line-height: 1.2; color: var(--c-ink);
+}
+.dict-laws { margin-bottom: var(--s-5); }
+.dict-laws .dict-index-head { margin-bottom: var(--s-1); }
+
+/* The disclosure that holds every headword: open beside the map, closed by default under it. */
+.dict-headwords > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-3);
+  min-height: 44px; cursor: pointer; list-style: none;
+}
+.dict-headwords > summary::-webkit-details-marker { display: none; }
+.dict-headwords > summary::after {
+  content: "Show"; content: "Show" / "";
+  font-family: var(--font-ui); font-stretch: 100%; font-weight: 500; font-size: var(--fs-ui);
+  color: var(--c-again); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.dict-headwords[open] > summary::after { content: "Hide"; content: "Hide" / ""; }
+.dict-headwords > summary:hover::after { color: var(--c-ink); }
+
+.dict-group { margin-top: var(--s-4); }
+.dict-group:first-of-type { margin-top: var(--s-1); }
+.dict-group-head {
+  font-family: var(--font-ui); font-stretch: 100%; font-weight: 600;
+  font-size: var(--fs-ui); line-height: 1.3; color: var(--c-ink);
+  padding: var(--s-1) 0 var(--s-1) var(--s-3);
+}
+
+/* Rows are hanging indents: the headword on the left (wrapping only at its own hyphens), its ids on the right. */
+.dict-index-row,
+.dict-law-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-3); align-items: baseline;
+  width: 100%; min-height: 44px;
+  padding: 10px var(--s-2) 10px 9px;
+  border-left: 3px solid transparent;
+  color: var(--c-ink); text-align: left;
+}
+.dict-index-row:hover,
+.dict-law-row:hover { background: var(--c-surface); }
+.dict-index-row.is-current,
+.dict-law-row.is-current { border-left-color: var(--c-ink); }
+
+.dict-index-word { font-size: var(--fs-ui); line-height: 1.35; padding-left: var(--s-3); text-indent: calc(-1 * var(--s-3)); }
+.dict-index-row.is-current .dict-index-word { font-weight: 600; }
+.dict-index-id {
+  font-size: var(--fs-xs); line-height: 1.35; color: var(--c-muted);
+  text-align: right; max-width: 7.5rem;
+}
+
+.dict-law-name { font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; font-size: var(--fs-ui); line-height: 1.35; }
+.dict-law-count { font-family: var(--font-ui); font-stretch: 100%; font-weight: 500; font-size: var(--fs-ui); }
+.dict-law-note { grid-column: 1 / -1; font-size: var(--fs-xs); line-height: 1.4; margin-top: 2px; }
+
+/* ---------- Map ---------- */
+
+.dict-view-picker { margin-bottom: var(--s-3); flex-wrap: wrap; }
+.dict-captions { margin-top: var(--s-2); display: grid; gap: 2px; }
+.dict-captions p { font-size: var(--fs-xs); line-height: 1.5; max-width: var(--measure); }
+
+/* ---------- Inspector: the selected headword set as a dictionary entry ---------- */
+
+.dict-inspector {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-slip);
+  padding: var(--s-5);
+}
+.dict-headword {
+  font-weight: 600; font-stretch: normal; font-size: var(--fs-headword); line-height: 1.2;
+  color: var(--c-ink);
+}
+
+.dict-sense {
+  margin-top: var(--s-4);
+  padding-left: var(--s-3);
+  margin-left: calc(-1 * var(--s-3) - 3px);
+  border-left: 3px solid transparent;
+}
+.dict-sense.is-current { border-left-color: var(--c-ink); }
+.dict-sense-head { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-3); min-height: 44px; }
+.dict-sense-id { font-size: var(--fs-ui); color: var(--c-muted); }
+.dict-role-link {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-family: var(--font-prose); font-style: italic; font-size: var(--fs-ui);
+}
+.dict-sense-string { font-size: var(--fs-string); line-height: var(--lh-string); color: var(--c-ink); max-width: var(--measure); }
+.dict-according { font-size: var(--fs-ui); line-height: 1.5; margin-top: var(--s-2); }
+
+.dict-refs-head {
+  font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; font-size: var(--fs-ui);
+  margin-top: var(--s-5); padding-top: var(--s-4);
+  border-top: 1px solid var(--c-border);
+}
+.dict-refs-head + .dict-refs-head,
+.dict-refs + .dict-refs-head,
+.dict-refs-none + .dict-refs-head { margin-top: var(--s-3); padding-top: 0; border-top: 0; }
+.dict-refs { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: var(--s-1); }
+.dict-refs li { display: inline-flex; align-items: center; }
+.dict-refs li:not(:last-child)::after { content: ","; color: var(--c-ink); font-family: var(--font-string); }
+.dict-refs .vd-link-button { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-ui); }
+.dict-refs-none { font-size: var(--fs-ui); min-height: 44px; display: flex; align-items: center; }
+.dict-source { font-size: var(--fs-xs); line-height: 1.5; margin-top: var(--s-5); }
+
+@media (max-width: 1100px) {
+  .dict-inspector > * { max-width: var(--measure); }
+}
+@media (max-width: 760px) {
+  .dict-inspector { padding: var(--s-4); }
+}
+
+/* ---------- Laws as a table (HouseView) ---------- */
+
+.dict-houses { container-type: inline-size; display: grid; gap: var(--s-6); min-width: 0; }
+.dict-houses-intro { font-size: var(--fs-ui); line-height: 1.5; max-width: var(--measure); }
+.dict-houses-note { font-size: var(--fs-xs); line-height: 1.5; max-width: var(--measure); }
+
+.dict-house { scroll-margin-top: var(--s-4); min-width: 0; }
+.dict-house-caption {
+  font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; font-size: 1.0625rem; line-height: 1.3;
+  margin-bottom: var(--s-2);
+}
+
+.dict-house-table {
+  width: 100%; table-layout: fixed;
+  border-collapse: collapse;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+}
+.dict-house-table thead td:first-child,
+.dict-house-table tbody th { width: 7.5rem; }
+.dict-house-table th { font-weight: 400; text-align: left; }
+.dict-house-table thead th,
+.dict-house-table thead td {
+  vertical-align: bottom; padding: var(--s-3);
+  border-bottom: 1px solid var(--c-border);
+}
+.dict-house-table thead th.is-current { border-bottom: 3px solid var(--c-ink); }
+.dict-house-table tbody th { vertical-align: top; padding: var(--s-3); }
+.dict-house-table tbody td { vertical-align: top; padding: 0; }
+.dict-house-table tbody tr + tr > * { border-top: 1px solid var(--c-border); }
+.dict-house-table tbody tr.dict-house-row-law > * { border-top: 2px solid var(--c-law); }
+
+.dict-house-headword { display: block; font-weight: 600; font-size: var(--fs-string); line-height: 1.3; color: var(--c-ink); }
+/* A headword the current trace step involves: a highlighter band under the ink. */
+.dict-house-headword.is-active { width: fit-content; background: var(--c-highlight); box-decoration-break: clone; -webkit-box-decoration-break: clone; padding: 0 2px; margin: 0 -2px; }
+.dict-house-born { display: block; font-size: var(--fs-xs); line-height: 1.4; margin-top: 2px; }
+
+.dict-house-rowlabel { display: block; font-family: var(--font-ui); font-stretch: 100%; font-weight: 600; font-size: var(--fs-ui); line-height: 1.3; color: var(--c-ink); }
+.dict-house-rowrole { display: block; font-size: var(--fs-xs); line-height: 1.4; margin-top: 2px; }
+
+.dict-house-cell {
+  display: flex; flex-direction: column; gap: var(--s-1);
+  width: 100%; min-height: 44px;
+  padding: var(--s-3) var(--s-3) var(--s-3) 9px;
+  border-left: 3px solid transparent;
+  text-align: left; color: var(--c-ink);
+}
+.dict-house-cell:hover { background: var(--c-page); }
+.dict-house-cell.is-current { border-left-color: var(--c-ink); }
+.dict-house-cell-id { font-size: var(--fs-xs); line-height: 1.3; color: var(--c-muted); }
+.dict-house-cell-text { font-size: var(--fs-ui); line-height: 1.5; }
+.dict-house-cell-role {
+  display: block; font-family: var(--font-ui); font-stretch: 100%; font-weight: 600;
+  font-size: var(--fs-xs); line-height: 1.3; color: var(--c-ink);
+}
+
+/* Headwords inside an exact string: underlined; in the law row, the other two law words in blue. */
+.dict-house-word { text-decoration: underline; text-decoration-color: var(--c-ref); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.dict-house-word.is-law { color: var(--c-ink); font-weight: 600; text-decoration-color: var(--c-law); text-decoration-thickness: 2px; }
+.dict-house:focus-visible { outline-offset: 4px; }
+
+/* Not written yet: a dashed pencil slot. Dashed means nothing else on the site. */
+.dict-house-missing {
+  display: flex; flex-direction: column; justify-content: center; gap: var(--s-1);
+  min-height: 44px; margin: var(--s-2);
+  padding: var(--s-2) var(--s-3);
+  border: 1.5px dashed var(--c-pencil); border-radius: var(--radius-slip);
+}
+.dict-house-missing .vd-label { font-size: var(--fs-ui); }
+
+.dict-house-status { margin-top: var(--s-2); font-family: var(--font-prose); font-size: var(--fs-ui); line-height: 1.5; color: var(--c-ink); max-width: var(--measure); }
+.dict-house-links { list-style: none; margin: 0; padding: 0; font-family: var(--font-prose); font-size: var(--fs-ui); line-height: 1.5; color: var(--c-ink); }
+.dict-house-links li { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.3em; min-height: 44px; }
+.dict-house-links .vd-link-button { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-ui); font-stretch: 100%; font-weight: 500; }
+
+/* Narrow containers: the same slots, stacked per headword. */
+.dict-house-stack { display: none; }
+@container (max-width: 600px) {
+  .dict-house-table { display: none; }
+  .dict-house-stack { display: grid; gap: var(--s-4); }
+}
+.dict-house-stack-column { background: var(--c-surface); border: 1px solid var(--c-border); min-width: 0; }
+.dict-house-stack-head { display: grid; padding: var(--s-3); border-bottom: 1px solid var(--c-border); }
+.dict-house-stack-column.is-current .dict-house-stack-head { border-bottom: 3px solid var(--c-ink); }
+.dict-house-stack-slot + .dict-house-stack-slot { border-top: 1px solid var(--c-border); }
+.dict-house-stack-slot.dict-house-row-law { border-top: 2px solid var(--c-law); }

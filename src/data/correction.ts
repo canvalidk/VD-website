@@ -6,7 +6,7 @@ import type { PredictionSnapshot } from '../predictions.ts';
 export const correctionSource = source;
 export const correctionDictionary: Dictionary = {
   id: 'parameterized-correction', name: 'Force · mistake and correction', shortName: 'Correction',
-  status: 'VDfirst · SCRIPTED RESPONSES',
+  status: 'VDfirst, scripted responses',
   description: 'Three parameterized definitions. One derivation with a mistake in it, and a new derivation that corrects it.',
   source: 'VDfirst · correction_demo.py · 0f1a89d',
   entries: source.dictionary.entries.map(([id, definition], index) => ({

@@ -6,6 +6,7 @@ import { fitCamera, openingCamera } from '../src/graphScene.ts';
 import type { Bounds } from '../src/graphScene.ts';
 import { clusterHouses, createLawScene, homeDegrees, houseSlots } from '../src/lawScene.ts';
 import { houseHeadwords } from '../src/houses.ts';
+import { hyphenLines } from '../src/graphGeometry.ts';
 
 const withHouses = dictionaries.filter(dictionary => dictionary.houses?.length);
 const draft = dictionaries.find(dictionary => dictionary.id === 'newton-current')!;
@@ -198,4 +199,58 @@ test('a large map opens at a readable scale from its top-left corner', () => {
   assert.ok(fitCamera(large, viewport).scale < .62);
   assert.deepEqual(openingCamera(large, viewport), { scale: .62, x: 14, y: large.height * .62 <= viewport.height ? (viewport.height - large.height * .62) / 2 : 14 });
   assert.deepEqual(openingCamera(small, viewport), fitCamera(small, viewport));
+});
+
+test('a house label and its anchor headword, wrapped at the headword\'s own hyphens, cover no entry', () => {
+  for (const dictionary of withHouses) {
+    const { houseLabels, nodes, placeholders } = scene(dictionary);
+    for (const label of houseLabels) {
+      assert.equal(label.anchor, dictionary.houses![label.index].anchor);
+      const lines = 1 + hyphenLines(label.anchor!, 18).length;
+      // Text runs right from x; the first baseline is at y and each further line 17px lower. 140px holds 18 characters at 13px.
+      const area = { x: label.x + 70, y: label.y - 13 + lines * 17 / 2, width: 140, height: lines * 17 };
+      for (const item of [...nodes, ...placeholders]) assert.ok(!overlap(area, item), `${dictionary.id} ${label.label} covers ${item.id}`);
+    }
+  }
+});
+
+test('the "start" and "step" tags above a slip have room: nothing sits in the 24px over any slip', () => {
+  for (const dictionary of withHouses) {
+    const { nodes, placeholders } = scene(dictionary);
+    const items = [...nodes, ...placeholders];
+    for (const node of nodes) {
+      const above = { x: node.x, y: node.y - node.height / 2 - 12, width: node.width, height: 24 };
+      for (const item of items) if (item !== node) assert.ok(!overlap(above, item), `${dictionary.id}: no room above ${node.id} for its tags (${item.id})`);
+    }
+  }
+});
+
+test('role rules: law entries carry the law, chimneys and walls carry "defined again", groundwork carries none', () => {
+  const kinds = new Map(scene().nodes.map(node => [node.id, node.roleKind]));
+  assert.deepEqual(['E2', 'E3', 'E4'].map(id => kinds.get(id)), ['law', 'law', 'law']);
+  assert.deepEqual(['K16 / E1', 'E5', 'E6'].map(id => kinds.get(id)), ['again', 'again', 'again']);
+  assert.equal(kinds.get('K1'), undefined);
+  // E36 is a wall of law 4 and a corner of law 5: the law's rule wins.
+  assert.equal(scene(snapshot).nodes.find(node => node.id === 'E36')!.roleKind, 'law');
+  for (const dictionary of withHouses) for (const node of scene(dictionary).nodes) {
+    const roles = dictionary.houses!.flatMap(house => houseSlots(house).filter(slot => slot.id === node.id).map(slot => slot.role));
+    assert.equal(node.roleKind, roles.includes('triplet') ? 'law' : roles.length ? 'again' : undefined, `${dictionary.id} ${node.id}`);
+  }
+});
+
+test('an unwritten slot knows whose entry it is waiting for', () => {
+  const [slot] = scene().placeholders;
+  assert.equal(slot.role, 'wall');
+  const house = draft.houses!.find(item => Object.values(item.walls).includes(null))!;
+  assert.equal(slot.headword, Object.entries(house.walls).find(([, id]) => id === null)![0]);
+});
+
+test('visited slips are the headwords the trace has named so far, and only those', () => {
+  for (const trace of traces.filter(item => item.dictionaryId === snapshot.id)) for (const [index] of trace.steps.entries()) {
+    const current = createLawScene(snapshot, trace.steps[index].relatedEntryIds[0], null, trace, index);
+    const named = new Set([trace.startEntryId ?? trace.steps[0].relatedEntryIds[0], ...trace.steps.slice(0, index + 1).flatMap(step => step.relatedEntryIds)]);
+    for (const node of current.nodes) assert.equal(node.visited, named.has(node.entryId), `${trace.id} step ${index + 1} ${node.id}`);
+    for (const link of current.links) assert.ok(link.targetBox && link.targetBox.width > 0, link.id);
+  }
+  assert.ok(scene(snapshot).nodes.every(node => !node.visited));
 });

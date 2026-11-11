@@ -83,4 +83,4 @@ export function usedBy(dictionary: Dictionary, index: number): { house: number; 
   });
 }
 
-export const lawLabel = (dictionary: Dictionary, index: number) => `Law ${index + 1}${dictionary.lawTitles?.[index] ? ` · ${dictionary.lawTitles[index]}` : ''}`;
+export const lawLabel = (dictionary: Dictionary, index: number) => `Law ${index + 1}${dictionary.lawTitles?.[index] ? ` (${dictionary.lawTitles[index]})` : ''}`;

@@ -7,7 +7,7 @@ import { traces } from '../src/data/traces.ts';
 import { traceGraphState, edgeId } from '../src/traceGraph.ts';
 import { createGraphScene, fitCamera, keepTraceVisible } from '../src/graphScene.ts';
 import type { Bounds, Camera, Viewport } from '../src/graphScene.ts';
-import { referencePath } from '../src/graphGeometry.ts';
+import { boxExit, hyphenLines, railPair, referencePath } from '../src/graphGeometry.ts';
 
 const given = traces.find(trace => trace.id === 'newton-ii-given-inputs')!;
 
@@ -129,4 +129,48 @@ test('selecting an offscreen headword can reveal it alongside the trace history'
     assertVisible({ x: node.x - node.width / 2, y: node.y - node.height / 2, width: node.width, height: node.height }, camera, viewport);
     assertVisible(scene.focusBounds, camera, viewport);
   }
+});
+
+test('a double rail is two lines, parallel to the link and the rail gap apart', () => {
+  for (const [from, to] of [[{ x: 0, y: 0 }, { x: 0, y: 132 }], [{ x: 10, y: 20 }, { x: 160, y: 152 }], [{ x: 300, y: 40 }, { x: 150, y: 40 }]]) {
+    const [a, b] = railPair(from, to, 5);
+    const direction = { x: to.x - from.x, y: to.y - from.y };
+    for (const rail of [a, b]) assert.ok(Math.abs((rail.x2 - rail.x1) * direction.y - (rail.y2 - rail.y1) * direction.x) < 1e-9, 'parallel');
+    const between = { x: b.x1 - a.x1, y: b.y1 - a.y1 };
+    assert.ok(Math.abs(Math.hypot(between.x, between.y) - 5) < 1e-9, 'five apart');
+    assert.ok(Math.abs(between.x * direction.x + between.y * direction.y) < 1e-9, 'offset along the normal');
+    assert.deepEqual([(a.x1 + b.x1) / 2, (a.y1 + b.y1) / 2], [from.x, from.y]);
+  }
+});
+
+test('a line to a slip ends at its border, pulled back by the inset', () => {
+  const centre = { x: 100, y: 100 };
+  assert.deepEqual(boxExit({ x: 0, y: 100 }, centre, 40, 20), { x: 60, y: 100 });
+  assert.deepEqual(boxExit({ x: 100, y: 300 }, centre, 40, 20, 5), { x: 100, y: 125 });
+  const corner = boxExit({ x: 0, y: 0 }, centre, 40, 20);
+  assert.ok(Math.abs(corner.y - 80) < 1e-9 && Math.abs(corner.x - 80) < 1e-9);
+  assert.deepEqual(boxExit(centre, centre, 40, 20), centre);
+});
+
+test('headwords drawn as SVG text break only after their own hyphens and read back exactly', () => {
+  for (const word of ['uniform-motion', 'inertial-acceleration-material-object', 'canonical-force_acting-object', 'mechanical-composition_point-particle', 'time', 'K16 / E1']) {
+    const lines = hyphenLines(word, 18);
+    assert.equal(lines.join(''), word);
+    for (const line of lines.slice(0, -1)) assert.ok(line.endsWith('-'), `${word}: ${line}`);
+    for (const line of lines) assert.ok(line.length <= 18 || !line.slice(0, -1).includes('-'), `${word}: ${line} could have broken earlier`);
+  }
+});
+
+test('the headword views mark law headwords and the trace\'s visited headwords', () => {
+  const dictionary = dictionaries.find(item => item.id === given.dictionaryId)!;
+  const laws = new Set(dictionary.houses!.flatMap(house => [house.anchor, ...house.winters]));
+  for (let index = 0; index < given.steps.length; index++) {
+    const scene = createGraphScene(dictionary, given.steps[index].relatedEntryIds[0], given, index, 'full');
+    const named = new Set([traceGraphState(given, index).startEntryId, ...given.steps.slice(0, index + 1).flatMap(step => step.relatedEntryIds)]);
+    for (const node of scene.nodes) {
+      assert.equal(node.roleKind, laws.has(node.id) ? 'law' : undefined, node.id);
+      assert.equal(node.visited, named.has(node.id), node.id);
+    }
+  }
+  assert.ok(createGraphScene(dictionary, dictionary.entries[0].id, undefined, 0, 'full').nodes.every(node => !node.visited));
 });

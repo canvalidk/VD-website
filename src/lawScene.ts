@@ -1,6 +1,6 @@
 import type { Dictionary } from './data/dictionaries.ts';
 import type { PreparedTrace } from './data/traces.ts';
-import type { Bounds, HouseLabel, HouseLink, SceneEdge, SceneFrame, SceneLink, SceneNode, ScenePlaceholder } from './graphScene.ts';
+import type { Bounds, HouseLabel, HouseLink, RoleKind, SceneEdge, SceneFrame, SceneLink, SceneNode, ScenePlaceholder } from './graphScene.ts';
 import { surrounding } from './graphScene.ts';
 import { edgeId, traceGraphState } from './traceGraph.ts';
 import type { House, HouseRole } from './houses.ts';
@@ -23,10 +23,12 @@ import { houseHeadwords } from './houses.ts';
  *        |         |          same headword as the corner above (the new words' later entries)
  *    [wall B]   [wall C]
  */
-export const NODE = { width: 172, height: 64 };
+// A slip holds its id and up to three lines of headword, broken only at the headword's own hyphens.
+export const NODE = { width: 176, height: 84 };
 // House spacing is wide enough that the links between entries, not the boxes, carry the shape.
-const PX = 150, PY = 116, GRID_X = NODE.width + 14, GRID_Y = NODE.height + 16;
-const LEFT = 24, TOP = 20, INSET = 26, PAD_X = 20, HEADER = 40, LEVEL_GAP = 30, PAD_BOTTOM = 20, ITEM_GAP = 44, GUTTER = 44;
+// Gaps above a slip leave room for its "start" and "step n" tags.
+const PX = 150, PY = 132, GRID_X = NODE.width + 14, GRID_Y = NODE.height + 26;
+const LEFT = 24, TOP = 20, INSET = 26, PAD_X = 20, HEADER = 54, LEVEL_GAP = 30, PAD_BOTTOM = 20, ITEM_GAP = 44, GUTTER = 44;
 
 export interface Slot { id: string | null; role: HouseRole; headword: string; col: number; row: number }
 /** The six positions of a house, relative to its chimney. */
@@ -183,22 +185,27 @@ export function createLawScene(dictionary: Dictionary, selectedId: string, selec
 
   const labels: HouseLabel[] = houses.map((house, houseIndex) => {
     const at = position.get(house.chimney ?? placeholderId(houseIndex, houseSlots(house)[0]))!;
-    return { index: houseIndex, label: `Law ${houseIndex + 1}`, title: dictionary.lawTitles?.[houseIndex], x: at.x - NODE.width / 2 - PX, y: at.y - NODE.height / 2 + 12 };
+    return { index: houseIndex, label: `Law ${houseIndex + 1}`, title: dictionary.lawTitles?.[houseIndex], anchor: house.anchor, x: at.x - NODE.width / 2 - PX, y: at.y - NODE.height / 2 + 12 };
   });
 
   const placeholders: ScenePlaceholder[] = groups.flatMap(group => group.items.filter(item => item.placeholder).map(item => {
-    const role = item.id.split('-')[1];
-    return { id: item.id, label: `${role === 'wall' ? 'Wall' : 'Chimney'} not written`, ...position.get(item.id)!, ...NODE };
+    const [house, role] = item.id.split('-');
+    const slot = houseSlots(houses[Number(house)]).find(candidate => candidate.id === null && placeholderId(Number(house), candidate) === item.id);
+    return { id: item.id, label: `${role === 'wall' ? 'Wall' : 'Chimney'} not written`, role: slot?.role, headword: slot?.headword, ...position.get(item.id)!, ...NODE };
   }));
 
   const roles = new Map<string, string[]>();
+  const roleKinds = new Map<string, RoleKind>();
   const cornerOf = new Map<string, Set<string>>();
   houses.forEach((house, houseIndex) => {
     for (const slot of houseSlots(house)) if (slot.id !== null) {
       roles.set(slot.id, [...(roles.get(slot.id) ?? []), `${roleWord[slot.role]} of law ${houseIndex + 1}`]);
+      // An entry that is a wall of one law and a corner of the next carries the law's rule.
+      if (slot.role === 'triplet' || !roleKinds.has(slot.id)) roleKinds.set(slot.id, slot.role === 'triplet' ? 'law' : 'again');
       if (slot.role === 'triplet') cornerOf.set(slot.id, new Set([...(cornerOf.get(slot.id) ?? []), ...houseHeadwords(house)]));
     }
   });
+  const visitedWords = new Set(trace ? [history.startEntryId!, ...trace.steps.slice(0, index + 1).flatMap(item => item.relatedEntryIds)] : []);
   const firstOf = new Map<string, string>();
   for (const definition of definitions) if (!firstOf.has(definition.headword)) firstOf.set(definition.headword, definition.id);
   const nodes: SceneNode[] = definitions.filter(definition => position.has(definition.id)).map(definition => ({
@@ -209,6 +216,7 @@ export function createLawScene(dictionary: Dictionary, selectedId: string, selec
     start: definition.headword === history.startEntryId && firstOf.get(definition.headword) === definition.id,
     selected: selectedSourceId ? definition.id === selectedSourceId : definition.headword === selectedId,
     given: firstOf.get(definition.headword) === definition.id ? [...history.boundInputs.values()].find(input => input.to === definition.headword)?.value : undefined,
+    roleKind: roleKinds.get(definition.id), visited: visitedWords.has(definition.headword),
   }));
   const selectedIds = new Set(nodes.filter(node => node.selected).map(node => node.id));
 
@@ -253,7 +261,7 @@ export function createLawScene(dictionary: Dictionary, selectedId: string, selec
   const addLink = (from: string, to: string, kind: 'traversed' | 'bound') => {
     const pair = closestPair(from, to);
     if (!pair || links.some(link => link.id === `${kind}:${edgeId(from, to)}`)) return;
-    links.push({ id: `${kind}:${edgeId(from, to)}`, source: pair.a, target: pair.b, traversed: kind === 'traversed', bound: kind === 'bound',
+    links.push({ id: `${kind}:${edgeId(from, to)}`, source: pair.a, target: pair.b, targetBox: { width: pair.b.width, height: pair.b.height }, traversed: kind === 'traversed', bound: kind === 'bound',
       current: kind === 'traversed' && !!step?.traversedEdges?.some(edge => edge.from === from && edge.to === to),
       currentInput: kind === 'bound' && !!step?.boundInputs?.some(input => input.from === from && input.to === to) });
   };
@@ -268,7 +276,7 @@ export function createLawScene(dictionary: Dictionary, selectedId: string, selec
     .sort((a, b) => (a.parent?.y ?? 0) - (b.parent?.y ?? 0))
     .map(({ occurrence, parent }) => {
       const state = history.occurrences.find(item => item.id === occurrence.id);
-      const y = Math.max(parent?.y ?? TOP + 48, previousY + 112);
+      const y = Math.max(parent?.y ?? TOP + 48, previousY + 124);
       previousY = y;
       return { id: occurrence.id, entryId: occurrence.entryId, label: occurrence.entryId, caption: occurrence.label,
         occurrence: true, flattened: state?.flattened ?? false, visible: !!state, start: false, selected: false,

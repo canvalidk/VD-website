@@ -16,6 +16,11 @@ export interface Idea {
   paragraphs: string[];
   source: { title: string; url: string };
   action?: ExplanationAction;
+  /**
+   * Markup hint, not wording: dictionary strings or dictionary names quoted inside the paragraphs.
+   * The page sets each occurrence in the dictionary's own typeface. Every one must appear verbatim.
+   */
+  strings?: string[];
 }
 
 export const lead = 'Write a scientific theory as a dictionary, and you can see exactly what it says, what accepting it commits you to, and when a failed prediction really counts against it.';
@@ -39,6 +44,7 @@ export const ideas: Idea[] = [
     ],
     source: { title: 'Definition and meaning in the Valid Dictionary', url: `${VD_DOCS}Theory/definition_and_meaning/definition_and_meaning_in_the_valid_dictionary_2026-11-10.md` },
     action: { kind: 'dictionary', label: 'Browse a Newton draft', dictionaryId: 'newton-current' },
+    strings: ['convention'],
   },
   {
     id: 'commitments',
