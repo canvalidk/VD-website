@@ -1,4 +1,5 @@
 import { newtonDictionaries } from './newton-dictionaries.ts';
+import { correctionDictionary } from './correction.ts';
 
 export interface Definition {
   sourceId: string;
@@ -28,6 +29,7 @@ export interface Dictionary {
 }
 
 export const dictionaries: Dictionary[] = [
+  correctionDictionary,
   ...newtonDictionaries,
   {
     id: 'kinematics', name: 'Newton kinematics', shortName: 'Kinematics',

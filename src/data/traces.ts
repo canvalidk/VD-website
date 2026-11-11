@@ -1,18 +1,25 @@
 import { dictionaries } from './dictionaries.ts';
 import { newtonTrace } from './newton-trace.ts';
 import { newtonGivenInputsTrace } from './newton-given-inputs-trace.ts';
+import { correctionTrace } from './correction.ts';
+import type { PredictionSnapshot } from '../predictions.ts';
 
 /** Literal text remains inert. Only explicit entryId parts represent open holes. */
 export type FragmentPart = { text: string; entryId?: never } | { entryId: string; text?: never };
 export interface TraceStep {
   id: string;
   title: string;
-  operation: 'Start' | 'Expand' | 'Recall' | 'Return' | 'Onward' | 'Flatten' | 'Input' | 'Reduce';
+  operation: 'Start' | 'Expand' | 'Recall' | 'Return' | 'Onward' | 'Flatten' | 'Input' | 'Reduce' | 'Reopen';
   description: string;
   context: string;
   relatedEntryIds: string[];
   fragment: FragmentPart[];
   settled?: boolean;
+  /** An authoritative root snapshot, separate from this step's active fragment. */
+  predictionSet?: PredictionSnapshot;
+  snapshotLabel?: string;
+  /** The derivation this snapshot belongs to. A corrected derivation is a new derivation, not an edit of the old one. */
+  derivationId?: string;
   traversedEdges?: { from: string; to: string }[];
   boundInputs?: { from: string; to: string; value: string }[];
 }
@@ -29,11 +36,20 @@ export interface PreparedTrace {
   dictionaryId: string;
   title: string;
   kind: 'prepared' | 'recorded';
+  scriptedResponses?: boolean;
   provenance: string;
   question?: string;
   startEntryId?: string;
   occurrences?: TraceOccurrence[];
+  /** Display grouping for recorded snapshots. Steps refer to these by derivationId. */
+  derivations?: Derivation[];
   steps: TraceStep[];
+}
+export interface Derivation {
+  id: string;
+  label: string;
+  /** Shown once a later derivation has started: what became of this one. */
+  outcome?: string;
 }
 const text = (value: string): FragmentPart => ({ text: value });
 const ref = (entryId: string): FragmentPart => ({ entryId });
@@ -71,6 +87,7 @@ const routes: Record<string, Record<string, [string, string][]>> = {
   force: { mass: [['force', 'mass']], acceleration: [['force', 'acceleration']] },
 };
 export const traces: PreparedTrace[] = [
+  correctionTrace,
   newtonGivenInputsTrace,
   newtonTrace,
   { id: 'displacement', dictionaryId: 'kinematics', title: 'Follow displacement', kind: 'prepared', provenance: 'Illustrative route derived from the six source definitions and current VD operation semantics; not an exported engine run.', steps: kinematicsSteps },
