@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useReducer, useRef, useState } from 'react';
 import { dictionaries } from './data/dictionaries';
 import { traces } from './data/traces';
 import { explorerReducer, initialState } from './player';
@@ -9,7 +9,9 @@ import HomePage from './pages/HomePage';
 import DictionaryPage from './pages/DictionaryPage';
 import TracesPage, { openingStep } from './pages/TracesPage';
 import IdeasPage from './pages/IdeasPage';
-import WorkshopPage from './pages/WorkshopPage';
+
+// The workshop exists only in local builds; production never loads its code.
+const WorkshopPage = import.meta.env.DEV ? lazy(() => import('./pages/WorkshopPage')) : null;
 
 const pageTitles: Record<Page, string> = { home: 'Introduction', dictionary: 'Dictionary', traces: 'Traces', ideas: 'Ideas', workshop: 'Workshop' };
 const navPages: Page[] = ['home', 'dictionary', 'traces', 'ideas'];
@@ -101,7 +103,7 @@ export default function App() {
       {route.page === 'dictionary' && <DictionaryPage {...explorer}/>}
       {route.page === 'traces' && <TracesPage {...explorer}/>}
       {route.page === 'ideas' && <IdeasPage/>}
-      {route.page === 'workshop' && <WorkshopPage/>}
+      {route.page === 'workshop' && WorkshopPage && <Suspense fallback={<div className="page"><p className="vd-label">Loading the workshop.</p></div>}><WorkshopPage/></Suspense>}
     </main>
     <footer className="colophon">
       <div className="colophon-inner"><p>Authority Dictionary, by Can Valid Kohen. Research in progress: the dictionaries are drafts, and traces recorded elsewhere are only replayed here. Law-houses exported from VDfirst at 5a57790. Ideas text from VD-docs at 543df65.</p></div>

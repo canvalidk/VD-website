@@ -2,7 +2,7 @@
 
 **by Can Valid Kohen**
 
-A website for the Valid Dictionary project: a physical theory written as a named dictionary that only grows. It has four pages: an Introduction with one live law-house, the Dictionary (its network nested by degree, each law drawn by its own links), Traces (recorded runs replayed step by step, with their commitments), and Ideas (the five ideas the project rests on). The current Newton draft opens preselected. Dictionaries, laws and traces come from the VDfirst engine and VD-Newton; the site never runs the engine.
+A website for the Valid Dictionary project: a physical theory written as a named dictionary that only grows. It has four pages: an Introduction with one live law-house, the Dictionary (its network nested by degree, each law drawn by its own links), Traces (recorded runs replayed step by step, with their commitments), and Ideas (the five ideas the project rests on). The current Newton draft opens preselected. Dictionaries, laws and traces come from the VDfirst engine and VD-Newton; the public site never runs the engine. The local-only Workshop drives it through VDfirst's bridge.
 
 ## Run locally
 
@@ -29,7 +29,7 @@ The site has four pages, reached from the running head. Addresses are hash route
 - **Dictionary** (`#/dictionary?d=newton-current&entry=inertial-frame&src=E5`): the network, nested by degree, with each law drawn by its own links. The roof is the three law entries referring to each other; the chimney and walls are double rails joining two entries of one headword; dashed means not written yet. **Laws as a table** shows the same houses as a grid. The left index lists the laws and every headword by degree; the right column reads the selected entry as a dictionary entry, ending "According to" its dictionary.
 - **Traces** (`#/traces?t=newton-ii-recorded&step=4`): a register of recorded runs and prepared demonstrations, replayed step by step on the network. A yellow band marks where the trace has been; given inputs are teal and end in a circle. Where a step carries recorded commitments, **Result and commitments** lists them. **A corrected mistake** (`#/traces?t=force-correction`) shows two derivations: one reaches 12 N and stays on record as issued, and a new one reaches 10 N.
 - **Ideas** (`#/ideas`): the five ideas the project rests on, each with the VD-docs note it comes from.
-- **Workshop** (`#/workshop`): local development builds only, never in a production build. Reserved for tools that work on the dictionaries directly.
+- **Workshop** (`#/workshop`): local development builds only; production never loads its code. The trace doer: start a trace from one of the site's dictionaries and take it a step at a time, with the VDfirst engine doing each step through its local bridge. It needs a VDfirst checkout running `workbench_server.py`; see [docs/WORKSHOP.md](docs/WORKSHOP.md).
 
 On the Dictionary and Traces pages, **the Edge** under the "According to" line is the dictionary seen side-on: one stroke per entry, in the order added for dictionaries exported from the engine and in the order listed for the small examples. A short grey stroke is an entry outside the laws, a medium blue one a headword defined again (a chimney or wall), a full crimson one a law entry. Selecting an entry, headword or law marks its strokes; a trace leaves a yellow band under the entries it has visited. Use the arrow keys to move along it and Enter to select.
 
@@ -48,7 +48,7 @@ src/pages/HomePage.tsx    Introduction
 src/pages/DictionaryPage.tsx  Index, network or laws table, entry inspector
 src/pages/TracesPage.tsx  Trace register, playback, result and commitments
 src/pages/IdeasPage.tsx   The five ideas (text in src/data/explanation.ts)
-src/pages/WorkshopPage.tsx  Local-only shell
+src/pages/WorkshopPage.tsx  The trace doer (local builds only); its parts are in src/workbench/
 src/pages/AccordingTo.tsx The "According to [dictionary]" line and count sentence
 src/pages/format.ts       Display names and count sentences
 src/IntroHouse.tsx        The Introduction's house figure (logic in src/homeFigure.ts)

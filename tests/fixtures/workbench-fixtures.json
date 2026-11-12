@@ -1,0 +1,12 @@
+{
+ "vdfirst_commit": "7414a68",
+ "producer": {
+  "name": "VDfirst",
+  "protocol_version": 1,
+  "engine_sha256": "3683a06932c35832e788f8075f9387504b872e5c7bc0d4739b99c7e54f6e9a77"
+ },
+ "files": [
+  "workbench-correction.json",
+  "workbench-newton.json"
+ ]
+}
