@@ -18,9 +18,14 @@
    "position": 1
   },
   {
+   "entry_index": 2,
    "frame_id": "F/0",
-   "operation": "inject",
-   "position": 3,
+   "operation": "expand",
+   "position": 3
+  },
+  {
+   "frame_id": "F/0/3",
+   "operation": "reduce",
    "response": "a cart"
   },
   {
@@ -32,6 +37,13 @@
    ],
    "note": "wording only",
    "operation": "clean"
+  },
+  {
+   "frame_id": "F/0",
+   "note": "recalled wording read plain",
+   "operation": "braces",
+   "position": 1,
+   "shown": false
   }
  ],
  "dictionary": {
@@ -282,7 +294,7 @@
      ],
      "provenance": "RootProvenance",
      "reduction": null,
-     "render": "the {net-force} on a {point-particle}",
+     "render": "the net-force on a point-particle",
      "source_index": null,
      "source_text": "the net-force on a point-particle"
     },
@@ -300,7 +312,7 @@
      ],
      "provenance": "RootProvenance",
      "reduction": null,
-     "render": "the {net-force} on a {point-particle}",
+     "render": "the net-force on a point-particle",
      "source_index": null,
      "source_text": "the net-force on a point-particle"
     },
@@ -308,7 +320,7 @@
     "dependencies_complete": true,
     "entry": null,
     "position": null,
-    "response": "the {net-force} on a {point-particle}",
+    "response": "the net-force on a point-particle",
     "stimulus": "the net-force on a point-particle"
    },
    "detail": "started from 'the net-force on a point-particle'",
@@ -326,7 +338,7 @@
        "position": 0,
        "resolution": "ExpandResolution",
        "source_index": 21,
-       "text": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}."
+       "text": "{The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.}"
       }
      ],
      "headwords": [
@@ -340,7 +352,7 @@
      ],
      "provenance": "RootProvenance",
      "reduction": null,
-     "render": "the The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
+     "render": "the {The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
      "source_index": null,
      "source_text": "the net-force on a point-particle"
     },
@@ -358,7 +370,7 @@
      ],
      "provenance": "RootProvenance",
      "reduction": null,
-     "render": "the {net-force} on a {point-particle}",
+     "render": "the net-force on a point-particle",
      "source_index": null,
      "source_text": "the net-force on a point-particle"
     },
@@ -408,7 +420,7 @@
        "position": 0,
        "resolution": "LiteralResolution",
        "source_index": null,
-       "text": "net-force"
+       "text": "{net-force}"
       }
      ],
      "headwords": [
@@ -426,7 +438,7 @@
      ],
      "provenance": "ExpandProvenance",
      "reduction": null,
-     "render": "The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+     "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
      "source_index": 21,
      "source_text": null
     },
@@ -450,7 +462,7 @@
      ],
      "provenance": "ExpandProvenance",
      "reduction": null,
-     "render": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+     "render": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
      "source_index": 21,
      "source_text": null
     },
@@ -478,14 +490,14 @@
        "position": 0,
        "resolution": "LiteralResolution",
        "source_index": null,
-       "text": "net-force"
+       "text": "{net-force}"
       },
       {
        "headword": "inertial-mass",
        "position": 1,
        "resolution": "RecallResolution",
        "source_index": 22,
-       "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+       "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
       }
      ],
      "headwords": [
@@ -503,7 +515,7 @@
      ],
      "provenance": "ExpandProvenance",
      "reduction": null,
-     "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a {point-particle}.",
+     "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
      "source_index": 21,
      "source_text": null
     },
@@ -517,7 +529,7 @@
        "position": 0,
        "resolution": "LiteralResolution",
        "source_index": null,
-       "text": "net-force"
+       "text": "{net-force}"
       }
      ],
      "headwords": [
@@ -535,7 +547,7 @@
      ],
      "provenance": "ExpandProvenance",
      "reduction": null,
-     "render": "The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+     "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
      "source_index": 21,
      "source_text": null
     },
@@ -580,21 +592,21 @@
        "position": 0,
        "resolution": "LiteralResolution",
        "source_index": null,
-       "text": "net-force"
+       "text": "{net-force}"
       },
       {
        "headword": "inertial-mass",
        "position": 1,
        "resolution": "RecallResolution",
        "source_index": 22,
-       "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+       "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
       },
       {
        "headword": "point-particle",
        "position": 3,
-       "resolution": "InjectResolution",
-       "source_index": null,
-       "text": "a cart"
+       "resolution": "ExpandResolution",
+       "source_index": 2,
+       "text": "{An idealised object whose spatial extent and internal structure are neglected.}"
       }
      ],
      "headwords": [
@@ -612,7 +624,7 @@
      ],
      "provenance": "ExpandProvenance",
      "reduction": null,
-     "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart.",
+     "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {An idealised object whose spatial extent and internal structure are neglected.}.",
      "source_index": 21,
      "source_text": null
     },
@@ -626,14 +638,14 @@
        "position": 0,
        "resolution": "LiteralResolution",
        "source_index": null,
-       "text": "net-force"
+       "text": "{net-force}"
       },
       {
        "headword": "inertial-mass",
        "position": 1,
        "resolution": "RecallResolution",
        "source_index": 22,
-       "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+       "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
       }
      ],
      "headwords": [
@@ -651,21 +663,84 @@
      ],
      "provenance": "ExpandProvenance",
      "reduction": null,
-     "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a {point-particle}.",
+     "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
      "source_index": 21,
      "source_text": null
     },
     "dependencies": [],
     "dependencies_complete": true,
-    "entry": null,
+    "entry": {
+     "bindings": [],
+     "call": "point-particle",
+     "candidates": [
+      2
+     ],
+     "clauses": [
+      [
+       2,
+       "point-particle"
+      ]
+     ],
+     "definition": "An idealised object whose spatial extent and internal structure are neglected.",
+     "dictionary": "Newton operational",
+     "headword": "point-particle",
+     "index": 2,
+     "text": "An idealised object whose spatial extent and internal structure are neglected."
+    },
     "position": 3,
-    "response": "a cart",
+    "response": "An idealised object whose spatial extent and internal structure are neglected.",
     "stimulus": "point-particle"
    },
-   "detail": "inject at F/0; position 3",
+   "detail": "expand at F/0; position 3; E2",
    "id": "event-4",
    "index": 4,
-   "kind": "inject"
+   "kind": "expand"
+  },
+  {
+   "change": {
+    "after": {
+     "address": [
+      0,
+      3
+     ],
+     "arguments": [],
+     "headwords": [],
+     "latents": [
+      "An idealised object whose spatial extent and internal structure are neglected."
+     ],
+     "provenance": "ExpandProvenance",
+     "reduction": "a cart",
+     "render": "a cart",
+     "source_index": 2,
+     "source_text": null
+    },
+    "before": {
+     "address": [
+      0,
+      3
+     ],
+     "arguments": [],
+     "headwords": [],
+     "latents": [
+      "An idealised object whose spatial extent and internal structure are neglected."
+     ],
+     "provenance": "ExpandProvenance",
+     "reduction": null,
+     "render": "An idealised object whose spatial extent and internal structure are neglected.",
+     "source_index": 2,
+     "source_text": null
+    },
+    "dependencies": [],
+    "dependencies_complete": true,
+    "entry": null,
+    "position": null,
+    "response": "a cart",
+    "stimulus": "An idealised object whose spatial extent and internal structure are neglected."
+   },
+   "detail": "reduce at F/0/3",
+   "id": "event-5",
+   "index": 5,
+   "kind": "reduce"
   },
   {
    "change": {
@@ -677,7 +752,7 @@
        "position": 0,
        "resolution": "ExpandResolution",
        "source_index": 21,
-       "text": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart."
+       "text": "{The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.}"
       }
      ],
      "headwords": [
@@ -691,7 +766,7 @@
      ],
      "provenance": "RootProvenance",
      "reduction": null,
-     "render": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on the {point-particle}",
+     "render": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on the point-particle",
      "source_index": null,
      "source_text": "the net-force on a point-particle"
     },
@@ -703,7 +778,7 @@
        "position": 0,
        "resolution": "ExpandResolution",
        "source_index": 21,
-       "text": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart."
+       "text": "{The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.}"
       }
      ],
      "headwords": [
@@ -717,7 +792,7 @@
      ],
      "provenance": "RootProvenance",
      "reduction": null,
-     "render": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on a {point-particle}",
+     "render": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on a point-particle",
      "source_index": null,
      "source_text": "the net-force on a point-particle"
     },
@@ -726,23 +801,135 @@
      1,
      2,
      3,
-     4
+     4,
+     5
     ],
     "dependencies_complete": true,
     "entry": null,
     "position": null,
-    "response": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on the {point-particle}",
-    "stimulus": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on a {point-particle}"
+    "response": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on the point-particle",
+    "stimulus": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on a point-particle"
    },
    "detail": "clean at F: wording only",
-   "id": "event-5",
-   "index": 5,
+   "id": "event-6",
+   "index": 6,
+   "kind": "clean"
+  },
+  {
+   "change": {
+    "after": {
+     "address": [
+      0
+     ],
+     "arguments": [
+      {
+       "headword": "net-force",
+       "position": 0,
+       "resolution": "LiteralResolution",
+       "source_index": null,
+       "text": "{net-force}"
+      },
+      {
+       "headword": "inertial-mass",
+       "position": 1,
+       "resolution": "RecallResolution",
+       "source_index": 22,
+       "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+      },
+      {
+       "headword": "point-particle",
+       "position": 3,
+       "resolution": "ExpandResolution",
+       "source_index": 2,
+       "text": "{a cart}"
+      }
+     ],
+     "headwords": [
+      "net-force",
+      "inertial-mass",
+      "inertial-acceleration",
+      "point-particle"
+     ],
+     "latents": [
+      "The vector quantity satisfying ",
+      " = ",
+      " times ",
+      " for a ",
+      "."
+     ],
+     "provenance": "ExpandProvenance",
+     "reduction": null,
+     "render": "The vector quantity satisfying {net-force} = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times inertial-acceleration for a {a cart}.",
+     "source_index": 21,
+     "source_text": null
+    },
+    "before": {
+     "address": [
+      0
+     ],
+     "arguments": [
+      {
+       "headword": "net-force",
+       "position": 0,
+       "resolution": "LiteralResolution",
+       "source_index": null,
+       "text": "{net-force}"
+      },
+      {
+       "headword": "inertial-mass",
+       "position": 1,
+       "resolution": "RecallResolution",
+       "source_index": 22,
+       "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
+      },
+      {
+       "headword": "point-particle",
+       "position": 3,
+       "resolution": "ExpandResolution",
+       "source_index": 2,
+       "text": "{a cart}"
+      }
+     ],
+     "headwords": [
+      "net-force",
+      "inertial-mass",
+      "inertial-acceleration",
+      "point-particle"
+     ],
+     "latents": [
+      "The vector quantity satisfying ",
+      " = ",
+      " times ",
+      " for a ",
+      "."
+     ],
+     "provenance": "ExpandProvenance",
+     "reduction": null,
+     "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.",
+     "source_index": 21,
+     "source_text": null
+    },
+    "dependencies": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "dependencies_complete": true,
+    "entry": null,
+    "position": 1,
+    "response": "The vector quantity satisfying {net-force} = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times inertial-acceleration for a {a cart}.",
+    "stimulus": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}."
+   },
+   "detail": "braces at F/0: recalled wording read plain; position 1",
+   "id": "event-7",
+   "index": 7,
    "kind": "clean"
   }
  ],
  "format": "vd-trace-record",
  "producer": {
-  "engine_sha256": "3683a06932c35832e788f8075f9387504b872e5c7bc0d4739b99c7e54f6e9a77",
+  "engine_sha256": "04e1032b3932207f0182d23b03659a6f313bb17cbf4b1c4a40bae3b00abb6c16",
   "name": "VDfirst",
   "protocol_version": 1
  },
@@ -750,8 +937,8 @@
   "context": "",
   "demand": "the net-force on a point-particle"
  },
- "record_id": "b642f3e5-d9b6-4ef4-b4fc-40ea0d444829",
- "sha256": "e5cfe51f8120ff9f0e8bd474a1039d4e167e098e88ff0ef5d07002154e122442",
+ "record_id": "915975fb-dedf-45bf-b66e-e859a1a86707",
+ "sha256": "95afe2862ce92e87a6b588a995df20fb585871eef964cb61d9f29ca06fad0873",
  "snapshots": [
   {
    "command_index": -1,
@@ -765,6 +952,7 @@
      ],
      "holes": [
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
@@ -786,6 +974,7 @@
        "source_index": null
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "An idealised object whose spatial extent and internal structure are neglected.",
@@ -809,7 +998,7 @@
      ],
      "parent_id": null,
      "reduced": null,
-     "render": "the {net-force} on a {point-particle}",
+     "render": "the net-force on a point-particle",
      "resolved": false,
      "source_index": null,
      "via_position": null
@@ -855,7 +1044,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -873,7 +1062,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -881,7 +1070,7 @@
        "dependencies_complete": true,
        "entry": null,
        "position": null,
-       "response": "the {net-force} on a {point-particle}",
+       "response": "the net-force on a point-particle",
        "stimulus": "the net-force on a point-particle"
       },
       "id": "P0",
@@ -891,8 +1080,8 @@
       "verification": "unchecked"
      }
     ],
-    "result": "the {net-force} on a {point-particle}",
-    "schema_version": 5,
+    "result": "the net-force on a point-particle",
+    "schema_version": 6,
     "scope": "recorded trace history",
     "trace_complete": false,
     "unrecorded_events": []
@@ -912,6 +1101,7 @@
      ],
      "holes": [
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": "F/0",
        "headword": "net-force",
@@ -920,6 +1110,7 @@
        "source_index": 21
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "An idealised object whose spatial extent and internal structure are neglected.",
@@ -943,7 +1134,7 @@
      ],
      "parent_id": null,
      "reduced": null,
-     "render": "the The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
+     "render": "the {The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
      "resolved": false,
      "source_index": null,
      "via_position": null
@@ -960,6 +1151,7 @@
      ],
      "holes": [
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
@@ -981,6 +1173,7 @@
        "source_index": null
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.",
@@ -996,6 +1189,7 @@
        "source_index": null
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "The acceleration of a point-particle as measured in an inertial-frame.",
@@ -1017,6 +1211,7 @@
        "source_index": null
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "An idealised object whose spatial extent and internal structure are neglected.",
@@ -1042,7 +1237,7 @@
      ],
      "parent_id": "F",
      "reduced": null,
-     "render": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+     "render": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
      "resolved": false,
      "source_index": 21,
      "via_position": 0
@@ -1089,7 +1284,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1107,7 +1302,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1115,7 +1310,7 @@
        "dependencies_complete": true,
        "entry": null,
        "position": null,
-       "response": "the {net-force} on a {point-particle}",
+       "response": "the net-force on a point-particle",
        "stimulus": "the net-force on a point-particle"
       },
       "id": "P0",
@@ -1139,7 +1334,7 @@
           "position": 0,
           "resolution": "ExpandResolution",
           "source_index": 21,
-          "text": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}."
+          "text": "{The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.}"
          }
         ],
         "headwords": [
@@ -1153,7 +1348,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
+        "render": "the {The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1171,7 +1366,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1211,8 +1406,8 @@
       "verification": "unchecked"
      }
     ],
-    "result": "the The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
-    "schema_version": 5,
+    "result": "the {The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
+    "schema_version": 6,
     "scope": "recorded trace history",
     "trace_complete": false,
     "unrecorded_events": []
@@ -1232,6 +1427,7 @@
      ],
      "holes": [
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": "F/0",
        "headword": "net-force",
@@ -1240,6 +1436,7 @@
        "source_index": 21
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "An idealised object whose spatial extent and internal structure are neglected.",
@@ -1263,7 +1460,7 @@
      ],
      "parent_id": null,
      "reduced": null,
-     "render": "the The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
+     "render": "the {The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
      "resolved": false,
      "source_index": null,
      "via_position": null
@@ -1280,6 +1477,7 @@
      ],
      "holes": [
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": null,
        "headword": "net-force",
@@ -1288,6 +1486,7 @@
        "source_index": null
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.",
@@ -1303,6 +1502,7 @@
        "source_index": null
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "The acceleration of a point-particle as measured in an inertial-frame.",
@@ -1324,6 +1524,7 @@
        "source_index": null
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "An idealised object whose spatial extent and internal structure are neglected.",
@@ -1349,7 +1550,7 @@
      ],
      "parent_id": "F",
      "reduced": null,
-     "render": "The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+     "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
      "resolved": false,
      "source_index": 21,
      "via_position": 0
@@ -1397,7 +1598,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1415,7 +1616,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1423,7 +1624,7 @@
        "dependencies_complete": true,
        "entry": null,
        "position": null,
-       "response": "the {net-force} on a {point-particle}",
+       "response": "the net-force on a point-particle",
        "stimulus": "the net-force on a point-particle"
       },
       "id": "P0",
@@ -1447,7 +1648,7 @@
           "position": 0,
           "resolution": "ExpandResolution",
           "source_index": 21,
-          "text": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}."
+          "text": "{The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.}"
          }
         ],
         "headwords": [
@@ -1461,7 +1662,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
+        "render": "the {The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1479,7 +1680,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1535,7 +1736,7 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          }
         ],
         "headwords": [
@@ -1553,7 +1754,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -1577,7 +1778,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -1591,12 +1792,12 @@
       "id": "P2",
       "kind": "left_unexpanded",
       "operation": "flatten",
-      "statement": "The headword 'net-force' is left as plain text here; no entry is applied to it.",
+      "statement": "The headword 'net-force' is left unexpanded here; no entry is applied to it.",
       "verification": "unchecked"
      }
     ],
-    "result": "the The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
-    "schema_version": 5,
+    "result": "the {The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
+    "schema_version": 6,
     "scope": "recorded trace history",
     "trace_complete": false,
     "unrecorded_events": []
@@ -1616,6 +1817,7 @@
      ],
      "holes": [
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": "F/0",
        "headword": "net-force",
@@ -1624,6 +1826,7 @@
        "source_index": 21
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "An idealised object whose spatial extent and internal structure are neglected.",
@@ -1647,7 +1850,7 @@
      ],
      "parent_id": null,
      "reduced": null,
-     "render": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
+     "render": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.} on a point-particle",
      "resolved": false,
      "source_index": null,
      "via_position": null
@@ -1664,6 +1867,7 @@
      ],
      "holes": [
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": null,
        "headword": "net-force",
@@ -1672,6 +1876,7 @@
        "source_index": null
       },
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": null,
        "headword": "inertial-mass",
@@ -1680,6 +1885,7 @@
        "source_index": 22
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "The acceleration of a point-particle as measured in an inertial-frame.",
@@ -1701,6 +1907,7 @@
        "source_index": null
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "An idealised object whose spatial extent and internal structure are neglected.",
@@ -1726,7 +1933,7 @@
      ],
      "parent_id": "F",
      "reduced": null,
-     "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a {point-particle}.",
+     "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
      "resolved": false,
      "source_index": 21,
      "via_position": 0
@@ -1775,7 +1982,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1793,7 +2000,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1801,7 +2008,7 @@
        "dependencies_complete": true,
        "entry": null,
        "position": null,
-       "response": "the {net-force} on a {point-particle}",
+       "response": "the net-force on a point-particle",
        "stimulus": "the net-force on a point-particle"
       },
       "id": "P0",
@@ -1825,7 +2032,7 @@
           "position": 0,
           "resolution": "ExpandResolution",
           "source_index": 21,
-          "text": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}."
+          "text": "{The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.}"
          }
         ],
         "headwords": [
@@ -1839,7 +2046,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
+        "render": "the {The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1857,7 +2064,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -1913,7 +2120,7 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          }
         ],
         "headwords": [
@@ -1931,7 +2138,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -1955,7 +2162,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -1969,7 +2176,7 @@
       "id": "P2",
       "kind": "left_unexpanded",
       "operation": "flatten",
-      "statement": "The headword 'net-force' is left as plain text here; no entry is applied to it.",
+      "statement": "The headword 'net-force' is left unexpanded here; no entry is applied to it.",
       "verification": "unchecked"
      },
      {
@@ -1989,14 +2196,14 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          },
          {
           "headword": "inertial-mass",
           "position": 1,
           "resolution": "RecallResolution",
           "source_index": 22,
-          "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
          }
         ],
         "headwords": [
@@ -2014,7 +2221,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -2028,7 +2235,7 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          }
         ],
         "headwords": [
@@ -2046,7 +2253,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -2081,8 +2288,8 @@
       "verification": "unchecked"
      }
     ],
-    "result": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
-    "schema_version": 5,
+    "result": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.} on a point-particle",
+    "schema_version": 6,
     "scope": "recorded trace history",
     "trace_complete": false,
     "unrecorded_events": []
@@ -2102,6 +2309,7 @@
      ],
      "holes": [
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": "F/0",
        "headword": "net-force",
@@ -2110,6 +2318,7 @@
        "source_index": 21
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "An idealised object whose spatial extent and internal structure are neglected.",
@@ -2133,7 +2342,7 @@
      ],
      "parent_id": null,
      "reduced": null,
-     "render": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on a {point-particle}",
+     "render": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {An idealised object whose spatial extent and internal structure are neglected.}.} on a point-particle",
      "resolved": false,
      "source_index": null,
      "via_position": null
@@ -2150,6 +2359,7 @@
      ],
      "holes": [
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": null,
        "headword": "net-force",
@@ -2158,6 +2368,7 @@
        "source_index": null
       },
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": null,
        "headword": "inertial-mass",
@@ -2166,6 +2377,7 @@
        "source_index": 22
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "The acceleration of a point-particle as measured in an inertial-frame.",
@@ -2187,12 +2399,13 @@
        "source_index": null
       },
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": "F/0/3",
        "headword": "point-particle",
        "position": 3,
-       "resolution": "inject",
-       "source_index": null
+       "resolution": "expand",
+       "source_index": 2
       }
      ],
      "id": "F/0",
@@ -2205,7 +2418,7 @@
      ],
      "parent_id": "F",
      "reduced": null,
-     "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart.",
+     "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {An idealised object whose spatial extent and internal structure are neglected.}.",
      "resolved": false,
      "source_index": 21,
      "via_position": 0
@@ -2219,13 +2432,13 @@
      "holes": [],
      "id": "F/0/3",
      "latents": [
-      "a cart"
+      "An idealised object whose spatial extent and internal structure are neglected."
      ],
      "parent_id": "F/0",
      "reduced": null,
-     "render": "a cart",
+     "render": "An idealised object whose spatial extent and internal structure are neglected.",
      "resolved": true,
-     "source_index": null,
+     "source_index": 2,
      "via_position": 3
     }
    ],
@@ -2273,7 +2486,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -2291,7 +2504,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -2299,7 +2512,7 @@
        "dependencies_complete": true,
        "entry": null,
        "position": null,
-       "response": "the {net-force} on a {point-particle}",
+       "response": "the net-force on a point-particle",
        "stimulus": "the net-force on a point-particle"
       },
       "id": "P0",
@@ -2323,7 +2536,7 @@
           "position": 0,
           "resolution": "ExpandResolution",
           "source_index": 21,
-          "text": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}."
+          "text": "{The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.}"
          }
         ],
         "headwords": [
@@ -2337,7 +2550,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
+        "render": "the {The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -2355,7 +2568,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -2411,7 +2624,7 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          }
         ],
         "headwords": [
@@ -2429,7 +2642,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -2453,7 +2666,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -2467,7 +2680,7 @@
       "id": "P2",
       "kind": "left_unexpanded",
       "operation": "flatten",
-      "statement": "The headword 'net-force' is left as plain text here; no entry is applied to it.",
+      "statement": "The headword 'net-force' is left unexpanded here; no entry is applied to it.",
       "verification": "unchecked"
      },
      {
@@ -2487,14 +2700,14 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          },
          {
           "headword": "inertial-mass",
           "position": 1,
           "resolution": "RecallResolution",
           "source_index": 22,
-          "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
          }
         ],
         "headwords": [
@@ -2512,7 +2725,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -2526,7 +2739,7 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          }
         ],
         "headwords": [
@@ -2544,7 +2757,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -2595,21 +2808,21 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          },
          {
           "headword": "inertial-mass",
           "position": 1,
           "resolution": "RecallResolution",
           "source_index": 22,
-          "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
          },
          {
           "headword": "point-particle",
           "position": 3,
-          "resolution": "InjectResolution",
-          "source_index": null,
-          "text": "a cart"
+          "resolution": "ExpandResolution",
+          "source_index": 2,
+          "text": "{An idealised object whose spatial extent and internal structure are neglected.}"
          }
         ],
         "headwords": [
@@ -2627,7 +2840,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart.",
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {An idealised object whose spatial extent and internal structure are neglected.}.",
         "source_index": 21,
         "source_text": null
        },
@@ -2641,14 +2854,14 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          },
          {
           "headword": "inertial-mass",
           "position": 1,
           "resolution": "RecallResolution",
           "source_index": 22,
-          "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
          }
         ],
         "headwords": [
@@ -2666,32 +2879,49 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
        "dependencies": [],
        "dependencies_complete": true,
-       "entry": null,
+       "entry": {
+        "bindings": [],
+        "call": "point-particle",
+        "candidates": [
+         2
+        ],
+        "clauses": [
+         [
+          2,
+          "point-particle"
+         ]
+        ],
+        "definition": "An idealised object whose spatial extent and internal structure are neglected.",
+        "dictionary": "Newton operational",
+        "headword": "point-particle",
+        "index": 2,
+        "text": "An idealised object whose spatial extent and internal structure are neglected."
+       },
        "position": 3,
-       "response": "a cart",
+       "response": "An idealised object whose spatial extent and internal structure are neglected.",
        "stimulus": "point-particle"
       },
       "id": "P4",
-      "kind": "supplied_input",
-      "operation": "inject",
-      "statement": "The supplied response 'a cart' is appropriate for the demand 'point-particle' in the recorded context.",
+      "kind": "entry_application",
+      "operation": "expand",
+      "statement": "According to 'Newton operational', entry E2 defines 'point-particle' as 'An idealised object whose spatial extent and internal structure are neglected.'.",
       "verification": "unchecked"
      }
     ],
-    "result": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on a {point-particle}",
-    "schema_version": 5,
+    "result": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {An idealised object whose spatial extent and internal structure are neglected.}.} on a point-particle",
+    "schema_version": 6,
     "scope": "recorded trace history",
     "trace_complete": false,
     "unrecorded_events": []
    },
    "root_frame_id": "F",
-   "title": "Inject · F/0"
+   "title": "Expand · F/0"
   },
   {
    "command_index": 4,
@@ -2705,6 +2935,7 @@
      ],
      "holes": [
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": "F/0",
        "headword": "net-force",
@@ -2713,6 +2944,7 @@
        "source_index": 21
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "An idealised object whose spatial extent and internal structure are neglected.",
@@ -2731,12 +2963,12 @@
      "id": "F",
      "latents": [
       "the ",
-      " on the ",
+      " on a ",
       ""
      ],
      "parent_id": null,
      "reduced": null,
-     "render": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on the {point-particle}",
+     "render": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on a point-particle",
      "resolved": false,
      "source_index": null,
      "via_position": null
@@ -2753,6 +2985,7 @@
      ],
      "holes": [
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": null,
        "headword": "net-force",
@@ -2761,6 +2994,7 @@
        "source_index": null
       },
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": null,
        "headword": "inertial-mass",
@@ -2769,6 +3003,7 @@
        "source_index": 22
       },
       {
+       "braced": false,
        "candidates": [
         {
          "definition": "The acceleration of a point-particle as measured in an inertial-frame.",
@@ -2790,12 +3025,13 @@
        "source_index": null
       },
       {
+       "braced": true,
        "candidates": [],
        "child_frame_id": "F/0/3",
        "headword": "point-particle",
        "position": 3,
-       "resolution": "inject",
-       "source_index": null
+       "resolution": "expand",
+       "source_index": 2
       }
      ],
      "id": "F/0",
@@ -2808,7 +3044,7 @@
      ],
      "parent_id": "F",
      "reduced": null,
-     "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart.",
+     "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.",
      "resolved": false,
      "source_index": 21,
      "via_position": 0
@@ -2822,13 +3058,13 @@
      "holes": [],
      "id": "F/0/3",
      "latents": [
-      "a cart"
+      "An idealised object whose spatial extent and internal structure are neglected."
      ],
      "parent_id": "F/0",
-     "reduced": null,
+     "reduced": "a cart",
      "render": "a cart",
      "resolved": true,
-     "source_index": null,
+     "source_index": 2,
      "via_position": 3
     }
    ],
@@ -2877,7 +3113,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -2895,7 +3131,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -2903,7 +3139,7 @@
        "dependencies_complete": true,
        "entry": null,
        "position": null,
-       "response": "the {net-force} on a {point-particle}",
+       "response": "the net-force on a point-particle",
        "stimulus": "the net-force on a point-particle"
       },
       "id": "P0",
@@ -2927,7 +3163,7 @@
           "position": 0,
           "resolution": "ExpandResolution",
           "source_index": 21,
-          "text": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}."
+          "text": "{The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.}"
          }
         ],
         "headwords": [
@@ -2941,7 +3177,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}. on a {point-particle}",
+        "render": "the {The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -2959,7 +3195,7 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the {net-force} on a {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -3015,7 +3251,7 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          }
         ],
         "headwords": [
@@ -3033,7 +3269,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -3057,7 +3293,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying {net-force} = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -3071,7 +3307,7 @@
       "id": "P2",
       "kind": "left_unexpanded",
       "operation": "flatten",
-      "statement": "The headword 'net-force' is left as plain text here; no entry is applied to it.",
+      "statement": "The headword 'net-force' is left unexpanded here; no entry is applied to it.",
       "verification": "unchecked"
      },
      {
@@ -3091,14 +3327,14 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          },
          {
           "headword": "inertial-mass",
           "position": 1,
           "resolution": "RecallResolution",
           "source_index": 22,
-          "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
          }
         ],
         "headwords": [
@@ -3116,7 +3352,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -3130,7 +3366,7 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          }
         ],
         "headwords": [
@@ -3148,7 +3384,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = {inertial-mass} times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
@@ -3199,21 +3435,21 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          },
          {
           "headword": "inertial-mass",
           "position": 1,
           "resolution": "RecallResolution",
           "source_index": 22,
-          "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
          },
          {
           "headword": "point-particle",
           "position": 3,
-          "resolution": "InjectResolution",
-          "source_index": null,
-          "text": "a cart"
+          "resolution": "ExpandResolution",
+          "source_index": 2,
+          "text": "{An idealised object whose spatial extent and internal structure are neglected.}"
          }
         ],
         "headwords": [
@@ -3231,7 +3467,7 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart.",
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {An idealised object whose spatial extent and internal structure are neglected.}.",
         "source_index": 21,
         "source_text": null
        },
@@ -3245,14 +3481,14 @@
           "position": 0,
           "resolution": "LiteralResolution",
           "source_index": null,
-          "text": "net-force"
+          "text": "{net-force}"
          },
          {
           "headword": "inertial-mass",
           "position": 1,
           "resolution": "RecallResolution",
           "source_index": 22,
-          "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
          }
         ],
         "headwords": [
@@ -3270,21 +3506,38 @@
         ],
         "provenance": "ExpandProvenance",
         "reduction": null,
-        "render": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a {point-particle}.",
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
         "source_index": 21,
         "source_text": null
        },
        "dependencies": [],
        "dependencies_complete": true,
-       "entry": null,
+       "entry": {
+        "bindings": [],
+        "call": "point-particle",
+        "candidates": [
+         2
+        ],
+        "clauses": [
+         [
+          2,
+          "point-particle"
+         ]
+        ],
+        "definition": "An idealised object whose spatial extent and internal structure are neglected.",
+        "dictionary": "Newton operational",
+        "headword": "point-particle",
+        "index": 2,
+        "text": "An idealised object whose spatial extent and internal structure are neglected."
+       },
        "position": 3,
-       "response": "a cart",
+       "response": "An idealised object whose spatial extent and internal structure are neglected.",
        "stimulus": "point-particle"
       },
       "id": "P4",
-      "kind": "supplied_input",
-      "operation": "inject",
-      "statement": "The supplied response 'a cart' is appropriate for the demand 'point-particle' in the recorded context.",
+      "kind": "entry_application",
+      "operation": "expand",
+      "statement": "According to 'Newton operational', entry E2 defines 'point-particle' as 'An idealised object whose spatial extent and internal structure are neglected.'.",
       "verification": "unchecked"
      },
      {
@@ -3295,32 +3548,294 @@
       "event_index": 5,
       "evidence": {
        "after": {
-        "address": [],
-        "arguments": [
-         {
-          "headword": "net-force",
-          "position": 0,
-          "resolution": "ExpandResolution",
-          "source_index": 21,
-          "text": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart."
-         }
+        "address": [
+         0,
+         3
         ],
+        "arguments": [],
+        "headwords": [],
+        "latents": [
+         "An idealised object whose spatial extent and internal structure are neglected."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": "a cart",
+        "render": "a cart",
+        "source_index": 2,
+        "source_text": null
+       },
+       "before": {
+        "address": [
+         0,
+         3
+        ],
+        "arguments": [],
+        "headwords": [],
+        "latents": [
+         "An idealised object whose spatial extent and internal structure are neglected."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "An idealised object whose spatial extent and internal structure are neglected.",
+        "source_index": 2,
+        "source_text": null
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": null,
+       "response": "a cart",
+       "stimulus": "An idealised object whose spatial extent and internal structure are neglected."
+      },
+      "id": "P5",
+      "kind": "meaning_preservation",
+      "operation": "reduce",
+      "statement": "What is meant by 'An idealised object whose spatial extent and internal structure are neglected.' is the same as what is meant by 'a cart' in the recorded context.",
+      "verification": "unchecked"
+     }
+    ],
+    "result": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on a point-particle",
+    "schema_version": 6,
+    "scope": "recorded trace history",
+    "trace_complete": false,
+    "unrecorded_events": []
+   },
+   "root_frame_id": "F",
+   "title": "Reduce · F/0/3"
+  },
+  {
+   "command_index": 5,
+   "event_count": 7,
+   "frames": [
+    {
+     "address": [],
+     "headwords": [
+      "net-force",
+      "point-particle"
+     ],
+     "holes": [
+      {
+       "braced": true,
+       "candidates": [],
+       "child_frame_id": "F/0",
+       "headword": "net-force",
+       "position": 0,
+       "resolution": "expand",
+       "source_index": 21
+      },
+      {
+       "braced": false,
+       "candidates": [
+        {
+         "definition": "An idealised object whose spatial extent and internal structure are neglected.",
+         "entry_index": 2,
+         "headword": "point-particle",
+         "instantiated_definition": "An idealised object whose spatial extent and internal structure are neglected."
+        }
+       ],
+       "child_frame_id": null,
+       "headword": "point-particle",
+       "position": 1,
+       "resolution": null,
+       "source_index": null
+      }
+     ],
+     "id": "F",
+     "latents": [
+      "the ",
+      " on the ",
+      ""
+     ],
+     "parent_id": null,
+     "reduced": null,
+     "render": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on the point-particle",
+     "resolved": false,
+     "source_index": null,
+     "via_position": null
+    },
+    {
+     "address": [
+      0
+     ],
+     "headwords": [
+      "net-force",
+      "inertial-mass",
+      "inertial-acceleration",
+      "point-particle"
+     ],
+     "holes": [
+      {
+       "braced": true,
+       "candidates": [],
+       "child_frame_id": null,
+       "headword": "net-force",
+       "position": 0,
+       "resolution": "flatten",
+       "source_index": null
+      },
+      {
+       "braced": true,
+       "candidates": [],
+       "child_frame_id": null,
+       "headword": "inertial-mass",
+       "position": 1,
+       "resolution": "recall",
+       "source_index": 22
+      },
+      {
+       "braced": false,
+       "candidates": [
+        {
+         "definition": "The acceleration of a point-particle as measured in an inertial-frame.",
+         "entry_index": 19,
+         "headword": "inertial-acceleration",
+         "instantiated_definition": "The acceleration of a point-particle as measured in an inertial-frame."
+        },
+        {
+         "definition": "For a point-particle, inertial-acceleration equals net-force divided by inertial-mass: a = F/m.",
+         "entry_index": 20,
+         "headword": "inertial-acceleration",
+         "instantiated_definition": "For a point-particle, inertial-acceleration equals net-force divided by inertial-mass: a = F/m."
+        }
+       ],
+       "child_frame_id": null,
+       "headword": "inertial-acceleration",
+       "position": 2,
+       "resolution": null,
+       "source_index": null
+      },
+      {
+       "braced": true,
+       "candidates": [],
+       "child_frame_id": "F/0/3",
+       "headword": "point-particle",
+       "position": 3,
+       "resolution": "expand",
+       "source_index": 2
+      }
+     ],
+     "id": "F/0",
+     "latents": [
+      "The vector quantity satisfying ",
+      " = ",
+      " times ",
+      " for a ",
+      "."
+     ],
+     "parent_id": "F",
+     "reduced": null,
+     "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.",
+     "resolved": false,
+     "source_index": 21,
+     "via_position": 0
+    },
+    {
+     "address": [
+      0,
+      3
+     ],
+     "headwords": [],
+     "holes": [],
+     "id": "F/0/3",
+     "latents": [
+      "An idealised object whose spatial extent and internal structure are neglected."
+     ],
+     "parent_id": "F/0",
+     "reduced": "a cart",
+     "render": "a cart",
+     "resolved": true,
+     "source_index": 2,
+     "via_position": 3
+    }
+   ],
+   "id": "S6",
+   "prediction_set": {
+    "coverage_complete": false,
+    "current_prediction_ids": [
+     "P0",
+     "P1",
+     "P2",
+     "P3",
+     "P4",
+     "P5",
+     "P6"
+    ],
+    "dependency_selection_complete": true,
+    "historical_prediction_ids": [],
+    "issued": [],
+    "limitations": [
+     "Every recorded step is listed: the starting demand, entry applications and recalls, headwords left unexpanded, supplied inputs, reductions and cleanup edits.",
+     "The list is unsorted and unpruned; which candidates are theory-side, needed or members is not decided here.",
+     "Current support is recorded step lineage, not a proof or a minimal semantic dependency set.",
+     "Equivalence criteria and input fidelity require human interpretation.",
+     "This is not the full disjunction of alternatives and gives no theory verdict.",
+     "An issued result records what it rested on when issued; whether it still stands is not decided here.",
+     "Direct Demand mutations bypass recording; use the Trace recording methods."
+    ],
+    "predictions": [
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 0,
+      "evidence": {
+       "after": {
+        "address": [],
+        "arguments": [],
         "headwords": [
          "net-force",
          "point-particle"
         ],
         "latents": [
          "the ",
-         " on the ",
+         " on a ",
          ""
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on the {point-particle}",
+        "render": "the net-force on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
        "before": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "net-force",
+         "point-particle"
+        ],
+        "latents": [
+         "the ",
+         " on a ",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "the net-force on a point-particle",
+        "source_index": null,
+        "source_text": "the net-force on a point-particle"
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": null,
+       "response": "the net-force on a point-particle",
+       "stimulus": "the net-force on a point-particle"
+      },
+      "id": "P0",
+      "kind": "normalization",
+      "operation": "trace",
+      "statement": "The demand 'the net-force on a point-particle' states what is asked in the recorded context.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 1,
+      "evidence": {
+       "after": {
         "address": [],
         "arguments": [
          {
@@ -3328,7 +3843,7 @@
           "position": 0,
           "resolution": "ExpandResolution",
           "source_index": 21,
-          "text": "The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart."
+          "text": "{The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.}"
          }
         ],
         "headwords": [
@@ -3342,7 +3857,477 @@
         ],
         "provenance": "RootProvenance",
         "reduction": null,
-        "render": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on a {point-particle}",
+        "render": "the {The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
+        "source_index": null,
+        "source_text": "the net-force on a point-particle"
+       },
+       "before": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "net-force",
+         "point-particle"
+        ],
+        "latents": [
+         "the ",
+         " on a ",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "the net-force on a point-particle",
+        "source_index": null,
+        "source_text": "the net-force on a point-particle"
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": {
+        "bindings": [],
+        "call": "net-force",
+        "candidates": [
+         21,
+         23
+        ],
+        "clauses": [
+         [
+          21,
+          "net-force"
+         ],
+         [
+          23,
+          "net-force"
+         ]
+        ],
+        "definition": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
+        "dictionary": "Newton operational",
+        "headword": "net-force",
+        "index": 21,
+        "text": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle."
+       },
+       "position": 0,
+       "response": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
+       "stimulus": "net-force"
+      },
+      "id": "P1",
+      "kind": "entry_application",
+      "operation": "expand",
+      "statement": "According to 'Newton operational', entry E21 defines 'net-force' as 'The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.'; chosen over E23.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 2,
+      "evidence": {
+       "after": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "before": {
+        "address": [
+         0
+        ],
+        "arguments": [],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": 0,
+       "response": "net-force",
+       "stimulus": "net-force"
+      },
+      "id": "P2",
+      "kind": "left_unexpanded",
+      "operation": "flatten",
+      "statement": "The headword 'net-force' is left unexpanded here; no entry is applied to it.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 3,
+      "evidence": {
+       "after": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         },
+         {
+          "headword": "inertial-mass",
+          "position": 1,
+          "resolution": "RecallResolution",
+          "source_index": 22,
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "before": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": {
+        "bindings": [],
+        "call": "inertial-mass",
+        "candidates": [
+         22
+        ],
+        "clauses": [
+         [
+          22,
+          "inertial-mass"
+         ]
+        ],
+        "definition": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.",
+        "dictionary": "Newton operational",
+        "headword": "inertial-mass",
+        "index": 22,
+        "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+       },
+       "position": 1,
+       "response": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.",
+       "stimulus": "inertial-mass"
+      },
+      "id": "P3",
+      "kind": "entry_recall",
+      "operation": "recall",
+      "statement": "According to 'Newton operational', entry E22 defines 'inertial-mass' as 'The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.'. Its text is inserted as it stands, without further expansion.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 4,
+      "evidence": {
+       "after": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         },
+         {
+          "headword": "inertial-mass",
+          "position": 1,
+          "resolution": "RecallResolution",
+          "source_index": 22,
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
+         },
+         {
+          "headword": "point-particle",
+          "position": 3,
+          "resolution": "ExpandResolution",
+          "source_index": 2,
+          "text": "{An idealised object whose spatial extent and internal structure are neglected.}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {An idealised object whose spatial extent and internal structure are neglected.}.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "before": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         },
+         {
+          "headword": "inertial-mass",
+          "position": 1,
+          "resolution": "RecallResolution",
+          "source_index": 22,
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": {
+        "bindings": [],
+        "call": "point-particle",
+        "candidates": [
+         2
+        ],
+        "clauses": [
+         [
+          2,
+          "point-particle"
+         ]
+        ],
+        "definition": "An idealised object whose spatial extent and internal structure are neglected.",
+        "dictionary": "Newton operational",
+        "headword": "point-particle",
+        "index": 2,
+        "text": "An idealised object whose spatial extent and internal structure are neglected."
+       },
+       "position": 3,
+       "response": "An idealised object whose spatial extent and internal structure are neglected.",
+       "stimulus": "point-particle"
+      },
+      "id": "P4",
+      "kind": "entry_application",
+      "operation": "expand",
+      "statement": "According to 'Newton operational', entry E2 defines 'point-particle' as 'An idealised object whose spatial extent and internal structure are neglected.'.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 5,
+      "evidence": {
+       "after": {
+        "address": [
+         0,
+         3
+        ],
+        "arguments": [],
+        "headwords": [],
+        "latents": [
+         "An idealised object whose spatial extent and internal structure are neglected."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": "a cart",
+        "render": "a cart",
+        "source_index": 2,
+        "source_text": null
+       },
+       "before": {
+        "address": [
+         0,
+         3
+        ],
+        "arguments": [],
+        "headwords": [],
+        "latents": [
+         "An idealised object whose spatial extent and internal structure are neglected."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "An idealised object whose spatial extent and internal structure are neglected.",
+        "source_index": 2,
+        "source_text": null
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": null,
+       "response": "a cart",
+       "stimulus": "An idealised object whose spatial extent and internal structure are neglected."
+      },
+      "id": "P5",
+      "kind": "meaning_preservation",
+      "operation": "reduce",
+      "statement": "What is meant by 'An idealised object whose spatial extent and internal structure are neglected.' is the same as what is meant by 'a cart' in the recorded context.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 6,
+      "evidence": {
+       "after": {
+        "address": [],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "ExpandResolution",
+          "source_index": 21,
+          "text": "{The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "point-particle"
+        ],
+        "latents": [
+         "the ",
+         " on the ",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on the point-particle",
+        "source_index": null,
+        "source_text": "the net-force on a point-particle"
+       },
+       "before": {
+        "address": [],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "ExpandResolution",
+          "source_index": 21,
+          "text": "{The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "point-particle"
+        ],
+        "latents": [
+         "the ",
+         " on a ",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on a point-particle",
         "source_index": null,
         "source_text": "the net-force on a point-particle"
        },
@@ -3351,29 +4336,907 @@
         1,
         2,
         3,
-        4
+        4,
+        5
        ],
        "dependencies_complete": true,
        "entry": null,
        "position": null,
-       "response": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on the {point-particle}",
-       "stimulus": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on a {point-particle}"
+       "response": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on the point-particle",
+       "stimulus": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on a point-particle"
       },
-      "id": "P5",
+      "id": "P6",
       "kind": "meaning_preservation",
       "operation": "clean",
-      "statement": "What is meant by 'the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on a {point-particle}' is the same as what is meant by 'the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on the {point-particle}' in the recorded context.",
+      "statement": "What is meant by 'the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on a point-particle' is the same as what is meant by 'the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on the point-particle' in the recorded context.",
       "verification": "unchecked"
      }
     ],
-    "result": "the The vector quantity satisfying net-force = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times {inertial-acceleration} for a a cart. on the {point-particle}",
-    "schema_version": 5,
+    "result": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on the point-particle",
+    "schema_version": 6,
     "scope": "recorded trace history",
     "trace_complete": false,
     "unrecorded_events": []
    },
    "root_frame_id": "F",
    "title": "Clean · F"
+  },
+  {
+   "command_index": 6,
+   "event_count": 8,
+   "frames": [
+    {
+     "address": [],
+     "headwords": [
+      "net-force",
+      "point-particle"
+     ],
+     "holes": [
+      {
+       "braced": true,
+       "candidates": [],
+       "child_frame_id": "F/0",
+       "headword": "net-force",
+       "position": 0,
+       "resolution": "expand",
+       "source_index": 21
+      },
+      {
+       "braced": false,
+       "candidates": [
+        {
+         "definition": "An idealised object whose spatial extent and internal structure are neglected.",
+         "entry_index": 2,
+         "headword": "point-particle",
+         "instantiated_definition": "An idealised object whose spatial extent and internal structure are neglected."
+        }
+       ],
+       "child_frame_id": null,
+       "headword": "point-particle",
+       "position": 1,
+       "resolution": null,
+       "source_index": null
+      }
+     ],
+     "id": "F",
+     "latents": [
+      "the ",
+      " on the ",
+      ""
+     ],
+     "parent_id": null,
+     "reduced": null,
+     "render": "the {The vector quantity satisfying {net-force} = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times inertial-acceleration for a {a cart}.} on the point-particle",
+     "resolved": false,
+     "source_index": null,
+     "via_position": null
+    },
+    {
+     "address": [
+      0
+     ],
+     "headwords": [
+      "net-force",
+      "inertial-mass",
+      "inertial-acceleration",
+      "point-particle"
+     ],
+     "holes": [
+      {
+       "braced": true,
+       "candidates": [],
+       "child_frame_id": null,
+       "headword": "net-force",
+       "position": 0,
+       "resolution": "flatten",
+       "source_index": null
+      },
+      {
+       "braced": false,
+       "candidates": [],
+       "child_frame_id": null,
+       "headword": "inertial-mass",
+       "position": 1,
+       "resolution": "recall",
+       "source_index": 22
+      },
+      {
+       "braced": false,
+       "candidates": [
+        {
+         "definition": "The acceleration of a point-particle as measured in an inertial-frame.",
+         "entry_index": 19,
+         "headword": "inertial-acceleration",
+         "instantiated_definition": "The acceleration of a point-particle as measured in an inertial-frame."
+        },
+        {
+         "definition": "For a point-particle, inertial-acceleration equals net-force divided by inertial-mass: a = F/m.",
+         "entry_index": 20,
+         "headword": "inertial-acceleration",
+         "instantiated_definition": "For a point-particle, inertial-acceleration equals net-force divided by inertial-mass: a = F/m."
+        }
+       ],
+       "child_frame_id": null,
+       "headword": "inertial-acceleration",
+       "position": 2,
+       "resolution": null,
+       "source_index": null
+      },
+      {
+       "braced": true,
+       "candidates": [],
+       "child_frame_id": "F/0/3",
+       "headword": "point-particle",
+       "position": 3,
+       "resolution": "expand",
+       "source_index": 2
+      }
+     ],
+     "id": "F/0",
+     "latents": [
+      "The vector quantity satisfying ",
+      " = ",
+      " times ",
+      " for a ",
+      "."
+     ],
+     "parent_id": "F",
+     "reduced": null,
+     "render": "The vector quantity satisfying {net-force} = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times inertial-acceleration for a {a cart}.",
+     "resolved": false,
+     "source_index": 21,
+     "via_position": 0
+    },
+    {
+     "address": [
+      0,
+      3
+     ],
+     "headwords": [],
+     "holes": [],
+     "id": "F/0/3",
+     "latents": [
+      "An idealised object whose spatial extent and internal structure are neglected."
+     ],
+     "parent_id": "F/0",
+     "reduced": "a cart",
+     "render": "a cart",
+     "resolved": true,
+     "source_index": 2,
+     "via_position": 3
+    }
+   ],
+   "id": "S7",
+   "prediction_set": {
+    "coverage_complete": false,
+    "current_prediction_ids": [
+     "P0",
+     "P1",
+     "P2",
+     "P3",
+     "P4",
+     "P5",
+     "P6",
+     "P7"
+    ],
+    "dependency_selection_complete": true,
+    "historical_prediction_ids": [],
+    "issued": [],
+    "limitations": [
+     "Every recorded step is listed: the starting demand, entry applications and recalls, headwords left unexpanded, supplied inputs, reductions and cleanup edits.",
+     "The list is unsorted and unpruned; which candidates are theory-side, needed or members is not decided here.",
+     "Current support is recorded step lineage, not a proof or a minimal semantic dependency set.",
+     "Equivalence criteria and input fidelity require human interpretation.",
+     "This is not the full disjunction of alternatives and gives no theory verdict.",
+     "An issued result records what it rested on when issued; whether it still stands is not decided here.",
+     "Direct Demand mutations bypass recording; use the Trace recording methods."
+    ],
+    "predictions": [
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 0,
+      "evidence": {
+       "after": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "net-force",
+         "point-particle"
+        ],
+        "latents": [
+         "the ",
+         " on a ",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "the net-force on a point-particle",
+        "source_index": null,
+        "source_text": "the net-force on a point-particle"
+       },
+       "before": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "net-force",
+         "point-particle"
+        ],
+        "latents": [
+         "the ",
+         " on a ",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "the net-force on a point-particle",
+        "source_index": null,
+        "source_text": "the net-force on a point-particle"
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": null,
+       "response": "the net-force on a point-particle",
+       "stimulus": "the net-force on a point-particle"
+      },
+      "id": "P0",
+      "kind": "normalization",
+      "operation": "trace",
+      "statement": "The demand 'the net-force on a point-particle' states what is asked in the recorded context.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 1,
+      "evidence": {
+       "after": {
+        "address": [],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "ExpandResolution",
+          "source_index": 21,
+          "text": "{The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "point-particle"
+        ],
+        "latents": [
+         "the ",
+         " on a ",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "the {The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.} on a point-particle",
+        "source_index": null,
+        "source_text": "the net-force on a point-particle"
+       },
+       "before": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "net-force",
+         "point-particle"
+        ],
+        "latents": [
+         "the ",
+         " on a ",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "the net-force on a point-particle",
+        "source_index": null,
+        "source_text": "the net-force on a point-particle"
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": {
+        "bindings": [],
+        "call": "net-force",
+        "candidates": [
+         21,
+         23
+        ],
+        "clauses": [
+         [
+          21,
+          "net-force"
+         ],
+         [
+          23,
+          "net-force"
+         ]
+        ],
+        "definition": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
+        "dictionary": "Newton operational",
+        "headword": "net-force",
+        "index": 21,
+        "text": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle."
+       },
+       "position": 0,
+       "response": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
+       "stimulus": "net-force"
+      },
+      "id": "P1",
+      "kind": "entry_application",
+      "operation": "expand",
+      "statement": "According to 'Newton operational', entry E21 defines 'net-force' as 'The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.'; chosen over E23.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 2,
+      "evidence": {
+       "after": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "before": {
+        "address": [
+         0
+        ],
+        "arguments": [],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying net-force = inertial-mass times inertial-acceleration for a point-particle.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": 0,
+       "response": "net-force",
+       "stimulus": "net-force"
+      },
+      "id": "P2",
+      "kind": "left_unexpanded",
+      "operation": "flatten",
+      "statement": "The headword 'net-force' is left unexpanded here; no entry is applied to it.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 3,
+      "evidence": {
+       "after": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         },
+         {
+          "headword": "inertial-mass",
+          "position": 1,
+          "resolution": "RecallResolution",
+          "source_index": 22,
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "before": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = inertial-mass times inertial-acceleration for a point-particle.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": {
+        "bindings": [],
+        "call": "inertial-mass",
+        "candidates": [
+         22
+        ],
+        "clauses": [
+         [
+          22,
+          "inertial-mass"
+         ]
+        ],
+        "definition": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.",
+        "dictionary": "Newton operational",
+        "headword": "inertial-mass",
+        "index": 22,
+        "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+       },
+       "position": 1,
+       "response": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.",
+       "stimulus": "inertial-mass"
+      },
+      "id": "P3",
+      "kind": "entry_recall",
+      "operation": "recall",
+      "statement": "According to 'Newton operational', entry E22 defines 'inertial-mass' as 'The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.'. Its text is inserted as it stands, without further expansion.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 4,
+      "evidence": {
+       "after": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         },
+         {
+          "headword": "inertial-mass",
+          "position": 1,
+          "resolution": "RecallResolution",
+          "source_index": 22,
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
+         },
+         {
+          "headword": "point-particle",
+          "position": 3,
+          "resolution": "ExpandResolution",
+          "source_index": 2,
+          "text": "{An idealised object whose spatial extent and internal structure are neglected.}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {An idealised object whose spatial extent and internal structure are neglected.}.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "before": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         },
+         {
+          "headword": "inertial-mass",
+          "position": 1,
+          "resolution": "RecallResolution",
+          "source_index": 22,
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a point-particle.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": {
+        "bindings": [],
+        "call": "point-particle",
+        "candidates": [
+         2
+        ],
+        "clauses": [
+         [
+          2,
+          "point-particle"
+         ]
+        ],
+        "definition": "An idealised object whose spatial extent and internal structure are neglected.",
+        "dictionary": "Newton operational",
+        "headword": "point-particle",
+        "index": 2,
+        "text": "An idealised object whose spatial extent and internal structure are neglected."
+       },
+       "position": 3,
+       "response": "An idealised object whose spatial extent and internal structure are neglected.",
+       "stimulus": "point-particle"
+      },
+      "id": "P4",
+      "kind": "entry_application",
+      "operation": "expand",
+      "statement": "According to 'Newton operational', entry E2 defines 'point-particle' as 'An idealised object whose spatial extent and internal structure are neglected.'.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 5,
+      "evidence": {
+       "after": {
+        "address": [
+         0,
+         3
+        ],
+        "arguments": [],
+        "headwords": [],
+        "latents": [
+         "An idealised object whose spatial extent and internal structure are neglected."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": "a cart",
+        "render": "a cart",
+        "source_index": 2,
+        "source_text": null
+       },
+       "before": {
+        "address": [
+         0,
+         3
+        ],
+        "arguments": [],
+        "headwords": [],
+        "latents": [
+         "An idealised object whose spatial extent and internal structure are neglected."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "An idealised object whose spatial extent and internal structure are neglected.",
+        "source_index": 2,
+        "source_text": null
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": null,
+       "response": "a cart",
+       "stimulus": "An idealised object whose spatial extent and internal structure are neglected."
+      },
+      "id": "P5",
+      "kind": "meaning_preservation",
+      "operation": "reduce",
+      "statement": "What is meant by 'An idealised object whose spatial extent and internal structure are neglected.' is the same as what is meant by 'a cart' in the recorded context.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 6,
+      "evidence": {
+       "after": {
+        "address": [],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "ExpandResolution",
+          "source_index": 21,
+          "text": "{The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "point-particle"
+        ],
+        "latents": [
+         "the ",
+         " on the ",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on the point-particle",
+        "source_index": null,
+        "source_text": "the net-force on a point-particle"
+       },
+       "before": {
+        "address": [],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "ExpandResolution",
+          "source_index": 21,
+          "text": "{The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "point-particle"
+        ],
+        "latents": [
+         "the ",
+         " on a ",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on a point-particle",
+        "source_index": null,
+        "source_text": "the net-force on a point-particle"
+       },
+       "dependencies": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+       ],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": null,
+       "response": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on the point-particle",
+       "stimulus": "the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on a point-particle"
+      },
+      "id": "P6",
+      "kind": "meaning_preservation",
+      "operation": "clean",
+      "statement": "What is meant by 'the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on a point-particle' is the same as what is meant by 'the {The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.} on the point-particle' in the recorded context.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 7,
+      "evidence": {
+       "after": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         },
+         {
+          "headword": "inertial-mass",
+          "position": 1,
+          "resolution": "RecallResolution",
+          "source_index": 22,
+          "text": "The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle."
+         },
+         {
+          "headword": "point-particle",
+          "position": 3,
+          "resolution": "ExpandResolution",
+          "source_index": 2,
+          "text": "{a cart}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times inertial-acceleration for a {a cart}.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "before": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "net-force",
+          "position": 0,
+          "resolution": "LiteralResolution",
+          "source_index": null,
+          "text": "{net-force}"
+         },
+         {
+          "headword": "inertial-mass",
+          "position": 1,
+          "resolution": "RecallResolution",
+          "source_index": 22,
+          "text": "{The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.}"
+         },
+         {
+          "headword": "point-particle",
+          "position": 3,
+          "resolution": "ExpandResolution",
+          "source_index": 2,
+          "text": "{a cart}"
+         }
+        ],
+        "headwords": [
+         "net-force",
+         "inertial-mass",
+         "inertial-acceleration",
+         "point-particle"
+        ],
+        "latents": [
+         "The vector quantity satisfying ",
+         " = ",
+         " times ",
+         " for a ",
+         "."
+        ],
+        "provenance": "ExpandProvenance",
+        "reduction": null,
+        "render": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.",
+        "source_index": 21,
+        "source_text": null
+       },
+       "dependencies": [
+        2,
+        3,
+        4,
+        5
+       ],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": 1,
+       "response": "The vector quantity satisfying {net-force} = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times inertial-acceleration for a {a cart}.",
+       "stimulus": "The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}."
+      },
+      "id": "P7",
+      "kind": "meaning_preservation",
+      "operation": "clean",
+      "statement": "What is meant by 'The vector quantity satisfying {net-force} = {The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle.} times inertial-acceleration for a {a cart}.' is the same as what is meant by 'The vector quantity satisfying {net-force} = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times inertial-acceleration for a {a cart}.' in the recorded context.",
+      "verification": "unchecked"
+     }
+    ],
+    "result": "the {The vector quantity satisfying {net-force} = The positive scalar coefficient m such that net-force = m times inertial-acceleration for a point-particle. times inertial-acceleration for a {a cart}.} on the point-particle",
+    "schema_version": 6,
+    "scope": "recorded trace history",
+    "trace_complete": false,
+    "unrecorded_events": []
+   },
+   "root_frame_id": "F",
+   "title": "Braces · F/0"
   }
  ],
  "version": 1

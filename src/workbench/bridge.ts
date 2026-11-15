@@ -1,4 +1,4 @@
-import { inspectRecord } from './record.ts';
+import { MAX_COMMANDS, inspectRecord } from './record.ts';
 import type { BridgeDictionary, Command, Producer, TraceRecord } from './record.ts';
 
 /**
@@ -56,6 +56,26 @@ export async function start(dictionary: BridgeDictionary, demand: string, contex
 
 export async function command(record: TraceRecord, next: Command, fetcher: Fetch = fetch): Promise<TraceRecord> {
   return recordFrom(await post('command', { record, command: next }, fetcher));
+}
+
+/**
+ * Several commands as one action, all or nothing. The first is sent, the rest are read off the record
+ * it produced, and each is sent in turn. The bridge keeps nothing, so a record exists only once the
+ * page keeps it: if any step is refused, or the steps would not fit in a record, this throws and the
+ * caller keeps the record it had. That matches the engine's own replacement at expansion, which refuses
+ * before it records anything.
+ */
+export async function commandSteps(record: TraceRecord, first: Command, then: (record: TraceRecord) => Command[], fetcher: Fetch = fetch): Promise<TraceRecord> {
+  if (record.commands.length + 1 > MAX_COMMANDS) throw new BridgeError(`A record holds at most ${MAX_COMMANDS} steps.`);
+  let next = await command(record, first, fetcher);
+  const rest = then(next);
+  const total = 1 + rest.length;
+  if (record.commands.length + total > MAX_COMMANDS) {
+    const room = MAX_COMMANDS - record.commands.length;
+    throw new BridgeError(`This takes ${total} steps, and the record has room for ${room === 1 ? 'one more' : `${room} more`}. Nothing was recorded.`);
+  }
+  for (const item of rest) next = await command(next, item, fetcher);
+  return next;
 }
 
 /** Ask the engine to replay a record exactly. Needed before continuing a record opened from a file. */

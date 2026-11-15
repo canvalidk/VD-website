@@ -4,11 +4,13 @@
  * middle, actions on the right. At 1100px or less the actions drop below the trace; at 760px one column.
  *
  * Hole states, each with a word as well as a look (colour is never the only cue):
- *   open      ink-outlined control; selected is ink-filled
+ *   open      ink-outlined control, the bare headword; selected is ink-filled
  *   expanded  ink rule under the headword, "in F/0"
  *   recalled  the recalled wording on a tray, "recalled"
- *   supplied  teal with an open circle, "supplied" (a given input, as on the Traces page)
- *   left      hatched strip, "left as text" (as a flattened occurrence elsewhere)
+ *   supplied  teal with an open circle, "supplied call" (a given input, as on the Traces page)
+ *   left      hatched strip, "left unexpanded" (as a flattened occurrence elsewhere)
+ * In records of schema 6 or later, the braces the engine's text shows round a headword that has been
+ * dealt with appear round the chip's word too (.wk-brace), in the muted ink; a pair taken out is absent.
  * Yellow marks only where the trace has just been: the frame the viewed step changed.
  */
 
@@ -149,6 +151,8 @@ textarea.wk-input { resize: vertical; font-family: var(--font-string); }
 .wk-hole.is-inject .wk-hole-word::after { content: ""; display: inline-block; width: 8px; height: 8px; margin-left: 4px; border: 2px solid var(--c-given); border-radius: 50%; vertical-align: 0.1em; }
 .wk-hole.is-flatten { background: repeating-linear-gradient(45deg, var(--c-ref) 0 1.5px, transparent 1.5px 5px) left bottom / 100% 5px no-repeat; padding-bottom: 6px; }
 .wk-hole-tag { font-size: var(--fs-xs); margin-left: 4px; white-space: nowrap; }
+.wk-brace { color: var(--c-muted); font-weight: 400; padding: 0 1px; }
+.wk-hole.wk-hole[aria-pressed="true"] .wk-brace { color: var(--c-on-ink-muted); }
 /* Selected, in any state: ink with white text. Placed after the state rules and doubled up so it always wins. */
 .wk-hole.wk-hole[aria-pressed="true"] { background: var(--c-ink); color: var(--c-on-ink); padding-bottom: 3px; }
 .wk-hole.wk-hole[aria-pressed="true"] .wk-hole-tag { color: var(--c-on-ink-muted); }
@@ -194,6 +198,7 @@ textarea.wk-input { resize: vertical; font-family: var(--font-string); }
 .wk-candidate-head .vd-string { font-weight: 700; }
 .wk-definition { line-height: var(--lh-string); }
 .wk-as-written { font-size: var(--fs-ui); color: var(--c-muted); }
+.wk-value-replaces { margin: var(--s-2) 0; line-height: var(--lh-string); }
 .wk-wording-editor { display: grid; gap: var(--s-1); }
 .wk-wording-piece { display: grid; gap: var(--s-1); }
 .wk-piece-headword { justify-self: start; padding: 2px 6px; border: 1.5px solid var(--c-ink); border-radius: var(--radius-slip); font-weight: 700; }

@@ -1,0 +1,923 @@
+{
+ "commands": [
+  {
+   "frame_id": "F",
+   "operation": "inject",
+   "position": 0,
+   "response": "force_cart_0"
+  },
+  {
+   "entry_index": 0,
+   "frame_id": "F/0",
+   "operation": "expand",
+   "position": 0
+  }
+ ],
+ "dictionary": {
+  "entries": [
+   {
+    "definition": "mass_p times acceleration_p_t",
+    "headword": "force_p_t",
+    "index": 0
+   },
+   {
+    "definition": "supplied mass of p",
+    "headword": "mass_p",
+    "index": 1
+   },
+   {
+    "definition": "supplied acceleration of p at t",
+    "headword": "acceleration_p_t",
+    "index": 2
+   }
+  ],
+  "name": "parameterized correction example",
+  "sha256": "cb5de0079923e1cd6261541c1b0289d19fd0a2bda1618807417da49a69336c1c"
+ },
+ "events": [
+  {
+   "change": {
+    "after": {
+     "address": [],
+     "arguments": [],
+     "headwords": [
+      "force"
+     ],
+     "latents": [
+      "",
+      ""
+     ],
+     "provenance": "RootProvenance",
+     "reduction": null,
+     "render": "force",
+     "source_index": null,
+     "source_text": "force"
+    },
+    "before": {
+     "address": [],
+     "arguments": [],
+     "headwords": [
+      "force"
+     ],
+     "latents": [
+      "",
+      ""
+     ],
+     "provenance": "RootProvenance",
+     "reduction": null,
+     "render": "force",
+     "source_index": null,
+     "source_text": "force"
+    },
+    "dependencies": [],
+    "dependencies_complete": true,
+    "entry": null,
+    "position": null,
+    "response": "force",
+    "stimulus": "force"
+   },
+   "detail": "started from 'force'",
+   "id": "event-0",
+   "index": 0,
+   "kind": "trace"
+  },
+  {
+   "change": {
+    "after": {
+     "address": [],
+     "arguments": [
+      {
+       "headword": "force",
+       "position": 0,
+       "resolution": "InjectResolution",
+       "source_index": null,
+       "text": "force_cart_0"
+      }
+     ],
+     "headwords": [
+      "force"
+     ],
+     "latents": [
+      "",
+      ""
+     ],
+     "provenance": "RootProvenance",
+     "reduction": null,
+     "render": "force_cart_0",
+     "source_index": null,
+     "source_text": "force"
+    },
+    "before": {
+     "address": [],
+     "arguments": [],
+     "headwords": [
+      "force"
+     ],
+     "latents": [
+      "",
+      ""
+     ],
+     "provenance": "RootProvenance",
+     "reduction": null,
+     "render": "force",
+     "source_index": null,
+     "source_text": "force"
+    },
+    "dependencies": [],
+    "dependencies_complete": true,
+    "entry": null,
+    "position": 0,
+    "response": "force_cart_0",
+    "stimulus": "force"
+   },
+   "detail": "inject at F; position 0",
+   "id": "event-1",
+   "index": 1,
+   "kind": "inject"
+  },
+  {
+   "change": {
+    "after": {
+     "address": [
+      0
+     ],
+     "arguments": [
+      {
+       "headword": "force_cart_0",
+       "position": 0,
+       "resolution": "ExpandResolution",
+       "source_index": 0,
+       "text": "{mass_cart times acceleration_cart_0}"
+      }
+     ],
+     "headwords": [
+      "force_cart_0"
+     ],
+     "latents": [
+      "",
+      ""
+     ],
+     "provenance": "InjectProvenance",
+     "reduction": null,
+     "render": "{mass_cart times acceleration_cart_0}",
+     "source_index": null,
+     "source_text": "force_cart_0"
+    },
+    "before": {
+     "address": [
+      0
+     ],
+     "arguments": [],
+     "headwords": [
+      "force_cart_0"
+     ],
+     "latents": [
+      "",
+      ""
+     ],
+     "provenance": "InjectProvenance",
+     "reduction": null,
+     "render": "force_cart_0",
+     "source_index": null,
+     "source_text": "force_cart_0"
+    },
+    "dependencies": [],
+    "dependencies_complete": true,
+    "entry": {
+     "bindings": [
+      [
+       "p",
+       "cart"
+      ],
+      [
+       "t",
+       "0"
+      ]
+     ],
+     "call": "force_cart_0",
+     "candidates": [
+      0
+     ],
+     "clauses": [
+      [
+       0,
+       "force_p_t"
+      ]
+     ],
+     "definition": "mass_p times acceleration_p_t",
+     "dictionary": "parameterized correction example",
+     "headword": "force_p_t",
+     "index": 0,
+     "text": "mass_cart times acceleration_cart_0"
+    },
+    "position": 0,
+    "response": "mass_cart times acceleration_cart_0",
+    "stimulus": "force_cart_0"
+   },
+   "detail": "expand at F/0; position 0; E0",
+   "id": "event-2",
+   "index": 2,
+   "kind": "expand"
+  }
+ ],
+ "format": "vd-trace-record",
+ "producer": {
+  "engine_sha256": "04e1032b3932207f0182d23b03659a6f313bb17cbf4b1c4a40bae3b00abb6c16",
+  "name": "VDfirst",
+  "protocol_version": 1
+ },
+ "question": {
+  "context": "Which body and when are supplied as a call.",
+  "demand": "force"
+ },
+ "record_id": "5f1cec02-2857-4bba-9703-dd22ad5813f2",
+ "sha256": "20e939af831366e805945d3dc4e10251d1fb3a99ab0b9393d7649d5ae94541ae",
+ "snapshots": [
+  {
+   "command_index": -1,
+   "event_count": 1,
+   "frames": [
+    {
+     "address": [],
+     "headwords": [
+      "force"
+     ],
+     "holes": [
+      {
+       "braced": false,
+       "candidates": [
+        {
+         "definition": "mass_p times acceleration_p_t",
+         "entry_index": 0,
+         "headword": "force_p_t",
+         "instantiated_definition": "mass_p times acceleration_p_t"
+        }
+       ],
+       "child_frame_id": null,
+       "headword": "force",
+       "position": 0,
+       "resolution": null,
+       "source_index": null
+      }
+     ],
+     "id": "F",
+     "latents": [
+      "",
+      ""
+     ],
+     "parent_id": null,
+     "reduced": null,
+     "render": "force",
+     "resolved": false,
+     "source_index": null,
+     "via_position": null
+    }
+   ],
+   "id": "S0",
+   "prediction_set": {
+    "coverage_complete": false,
+    "current_prediction_ids": [
+     "P0"
+    ],
+    "dependency_selection_complete": true,
+    "historical_prediction_ids": [],
+    "issued": [],
+    "limitations": [
+     "Every recorded step is listed: the starting demand, entry applications and recalls, headwords left unexpanded, supplied inputs, reductions and cleanup edits.",
+     "The list is unsorted and unpruned; which candidates are theory-side, needed or members is not decided here.",
+     "Current support is recorded step lineage, not a proof or a minimal semantic dependency set.",
+     "Equivalence criteria and input fidelity require human interpretation.",
+     "This is not the full disjunction of alternatives and gives no theory verdict.",
+     "An issued result records what it rested on when issued; whether it still stands is not decided here.",
+     "Direct Demand mutations bypass recording; use the Trace recording methods."
+    ],
+    "predictions": [
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 0,
+      "evidence": {
+       "after": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "force"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "force",
+        "source_index": null,
+        "source_text": "force"
+       },
+       "before": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "force"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "force",
+        "source_index": null,
+        "source_text": "force"
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": null,
+       "response": "force",
+       "stimulus": "force"
+      },
+      "id": "P0",
+      "kind": "normalization",
+      "operation": "trace",
+      "statement": "The demand 'force' states what is asked in the recorded context.",
+      "verification": "unchecked"
+     }
+    ],
+    "result": "force",
+    "schema_version": 6,
+    "scope": "recorded trace history",
+    "trace_complete": false,
+    "unrecorded_events": []
+   },
+   "root_frame_id": "F",
+   "title": "Trace started"
+  },
+  {
+   "command_index": 0,
+   "event_count": 2,
+   "frames": [
+    {
+     "address": [],
+     "headwords": [
+      "force"
+     ],
+     "holes": [
+      {
+       "braced": false,
+       "candidates": [],
+       "child_frame_id": "F/0",
+       "headword": "force",
+       "position": 0,
+       "resolution": "inject",
+       "source_index": null
+      }
+     ],
+     "id": "F",
+     "latents": [
+      "",
+      ""
+     ],
+     "parent_id": null,
+     "reduced": null,
+     "render": "force_cart_0",
+     "resolved": false,
+     "source_index": null,
+     "via_position": null
+    },
+    {
+     "address": [
+      0
+     ],
+     "headwords": [
+      "force_cart_0"
+     ],
+     "holes": [
+      {
+       "braced": false,
+       "candidates": [
+        {
+         "definition": "mass_p times acceleration_p_t",
+         "entry_index": 0,
+         "headword": "force_p_t",
+         "instantiated_definition": "mass_cart times acceleration_cart_0"
+        }
+       ],
+       "child_frame_id": null,
+       "headword": "force_cart_0",
+       "position": 0,
+       "resolution": null,
+       "source_index": null
+      }
+     ],
+     "id": "F/0",
+     "latents": [
+      "",
+      ""
+     ],
+     "parent_id": "F",
+     "reduced": null,
+     "render": "force_cart_0",
+     "resolved": false,
+     "source_index": null,
+     "via_position": 0
+    }
+   ],
+   "id": "S1",
+   "prediction_set": {
+    "coverage_complete": false,
+    "current_prediction_ids": [
+     "P0",
+     "P1"
+    ],
+    "dependency_selection_complete": true,
+    "historical_prediction_ids": [],
+    "issued": [],
+    "limitations": [
+     "Every recorded step is listed: the starting demand, entry applications and recalls, headwords left unexpanded, supplied inputs, reductions and cleanup edits.",
+     "The list is unsorted and unpruned; which candidates are theory-side, needed or members is not decided here.",
+     "Current support is recorded step lineage, not a proof or a minimal semantic dependency set.",
+     "Equivalence criteria and input fidelity require human interpretation.",
+     "This is not the full disjunction of alternatives and gives no theory verdict.",
+     "An issued result records what it rested on when issued; whether it still stands is not decided here.",
+     "Direct Demand mutations bypass recording; use the Trace recording methods."
+    ],
+    "predictions": [
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 0,
+      "evidence": {
+       "after": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "force"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "force",
+        "source_index": null,
+        "source_text": "force"
+       },
+       "before": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "force"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "force",
+        "source_index": null,
+        "source_text": "force"
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": null,
+       "response": "force",
+       "stimulus": "force"
+      },
+      "id": "P0",
+      "kind": "normalization",
+      "operation": "trace",
+      "statement": "The demand 'force' states what is asked in the recorded context.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 1,
+      "evidence": {
+       "after": {
+        "address": [],
+        "arguments": [
+         {
+          "headword": "force",
+          "position": 0,
+          "resolution": "InjectResolution",
+          "source_index": null,
+          "text": "force_cart_0"
+         }
+        ],
+        "headwords": [
+         "force"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "force_cart_0",
+        "source_index": null,
+        "source_text": "force"
+       },
+       "before": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "force"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "force",
+        "source_index": null,
+        "source_text": "force"
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": 0,
+       "response": "force_cart_0",
+       "stimulus": "force"
+      },
+      "id": "P1",
+      "kind": "supplied_input",
+      "operation": "inject",
+      "statement": "The supplied response 'force_cart_0' is appropriate for the demand 'force' in the recorded context.",
+      "verification": "unchecked"
+     }
+    ],
+    "result": "force_cart_0",
+    "schema_version": 6,
+    "scope": "recorded trace history",
+    "trace_complete": false,
+    "unrecorded_events": []
+   },
+   "root_frame_id": "F",
+   "title": "Inject · F"
+  },
+  {
+   "command_index": 1,
+   "event_count": 3,
+   "frames": [
+    {
+     "address": [],
+     "headwords": [
+      "force"
+     ],
+     "holes": [
+      {
+       "braced": false,
+       "candidates": [],
+       "child_frame_id": "F/0",
+       "headword": "force",
+       "position": 0,
+       "resolution": "inject",
+       "source_index": null
+      }
+     ],
+     "id": "F",
+     "latents": [
+      "",
+      ""
+     ],
+     "parent_id": null,
+     "reduced": null,
+     "render": "{mass_cart times acceleration_cart_0}",
+     "resolved": false,
+     "source_index": null,
+     "via_position": null
+    },
+    {
+     "address": [
+      0
+     ],
+     "headwords": [
+      "force_cart_0"
+     ],
+     "holes": [
+      {
+       "braced": true,
+       "candidates": [],
+       "child_frame_id": "F/0/0",
+       "headword": "force_cart_0",
+       "position": 0,
+       "resolution": "expand",
+       "source_index": 0
+      }
+     ],
+     "id": "F/0",
+     "latents": [
+      "",
+      ""
+     ],
+     "parent_id": "F",
+     "reduced": null,
+     "render": "{mass_cart times acceleration_cart_0}",
+     "resolved": false,
+     "source_index": null,
+     "via_position": 0
+    },
+    {
+     "address": [
+      0,
+      0
+     ],
+     "headwords": [
+      "mass_cart",
+      "acceleration_cart_0"
+     ],
+     "holes": [
+      {
+       "braced": false,
+       "candidates": [
+        {
+         "definition": "supplied mass of p",
+         "entry_index": 1,
+         "headword": "mass_p",
+         "instantiated_definition": "supplied mass of cart"
+        }
+       ],
+       "child_frame_id": null,
+       "headword": "mass_cart",
+       "position": 0,
+       "resolution": null,
+       "source_index": null
+      },
+      {
+       "braced": false,
+       "candidates": [
+        {
+         "definition": "supplied acceleration of p at t",
+         "entry_index": 2,
+         "headword": "acceleration_p_t",
+         "instantiated_definition": "supplied acceleration of cart at 0"
+        }
+       ],
+       "child_frame_id": null,
+       "headword": "acceleration_cart_0",
+       "position": 1,
+       "resolution": null,
+       "source_index": null
+      }
+     ],
+     "id": "F/0/0",
+     "latents": [
+      "",
+      " times ",
+      ""
+     ],
+     "parent_id": "F/0",
+     "reduced": null,
+     "render": "mass_cart times acceleration_cart_0",
+     "resolved": false,
+     "source_index": 0,
+     "via_position": 0
+    }
+   ],
+   "id": "S2",
+   "prediction_set": {
+    "coverage_complete": false,
+    "current_prediction_ids": [
+     "P0",
+     "P1",
+     "P2"
+    ],
+    "dependency_selection_complete": true,
+    "historical_prediction_ids": [],
+    "issued": [],
+    "limitations": [
+     "Every recorded step is listed: the starting demand, entry applications and recalls, headwords left unexpanded, supplied inputs, reductions and cleanup edits.",
+     "The list is unsorted and unpruned; which candidates are theory-side, needed or members is not decided here.",
+     "Current support is recorded step lineage, not a proof or a minimal semantic dependency set.",
+     "Equivalence criteria and input fidelity require human interpretation.",
+     "This is not the full disjunction of alternatives and gives no theory verdict.",
+     "An issued result records what it rested on when issued; whether it still stands is not decided here.",
+     "Direct Demand mutations bypass recording; use the Trace recording methods."
+    ],
+    "predictions": [
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 0,
+      "evidence": {
+       "after": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "force"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "force",
+        "source_index": null,
+        "source_text": "force"
+       },
+       "before": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "force"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "force",
+        "source_index": null,
+        "source_text": "force"
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": null,
+       "response": "force",
+       "stimulus": "force"
+      },
+      "id": "P0",
+      "kind": "normalization",
+      "operation": "trace",
+      "statement": "The demand 'force' states what is asked in the recorded context.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 1,
+      "evidence": {
+       "after": {
+        "address": [],
+        "arguments": [
+         {
+          "headword": "force",
+          "position": 0,
+          "resolution": "InjectResolution",
+          "source_index": null,
+          "text": "force_cart_0"
+         }
+        ],
+        "headwords": [
+         "force"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "force_cart_0",
+        "source_index": null,
+        "source_text": "force"
+       },
+       "before": {
+        "address": [],
+        "arguments": [],
+        "headwords": [
+         "force"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "RootProvenance",
+        "reduction": null,
+        "render": "force",
+        "source_index": null,
+        "source_text": "force"
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": null,
+       "position": 0,
+       "response": "force_cart_0",
+       "stimulus": "force"
+      },
+      "id": "P1",
+      "kind": "supplied_input",
+      "operation": "inject",
+      "statement": "The supplied response 'force_cart_0' is appropriate for the demand 'force' in the recorded context.",
+      "verification": "unchecked"
+     },
+     {
+      "classification": {
+       "category": "unclassified",
+       "note": ""
+      },
+      "event_index": 2,
+      "evidence": {
+       "after": {
+        "address": [
+         0
+        ],
+        "arguments": [
+         {
+          "headword": "force_cart_0",
+          "position": 0,
+          "resolution": "ExpandResolution",
+          "source_index": 0,
+          "text": "{mass_cart times acceleration_cart_0}"
+         }
+        ],
+        "headwords": [
+         "force_cart_0"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "InjectProvenance",
+        "reduction": null,
+        "render": "{mass_cart times acceleration_cart_0}",
+        "source_index": null,
+        "source_text": "force_cart_0"
+       },
+       "before": {
+        "address": [
+         0
+        ],
+        "arguments": [],
+        "headwords": [
+         "force_cart_0"
+        ],
+        "latents": [
+         "",
+         ""
+        ],
+        "provenance": "InjectProvenance",
+        "reduction": null,
+        "render": "force_cart_0",
+        "source_index": null,
+        "source_text": "force_cart_0"
+       },
+       "dependencies": [],
+       "dependencies_complete": true,
+       "entry": {
+        "bindings": [
+         [
+          "p",
+          "cart"
+         ],
+         [
+          "t",
+          "0"
+         ]
+        ],
+        "call": "force_cart_0",
+        "candidates": [
+         0
+        ],
+        "clauses": [
+         [
+          0,
+          "force_p_t"
+         ]
+        ],
+        "definition": "mass_p times acceleration_p_t",
+        "dictionary": "parameterized correction example",
+        "headword": "force_p_t",
+        "index": 0,
+        "text": "mass_cart times acceleration_cart_0"
+       },
+       "position": 0,
+       "response": "mass_cart times acceleration_cart_0",
+       "stimulus": "force_cart_0"
+      },
+      "id": "P2",
+      "kind": "entry_application",
+      "operation": "expand",
+      "statement": "According to 'parameterized correction example', entry E0 defines 'force_p_t' as 'mass_p times acceleration_p_t'; with p := cart, t := 0 that gives 'mass_cart times acceleration_cart_0' for the demand 'force_cart_0'.",
+      "verification": "unchecked"
+     }
+    ],
+    "result": "{mass_cart times acceleration_cart_0}",
+    "schema_version": 6,
+    "scope": "recorded trace history",
+    "trace_complete": false,
+    "unrecorded_events": []
+   },
+   "root_frame_id": "F",
+   "title": "Expand · F/0"
+  }
+ ],
+ "version": 1
+}

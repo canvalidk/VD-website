@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import * as bridge from '../workbench/bridge.ts';
 import { BridgeError, recordDictionary } from '../workbench/bridge.ts';
-import { MAX_COMMANDS, MAX_RECORD_BYTES, changedFrameId, describeCommand, describeParts, entryId, inspectRecord, openHoles, parseRecord } from '../workbench/record.ts';
+import { MAX_COMMANDS, MAX_RECORD_BYTES, changedFrameId, describeCommand, describeParts, entryId, inspectRecord, openHoles, parseRecord, valueCommands } from '../workbench/record.ts';
 import type { Command, Producer, TraceRecord } from '../workbench/record.ts';
 import { doerSources, headwordsOf, sourceIdOf } from '../workbench/sources.ts';
 import FrameTree from '../workbench/FrameTree.tsx';
@@ -130,17 +130,20 @@ export default function WorkshopPage() {
     }
   }, [engine, session, validate]);
 
-  async function run(command: Command): Promise<boolean> {
+  /**
+   * Send one command, then any that follow from the record it produced, as one action: the record is
+   * kept only if the engine takes every step. If one is refused, the record is as it was.
+   */
+  async function runSteps(first: Command, then: (record: TraceRecord) => Command[], describe: (from: number, to: number) => string): Promise<boolean> {
     if (!session || !session.live || !latest || busy) return false;
     const current = session;
     setBusy(true); setError('');
     try {
-      const next = await bridge.command(current.record, command);
-      const before = current.record.snapshots.at(-1);
+      const next = await bridge.commandSteps(current.record, first, then);
       setSession({ ...current, record: next });
       setView(next.snapshots.length - 1);
-      setNotice(`Step ${next.commands.length}: ${describeCommand(command, before)}.`);
-      setSelection(nextSelection(next, command));
+      setNotice(describe(current.record.commands.length + 1, next.commands.length));
+      setSelection(nextSelection(next, first));
       setFocusActions(count => count + 1);
       return true;
     } catch (cause) {
@@ -154,6 +157,25 @@ export default function WorkshopPage() {
       return false;
     } finally { setBusy(false); }
   }
+
+  const run = (command: Command) => {
+    const before = session?.record.snapshots.at(-1);
+    return runSteps(command, () => [], from => `Step ${from}: ${describeCommand(command, before)}.`);
+  };
+
+  /**
+   * Give a value for an open headword, as the engine takes one: expand it with the chosen entry, leave
+   * the headwords in the definition's text unexpanded, and replace that text with the value. The
+   * record then says the definition's wording means the same as the value, not the bare headword.
+   * All or nothing, as the engine's own replacement is. A note goes on the step that replaces the text.
+   */
+  const giveValue = (frameId: string, position: number, entryIndex: number, value: string, note: string) => {
+    const expand: Command = { operation: 'expand', frame_id: frameId, position, entry_index: entryIndex };
+    return runSteps(expand,
+      record => valueCommands(record.snapshots.at(-1)!, `${frameId}/${position}`, value)
+        .map(command => command.operation === 'reduce' && note.trim() ? { ...command, note: note.trim() } : command),
+      (from, to) => `Steps ${from} to ${to}: the text of ${entryId(entryIndex)} was replaced by ${value}.`);
+  };
 
   /** A new record that repeats the first `count` steps of the open one; the open one is set aside unchanged. */
   async function replayInto(count: number) {
@@ -271,14 +293,18 @@ export default function WorkshopPage() {
       </div>
 
       <aside className="wk-inspector" aria-label="Actions" aria-busy={busy}>
-        <Actions snapshot={snapshot} selection={selection} onSelect={next => { setSelection(next); setFocusActions(count => count + 1); }} locked={locked} busy={busy} onCommand={run} sourceId={sourceId}/>
+        <Actions snapshot={snapshot} selection={selection} onSelect={next => { setSelection(next); setFocusActions(count => count + 1); }} locked={locked} busy={busy} onCommand={run} onValue={giveValue} sourceId={sourceId}/>
       </aside>
     </div>}
   </div>;
 }
 
-/** After a step, keep working where it leads: the first open headword in the frame it opened, else the next open one. */
+/**
+ * After a step, keep working where it leads: the first open headword in the frame it opened, else the
+ * next open one. A braces step opens nothing, so the hole it changed stays selected.
+ */
 function nextSelection(record: TraceRecord, command: Command): Selection {
+  if (command.operation === 'braces' && command.position !== undefined) return { kind: 'hole', frameId: command.frame_id, position: command.position };
   const snapshot = record.snapshots.at(-1)!;
   const open = openHoles(snapshot);
   if (!open.length) return null;

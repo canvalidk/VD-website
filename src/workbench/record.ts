@@ -1,29 +1,39 @@
 /**
- * The engine's trace record (`vd-trace-record` version 1, prediction-set schema 3 to 5), as the
+ * The engine's trace record (`vd-trace-record` version 1, prediction-set schema 3 to 6), as the
  * VDfirst workbench bridge writes it. The site never makes or changes a record: the engine does,
  * one command at a time. This module reads records and checks their shape for display only;
  * replay and digests are checked by the engine when a record is continued.
  *
- * Client notes: VDfirst specs/2026-11-12-workbench-flatten-and-issue.md section 10 and
- * specs/2026-11-12-structured-arguments.md section 11.
+ * Since schema 6 the engine's text marks what has been dealt with: a bare headword is still to be
+ * expanded, and braces stand round one that has been expanded or left unexpanded. A value is never
+ * supplied at a headword; it replaces the text of a definition. Records of schema 3 to 5 follow the
+ * older convention, in which an open headword read in braces.
+ *
+ * Client notes: VDfirst specs/2026-11-12-workbench-flatten-and-issue.md section 10,
+ * specs/2026-11-12-structured-arguments.md section 11 and
+ * specs/2026-11-15-braces-and-replacement-at-expansion.md section 11.
  */
 
 export const MAX_RECORD_BYTES = 8 * 1024 * 1024;
 export const MAX_COMMANDS = 80;
-export const SCHEMA_VERSIONS = [3, 4, 5] as const;
+export const SCHEMA_VERSIONS = [3, 4, 5, 6] as const;
+/** The first schema with the brace convention, the braced flag on holes and the braces command. */
+export const BRACES_SCHEMA = 6;
 
-export type Operation = 'expand' | 'recall' | 'inject' | 'flatten' | 'reduce' | 'reopen' | 'clean' | 'issue';
-export const OPERATIONS: Operation[] = ['expand', 'recall', 'inject', 'flatten', 'reduce', 'reopen', 'clean', 'issue'];
+export type Operation = 'expand' | 'recall' | 'inject' | 'flatten' | 'reduce' | 'reopen' | 'clean' | 'braces' | 'issue';
+export const OPERATIONS: Operation[] = ['expand', 'recall', 'inject', 'flatten', 'reduce', 'reopen', 'clean', 'braces', 'issue'];
 export type Resolution = 'expand' | 'recall' | 'inject' | 'flatten';
 
 export interface Command {
   operation: Operation; frame_id: string; position?: number; entry_index?: number;
-  response?: string; latents?: string[]; note?: string;
+  response?: string; latents?: string[]; shown?: boolean; note?: string;
 }
 export interface Candidate { entry_index: number; headword: string; definition: string; instantiated_definition: string }
 export interface Hole {
   position: number; headword: string; resolution: Resolution | null;
   child_frame_id: string | null; source_index: number | null; candidates: Candidate[];
+  /** Schema 6: whether the frame's text shows braces round this position. Absent in older records. */
+  braced?: boolean;
 }
 export interface Frame {
   id: string; address: number[]; parent_id: string | null; via_position: number | null;
@@ -68,13 +78,13 @@ export interface TraceRecord {
 /** What the bridge's start route takes: the exact dictionary, entries in the order added. */
 export interface BridgeDictionary { name: string; entries: [string, string][] }
 
-/** The engine's own one-line description of each candidate kind (prediction_set.KIND_DESCRIPTIONS). */
+/** The engine's own one-line description of each candidate kind (prediction_set.KIND_DESCRIPTIONS, schema 6). */
 export const KIND_DESCRIPTIONS: Record<CandidateKind, string> = {
   normalization: 'the starting demand states what is asked',
   entry_application: 'a dictionary entry was applied to a demand, which continues as a child demand',
   entry_recall: "a dictionary entry's text was inserted for a demand as it stands",
-  left_unexpanded: 'a headword was left as plain text, with no entry applied',
-  supplied_input: 'a response was supplied for a demand from outside the dictionary',
+  left_unexpanded: 'a headword was left unexpanded, in braces, with no entry applied',
+  supplied_input: 'a fuller call of the demanded headword was supplied from outside the dictionary',
   meaning_preservation: 'one wording was replaced by another said to mean the same',
 };
 /** Short names the site uses for the kinds. */
@@ -82,10 +92,22 @@ export const KIND_LABELS: Record<CandidateKind, string> = {
   normalization: 'question',
   entry_application: 'entry applied',
   entry_recall: 'entry recalled',
-  left_unexpanded: 'left as text',
-  supplied_input: 'supplied input',
+  left_unexpanded: 'left unexpanded',
+  supplied_input: 'supplied call',
   meaning_preservation: 'same meaning',
 };
+/** Before schema 6 two kinds meant something else: a supplied input could be any text, a value included. */
+const EARLIER_DESCRIPTIONS: Partial<Record<CandidateKind, string>> = {
+  left_unexpanded: 'a headword was left as plain text, with no entry applied',
+  supplied_input: 'a response was supplied for a demand from outside the dictionary',
+};
+const EARLIER_LABELS: Partial<Record<CandidateKind, string>> = { left_unexpanded: 'left as text', supplied_input: 'supplied input' };
+/** A kind's description in the meaning the record's own schema gives it. */
+export const kindDescription = (kind: CandidateKind, schema: number) =>
+  (schema < BRACES_SCHEMA ? EARLIER_DESCRIPTIONS[kind] : undefined) ?? KIND_DESCRIPTIONS[kind];
+/** A kind's short name in the meaning the record's own schema gives it. */
+export const kindLabel = (kind: CandidateKind, schema: number) =>
+  (schema < BRACES_SCHEMA ? EARLIER_LABELS[kind] : undefined) ?? KIND_LABELS[kind];
 const KINDS = Object.keys(KIND_DESCRIPTIONS) as CandidateKind[];
 
 // ---------------------------------------------------------------- shape checks
@@ -117,12 +139,13 @@ function checkCommand(value: unknown, path: string, entryCount: number) {
   if (typeof command.frame_id !== 'string' || !/^F(\/(0|[1-9][0-9]*))*$/.test(command.frame_id)) fail(`${path} frame`, 'must be a frame id such as F or F/0');
   const extra: Record<Operation, string[]> = {
     expand: ['position', 'entry_index'], recall: ['position', 'entry_index'], inject: ['position', 'response'],
-    flatten: ['position'], reduce: ['response'], reopen: [], clean: ['latents'], issue: [],
+    flatten: ['position'], reduce: ['response'], reopen: [], clean: ['latents'], braces: ['position', 'shown'], issue: [],
   };
   const allowed = new Set(['operation', 'frame_id', 'note', ...extra[operation]]);
   for (const key of Object.keys(command)) if (!allowed.has(key)) fail(path, `has a field ${key} that ${operation} does not take`);
   for (const key of extra[operation]) if (!(key in command)) fail(path, `is missing ${key}`);
   if ('position' in command) whole(command.position, `${path} position`);
+  if ('shown' in command) flag(command.shown, `${path} shown`);
   if ('entry_index' in command && whole(command.entry_index, `${path} entry`) >= entryCount) fail(`${path} entry`, 'is not in the dictionary');
   if ('response' in command) text(command.response, `${path} response`, true);
   if ('latents' in command) list(command.latents, `${path} wording`).forEach((item, i) => text(item, `${path} wording ${i}`));
@@ -147,6 +170,11 @@ function checkFrame(value: unknown, path: string, entryCount: number): Frame {
     if (hole.headword !== headwords[i]) fail(`${path} hole ${i}`, 'does not match its headword');
     if (hole.resolution !== null && !['expand', 'recall', 'inject', 'flatten'].includes(hole.resolution as string)) fail(`${path} hole ${i} state`);
     maybeText(hole.child_frame_id, `${path} hole ${i} child`); maybeWhole(hole.source_index, `${path} hole ${i} entry`);
+    if ('braced' in hole) {
+      flag(hole.braced, `${path} hole ${i} braces`);
+      // The engine draws braces only round a headword that has been dealt with, and never round a supplied call.
+      if (hole.braced && (hole.resolution === null || hole.resolution === 'inject')) fail(`${path} hole ${i} braces`, 'are shown round a headword that has not been dealt with');
+    }
     list(hole.candidates, `${path} hole ${i} candidates`).forEach((value, j) => {
       const candidate = obj(value, `${path} hole ${i} candidate ${j}`);
       if (whole(candidate.entry_index, `${path} hole ${i} candidate ${j} entry`) >= entryCount) fail(`${path} hole ${i} candidate ${j}`, 'is not in the dictionary');
@@ -159,7 +187,7 @@ function checkFrame(value: unknown, path: string, entryCount: number): Frame {
   return frame as unknown as Frame;
 }
 
-function checkPredictionSet(value: unknown, path: string) {
+function checkPredictionSet(value: unknown, path: string): number {
   const set = obj(value, path);
   if (!SCHEMA_VERSIONS.includes(set.schema_version as 3)) fail(`${path} schema`, `must be one of ${SCHEMA_VERSIONS.join(', ')}`);
   text(set.result, `${path} result`);
@@ -187,6 +215,7 @@ function checkPredictionSet(value: unknown, path: string) {
       list(issued.prediction_ids, `${path} issued ${i} support`).forEach(id => { if (!known.has(id as string)) fail(`${path} issued ${i}`, `rests on ${String(id)}, which is not listed`); });
     });
   }
+  return set.schema_version as number;
 }
 
 /**
@@ -233,10 +262,19 @@ export function inspectRecord(value: unknown): TraceRecord {
       if (frame.parent_id !== null && !ids.has(frame.parent_id)) fail(`Snapshot ${i} frame ${frame.id}`, 'has a parent that is not listed');
       for (const hole of frame.holes) if (hole.child_frame_id !== null && !ids.has(hole.child_frame_id)) fail(`Snapshot ${i} frame ${frame.id}`, 'points to a child that is not listed');
     }
-    checkPredictionSet(snapshot.prediction_set, `Snapshot ${i} prediction set`);
+    const schema = checkPredictionSet(snapshot.prediction_set, `Snapshot ${i} prediction set`);
+    // Schema 6 says for every hole whether its text shows braces; earlier schemas never do.
+    const braced = frames.flatMap(frame => frame.holes).map(hole => 'braced' in hole);
+    if (schema >= BRACES_SCHEMA ? braced.includes(false) : braced.includes(true)) {
+      fail(`Snapshot ${i} holes`, schema >= BRACES_SCHEMA ? 'must each say whether their text shows braces' : `cannot say whether they show braces before schema ${BRACES_SCHEMA}`);
+    }
+    if (schema < BRACES_SCHEMA && commands.slice(0, i).some(item => (item as Obj).operation === 'braces')) fail(`Snapshot ${i}`, `follows a braces step, which schema ${schema} does not have`);
   });
   return record as unknown as TraceRecord;
 }
+
+/** Whether a snapshot follows the brace convention: bare means still to be expanded, braces mean dealt with. */
+export const hasBraces = (snapshot: Snapshot) => snapshot.prediction_set.schema_version >= BRACES_SCHEMA;
 
 /** Parse a saved file. Size first, then JSON, then shape. */
 export function parseRecord(source: string): TraceRecord {
@@ -281,7 +319,10 @@ export function recalledText(snapshot: Snapshot, frame: Frame, hole: Hole): stri
 }
 const sameAddress = (a: unknown, b: number[]) => Array.isArray(a) && a.length === b.length && a.every((item, i) => item === b[i]);
 
-/** What was supplied for a hole, exactly as typed: the input's own evidence. The child frame's wording drops escapes. */
+/**
+ * What was supplied for a hole, exactly as typed: the input's own evidence. The child frame's wording
+ * drops escapes. Since schema 6 this is always a fuller call of the hole's headword.
+ */
 export function suppliedText(snapshot: Snapshot, frame: Frame, hole: Hole): string | null {
   const step = snapshot.prediction_set.predictions.find(item => item.kind === 'supplied_input'
     && item.evidence.position === hole.position && sameAddress(item.evidence.after?.address, frame.address));
@@ -306,12 +347,28 @@ export function describeParts(command: Command, before: Snapshot | undefined, en
     case 'expand': return ['Expand ', word, ' with ', entry];
     case 'recall': return ['Recall ', entry, ' for ', word];
     case 'inject': return ['Supply ', { string: command.response ?? '' }, ' for ', word];
-    case 'flatten': return ['Leave ', word, ' as text'];
+    case 'flatten': return before && !hasBraces(before) ? ['Leave ', word, ' as text'] : ['Leave ', word, ' unexpanded'];
     case 'reduce': return [`Reduce ${where} to `, { string: command.response ?? '' }];
     case 'reopen': return [`Reopen ${where}`];
     case 'clean': return [`Edit the wording of ${where}`];
+    case 'braces': return [command.shown ? 'Put back the braces round ' : 'Take out the braces round ', word, ` in ${where}`];
     case 'issue': return ['Issue the result'];
   }
+}
+
+/**
+ * Giving a value, as the engine takes it since schema 6: the headword is expanded into a definition
+ * (one step, already taken), then each headword still in the definition's text is left unexpanded,
+ * and the text is replaced by the value. This returns the steps after the expansion, read off the
+ * snapshot the expansion produced. The bridge takes one step per command, so they are sent in turn.
+ */
+export function valueCommands(snapshot: Snapshot, childFrameId: string, value: string): Command[] {
+  const child = snapshot.frames.find(frame => frame.id === childFrameId);
+  if (!child) throw new Error(`The expansion did not open ${childFrameId}.`);
+  return [
+    ...child.holes.filter(hole => hole.resolution === null).map((hole): Command => ({ operation: 'flatten', frame_id: child.id, position: hole.position })),
+    { operation: 'reduce', frame_id: child.id, response: value },
+  ];
 }
 
 /** The same description as plain text, for notices. */

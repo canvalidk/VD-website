@@ -47,11 +47,18 @@ def main() -> None:
                             capture_output=True, text=True, check=True).stdout.strip()
 
     # The correction example: a mistaken calculation, issued; reopened, redone and issued again.
+    # A value is never supplied at a headword. Each is given as the engine takes it: the headword is
+    # expanded into its definition, the definition's own headword is left unexpanded, and the
+    # definition's text is replaced by the value (VDfirst specs/2026-11-15-braces-and-replacement-at-expansion.md).
     correction = run(workbench, correction_dictionary(), 'force_cart_0',
                      'For cart at time 0: mass 2 kg, acceleration 5 m/s^2. Responses are supplied by hand.', [
         {'operation': 'expand', 'frame_id': 'F', 'position': 0, 'entry_index': 0},
-        {'operation': 'inject', 'frame_id': 'F/0', 'position': 0, 'response': '2 kg'},
-        {'operation': 'inject', 'frame_id': 'F/0', 'position': 1, 'response': '5 m/s^2'},
+        {'operation': 'expand', 'frame_id': 'F/0', 'position': 0, 'entry_index': 1},
+        {'operation': 'flatten', 'frame_id': 'F/0/0', 'position': 0},
+        {'operation': 'reduce', 'frame_id': 'F/0/0', 'response': '2 kg'},
+        {'operation': 'expand', 'frame_id': 'F/0', 'position': 1, 'entry_index': 2},
+        {'operation': 'flatten', 'frame_id': 'F/0/1', 'position': 0},
+        {'operation': 'reduce', 'frame_id': 'F/0/1', 'response': '5 m/s^2'},
         {'operation': 'reduce', 'frame_id': 'F/0', 'response': '12 N', 'note': 'a mistake, on purpose'},
         {'operation': 'reduce', 'frame_id': 'F', 'response': 'Prediction: 12 N'},
         {'operation': 'issue', 'frame_id': 'F'},
@@ -61,22 +68,31 @@ def main() -> None:
         {'operation': 'issue', 'frame_id': 'F'},
     ])
 
-    # A Newton trace left open: every hole action, a wording edit, and holes still open.
+    # A Newton trace left open: expand, flatten, recall, a value given through a definition, a wording
+    # edit, a pair of braces taken out, and holes still open.
     newton = run(workbench, source_dictionary('docs/newton-operational-source.json', 'Newton operational'),
                  'the net-force on a point-particle', '', [
         {'operation': 'expand', 'frame_id': 'F', 'position': 0, 'entry_index': 21},
         {'operation': 'flatten', 'frame_id': 'F/0', 'position': 0},
         {'operation': 'recall', 'frame_id': 'F/0', 'position': 1, 'entry_index': 22},
-        {'operation': 'inject', 'frame_id': 'F/0', 'position': 3, 'response': 'a cart'},
+        {'operation': 'expand', 'frame_id': 'F/0', 'position': 3, 'entry_index': 2},
+        {'operation': 'reduce', 'frame_id': 'F/0/3', 'response': 'a cart'},
         {'operation': 'clean', 'frame_id': 'F', 'latents': ['the ', ' on the ', ''], 'note': 'wording only'},
+        {'operation': 'braces', 'frame_id': 'F/0', 'position': 1, 'shown': False, 'note': 'recalled wording read plain'},
     ])
 
+    # A supplied call: the one thing still taken at a headword. The call is expanded in turn.
+    calls = run(workbench, correction_dictionary(), 'force', 'Which body and when are supplied as a call.', [
+        {'operation': 'inject', 'frame_id': 'F', 'position': 0, 'response': 'force_cart_0'},
+        {'operation': 'expand', 'frame_id': 'F/0', 'position': 0, 'entry_index': 0},
+    ])
+
+    files = {'workbench-correction.json': correction, 'workbench-newton.json': newton, 'workbench-calls.json': calls}
     out.mkdir(parents=True, exist_ok=True)
-    for name, record in (('workbench-correction.json', correction), ('workbench-newton.json', newton)):
+    for name, record in files.items():
         (out / name).write_text(json.dumps(record, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     (out / 'workbench-fixtures.json').write_text(json.dumps({
-        'vdfirst_commit': commit, 'producer': workbench.producer(),
-        'files': ['workbench-correction.json', 'workbench-newton.json'],
+        'vdfirst_commit': commit, 'producer': workbench.producer(), 'files': list(files),
     }, indent=1) + '\n', encoding='utf-8')
     print(f'wrote {out} from VDfirst {commit}')
 
