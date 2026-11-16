@@ -1,0 +1,211 @@
+/*
+ * Workshop (local builds only): the trace doer. Markup: src/pages/WorkshopPage.tsx and src/workbench/*.tsx.
+ * Every class here starts with wk-. Grid as on the Dictionary page: steps on the left, the trace in the
+ * middle, actions on the right. At 1100px or less the actions drop below the trace; at 760px one column.
+ *
+ * Hole states, each with a word as well as a look (colour is never the only cue):
+ *   open      ink-outlined control, the bare headword; selected is ink-filled
+ *   expanded  ink rule under the headword, "in F/0"
+ *   recalled  the recalled wording on a tray, "recalled"
+ *   supplied  teal with an open circle, "supplied call" (a given input, as on the Traces page)
+ *   left      hatched strip, "left unexpanded" (as a flattened occurrence elsewhere)
+ * In records of schema 6 or later, the braces the engine's text shows round a headword that has been
+ * dealt with appear round the chip's word too (.wk-brace), in the muted ink; a pair taken out is absent.
+ * Yellow marks only where the trace has just been: the frame the viewed step changed.
+ */
+
+.workshop-page .page-title { font-size: var(--fs-h1); margin-bottom: var(--s-3); }
+.workshop-page .page-lead { margin-bottom: var(--s-4); }
+
+/* ---------- Engine line, notices ---------- */
+
+.wk-engine { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-2) var(--s-3); margin: 0 0 var(--s-3); font-family: var(--font-ui); font-size: var(--fs-ui); }
+.wk-recheck { min-height: 44px; font-family: var(--font-ui); font-size: var(--fs-ui); }
+.wk-engine.is-offline { display: block; padding: var(--s-4); background: var(--c-surface); border: 1.5px solid var(--c-ink); border-radius: var(--radius-slip); max-width: 72ch; }
+.wk-engine.is-offline p + p, .wk-engine.is-offline p + button { margin-top: var(--s-3); }
+.wk-command { font-family: var(--font-ui); font-weight: 600; background: var(--c-tray-1); padding: 1px 6px; border-radius: var(--radius-slip); white-space: nowrap; }
+
+.wk-notice { min-height: 1.6em; margin-bottom: var(--s-2); }
+.wk-notice:empty { min-height: 0; margin: 0; }
+.wk-error { margin: 0 0 var(--s-4); padding: var(--s-3) var(--s-4); background: var(--c-surface); border: 1.5px solid var(--c-ink); border-left-width: 6px; border-radius: var(--radius-slip); font-family: var(--font-prose); max-width: 80ch; }
+.wk-error p + p { margin-top: var(--s-1); }
+
+/* ---------- Start ---------- */
+
+.wk-start { max-width: 760px; margin-top: var(--s-4); padding: var(--s-5); background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--radius-tray); }
+.wk-start h2 { margin-bottom: var(--s-4); }
+.wk-start-form { display: grid; gap: var(--s-4); }
+.wk-open-file { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--c-border); }
+.wk-open-file input { font-family: var(--font-ui); min-height: 44px; }
+
+.wk-field { display: grid; gap: var(--s-1); }
+.wk-field > label { font-family: var(--font-ui); font-weight: 600; font-size: var(--fs-ui); }
+.wk-field > label .vd-label { font-weight: 400; }
+.wk-input {
+  width: 100%; min-height: 44px; padding: var(--s-2) var(--s-3);
+  border: 1.5px solid var(--c-ink); border-radius: var(--radius-slip); background: var(--c-surface);
+  font-size: var(--fs-string); line-height: 1.4;
+}
+textarea.wk-input { resize: vertical; font-family: var(--font-string); }
+.wk-input:disabled { border-color: var(--c-border); background: var(--c-panel); color: var(--c-muted); }
+.wk-buttons { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.vd-button.wk-primary { background: var(--c-ink); color: var(--c-on-ink); }
+.vd-button.wk-primary:hover { background: var(--c-ink); text-decoration: underline; text-underline-offset: 3px; }
+.vd-button.wk-primary:disabled { background: var(--c-surface); color: var(--c-muted); text-decoration: none; }
+
+.wk-details { margin-top: var(--s-4); }
+.wk-details > summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-family: var(--font-ui); font-weight: 600; font-size: var(--fs-ui); color: var(--c-again); }
+.wk-details > summary:hover { color: var(--c-ink); }
+.wk-details ul { padding-left: 1.2em; display: grid; gap: var(--s-1); font-size: var(--fs-ui); }
+.wk-entry-list { list-style: none; display: grid; gap: var(--s-3); margin-top: var(--s-2); }
+.wk-entry-list p { margin-top: 2px; color: var(--c-ink); line-height: var(--lh-string); }
+.wk-entry-name { font-weight: 700; }
+/* Engine ids and digests: identifiers, not dictionary strings. */
+.wk-code { font-family: var(--font-ui); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.wk-warning { margin-top: var(--s-3); padding: var(--s-2) var(--s-3); border: 1.5px solid var(--c-ink); border-left-width: 6px; border-radius: var(--radius-slip); background: var(--c-surface); font-family: var(--font-prose); font-size: var(--fs-ui); }
+.wk-entry-head { font-weight: 700; }
+
+/* ---------- Layout ---------- */
+
+.wk-layout {
+  display: grid;
+  grid-template-columns: var(--index-col) minmax(0, 1fr) var(--inspector-col);
+  grid-template-areas: "steps main actions";
+  gap: var(--s-5);
+  align-items: start;
+  margin-top: var(--s-3);
+}
+.wk-steps { grid-area: steps; min-width: 0; }
+.wk-main { grid-area: main; min-width: 0; display: grid; gap: var(--s-5); }
+.wk-inspector { grid-area: actions; min-width: 0; position: sticky; top: var(--s-4); max-height: calc(100vh - 2 * var(--s-4)); overflow: auto; }
+@media (max-width: 1100px) {
+  .wk-layout { grid-template-columns: var(--index-col) minmax(0, 1fr); grid-template-areas: "steps main" "steps actions"; }
+  .wk-inspector { position: static; max-height: none; overflow: visible; }
+}
+@media (max-width: 760px) {
+  .wk-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main" "actions" "steps"; gap: var(--s-6); }
+}
+
+/* ---------- Steps (left) ---------- */
+
+.wk-side-title { margin-bottom: var(--s-2); }
+.wk-step-nav { list-style: none; display: grid; }
+.wk-step-button {
+  display: grid; grid-template-columns: 2.2em minmax(0, 1fr); gap: var(--s-2); width: 100%; min-height: 44px;
+  padding: var(--s-2) var(--s-2) var(--s-2) 0; align-items: baseline;
+  font-family: var(--font-ui); font-size: var(--fs-ui); line-height: 1.35; border-bottom: 1px solid var(--c-border);
+}
+.wk-step-button:hover { background: var(--c-tray-1); }
+.wk-step-button[aria-current] { background: var(--c-ink); color: var(--c-on-ink); padding-left: var(--s-2); grid-template-columns: 1.8em minmax(0, 1fr); }
+.wk-step-number { text-align: right; color: var(--c-muted); font-weight: 600; }
+.wk-step-button[aria-current] .wk-step-number { color: var(--c-on-ink-muted); }
+.wk-side-actions { display: grid; gap: var(--s-2); margin-top: var(--s-4); }
+.wk-hint { margin-top: var(--s-3); font-size: var(--fs-ui); }
+
+/* ---------- Question and the trace (middle) ---------- */
+
+.wk-question { display: grid; gap: var(--s-1); }
+.wk-demand { font-size: var(--fs-headword); font-weight: 700; line-height: 1.2; }
+.wk-context { font-size: var(--fs-ui); }
+.wk-result { line-height: var(--lh-string); }
+.wk-result .vd-string { font-weight: 700; }
+
+.wk-tree-scroll { overflow-x: auto; }
+.wk-tree, .wk-children { list-style: none; }
+.wk-children { margin: var(--s-3) 0 0 var(--s-3); padding-left: var(--s-4); border-left: 1.5px solid var(--c-frame); display: grid; gap: var(--s-3); }
+.wk-frame { background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--radius-slip); padding: var(--s-3) var(--s-4) var(--s-4); }
+/* Past three levels the frame id carries the depth, and frames stop moving right. */
+.wk-frame.is-deep > .wk-children { margin-left: 0; padding-left: 0; border-left: 0; }
+@media (max-width: 760px) {
+  .wk-children { margin-left: var(--s-1); padding-left: var(--s-2); }
+  .wk-frame { padding: var(--s-2) var(--s-3) var(--s-3); }
+}
+.wk-frame.is-selected { border-color: var(--c-ink); box-shadow: inset 0 0 0 1px var(--c-ink); }
+.wk-frame-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-3); flex-wrap: wrap; }
+.wk-frame-name { display: inline-flex; align-items: baseline; gap: var(--s-2); min-height: 44px; padding: 0 var(--s-2) 0 0; font-family: var(--font-ui); font-size: var(--fs-ui); text-align: left; }
+.wk-frame-name:hover .wk-frame-id { text-decoration: underline; text-underline-offset: 3px; }
+.wk-frame-name[aria-pressed="true"] .wk-frame-id { background: var(--c-ink); color: var(--c-on-ink); }
+.wk-frame-id { font-weight: 700; padding: 1px 6px; border-radius: var(--radius-slip); }
+/* Where the trace has just been: a yellow band under the frame's name. */
+.wk-frame-id.is-recent { background: linear-gradient(transparent 55%, var(--c-highlight) 55%); }
+.wk-frame-origin { color: var(--c-muted); }
+.wk-frame-state { font-size: var(--fs-ui); }
+.wk-reduced { margin: var(--s-1) 0 var(--s-2); font-size: var(--fs-prose); }
+.wk-reduced .vd-string { font-weight: 700; }
+.wk-frame.is-reduced > .wk-wording { color: var(--c-muted); }
+.wk-wording { font-size: var(--fs-string); line-height: 2.75; }
+
+/* Holes, inline in the wording */
+.wk-hole {
+  position: relative; display: inline; font-family: var(--font-string); font-size: inherit; line-height: 1.35;
+  padding: 3px 6px; margin: 0 1px; border-radius: var(--radius-slip);
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+/* The chip is inline in the wording; its hit area reaches 44px tall without moving the text. */
+.wk-hole::before { content: ""; position: absolute; left: -2px; right: -2px; top: 50%; height: 44px; transform: translateY(-50%); }
+.wk-hole.is-open { border: 1.5px solid var(--c-ink); background: var(--c-surface); font-weight: 700; }
+.wk-hole.is-open:hover { background: var(--c-tray-1); }
+.wk-hole.is-expand { border-bottom: 3px solid var(--c-ink); border-radius: 0; padding: 0 2px 1px; font-weight: 700; }
+.wk-hole.is-recall { background: var(--c-tray-1); }
+.wk-hole.is-inject { color: var(--c-given); font-weight: 700; }
+.wk-hole.is-inject .wk-hole-word::after { content: ""; display: inline-block; width: 8px; height: 8px; margin-left: 4px; border: 2px solid var(--c-given); border-radius: 50%; vertical-align: 0.1em; }
+.wk-hole.is-flatten { background: repeating-linear-gradient(45deg, var(--c-ref) 0 1.5px, transparent 1.5px 5px) left bottom / 100% 5px no-repeat; padding-bottom: 6px; }
+.wk-hole-tag { font-size: var(--fs-xs); margin-left: 4px; white-space: nowrap; }
+.wk-brace { color: var(--c-muted); font-weight: 400; padding: 0 1px; }
+.wk-hole.wk-hole[aria-pressed="true"] .wk-brace { color: var(--c-on-ink-muted); }
+/* Selected, in any state: ink with white text. Placed after the state rules and doubled up so it always wins. */
+.wk-hole.wk-hole[aria-pressed="true"] { background: var(--c-ink); color: var(--c-on-ink); padding-bottom: 3px; }
+.wk-hole.wk-hole[aria-pressed="true"] .wk-hole-tag { color: var(--c-on-ink-muted); }
+.wk-hole.wk-hole[aria-pressed="true"] .wk-hole-word::after { border-color: var(--c-on-ink); }
+.wk-hole:focus-visible { outline: 3px solid var(--c-ink); outline-offset: 2px; }
+
+/* ---------- The record (middle, below the trace) ---------- */
+
+.wk-ledger { border-top: 1px solid var(--c-border); padding-top: var(--s-4); }
+.wk-ledger h2 { margin-bottom: var(--s-3); }
+.wk-ledger-part + .wk-ledger-part { margin-top: var(--s-4); }
+.wk-ledger-part h3 { margin-bottom: var(--s-2); }
+.wk-issued { list-style: none; display: grid; gap: var(--s-2); }
+.wk-issued-item { padding: var(--s-2) var(--s-3); border-left: 4px solid var(--c-ink); background: var(--c-surface); }
+.wk-issued-result { font-weight: 700; font-size: var(--fs-prose); }
+.wk-steps-list { list-style: none; display: grid; }
+.wk-step-item { display: grid; grid-template-columns: 3em 8.5em minmax(0, 1fr); gap: var(--s-3); padding: var(--s-2) 0; border-bottom: 1px solid var(--c-border); align-items: baseline; }
+.wk-step-id { font-family: var(--font-ui); font-weight: 700; font-variant-numeric: tabular-nums; }
+.wk-step-kind { font-family: var(--font-prose); font-style: italic; color: var(--c-muted); font-size: var(--fs-ui); }
+.wk-step-statement { font-size: var(--fs-ui); line-height: var(--lh-string); }
+.wk-steps-list.is-history .wk-step-statement, .wk-steps-list.is-history .wk-step-id { color: var(--c-muted); }
+@media (max-width: 760px) { .wk-step-item { grid-template-columns: 3em minmax(0, 1fr); } .wk-step-statement { grid-column: 1 / -1; } }
+.wk-identity { display: grid; gap: var(--s-2); font-size: var(--fs-ui); }
+.wk-identity dt { font-family: var(--font-ui); font-weight: 600; }
+.wk-identity dd { margin: 0; }
+.wk-kinds { display: grid; gap: var(--s-2); font-size: var(--fs-ui); }
+.wk-kinds dt { font-family: var(--font-prose); font-style: italic; }
+.wk-kinds dd { margin: 0; font-family: var(--font-prose); }
+
+/* ---------- Actions (right) ---------- */
+
+.wk-actions { display: grid; gap: var(--s-3); padding: var(--s-4); background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--radius-tray); }
+.wk-actions-title { font-size: var(--fs-h3); }
+.wk-actions-title:focus { outline: none; }
+.wk-actions-title:focus-visible { outline: 3px solid var(--c-ink); outline-offset: 2px; }
+.wk-actions-title .vd-string { font-weight: 700; }
+.wk-block { display: grid; gap: var(--s-2); padding-top: var(--s-3); border-top: 1px solid var(--c-border); }
+.wk-block form { display: grid; gap: var(--s-2); }
+.wk-locked { padding: var(--s-2) var(--s-3); background: var(--c-tray-1); border-radius: var(--radius-slip); color: var(--c-ink); }
+.wk-candidates { list-style: none; display: grid; gap: var(--s-3); }
+.wk-candidate { display: grid; gap: var(--s-1); padding-bottom: var(--s-3); border-bottom: 1px solid var(--c-border); }
+.wk-candidate:last-child { border-bottom: 0; padding-bottom: 0; }
+.wk-candidate-head .vd-string { font-weight: 700; }
+.wk-definition { line-height: var(--lh-string); }
+.wk-as-written { font-size: var(--fs-ui); color: var(--c-muted); }
+.wk-value-replaces { margin: var(--s-2) 0; line-height: var(--lh-string); }
+.wk-wording-editor { display: grid; gap: var(--s-1); }
+.wk-wording-piece { display: grid; gap: var(--s-1); }
+.wk-piece-headword { justify-self: start; padding: 2px 6px; border: 1.5px solid var(--c-ink); border-radius: var(--radius-slip); font-weight: 700; }
+
+/* Records set aside in this visit */
+.wk-shelf { margin-top: var(--s-5); }
+.wk-shelf h3 { margin-bottom: var(--s-1); }
+.wk-shelf ul { list-style: none; display: grid; }
+.wk-shelf-button { display: grid; gap: 2px; width: 100%; min-height: 44px; padding: var(--s-2) 0; border-bottom: 1px solid var(--c-border); text-align: left; }
+.wk-shelf-button:hover { background: var(--c-tray-1); }

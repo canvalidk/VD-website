@@ -62,33 +62,3 @@
   font-size: var(--fs-prose);
   line-height: 1.4;
 }
-
-/* Workshop */
-.workshop-page .page-title { font-size: var(--fs-h1); margin-bottom: var(--s-4); }
-.workshop-page .page-lead { margin-bottom: var(--s-6); }
-
-.workshop-grid {
-  display: grid;
-  grid-template-columns: var(--index-col) minmax(0, 1fr) var(--inspector-col);
-  gap: var(--s-5);
-  align-items: start;
-}
-/* One reserved slip across the index, network and inspector positions. Solid pencil border:
-   dashed means only "not written yet", and this is reserved, not unwritten. */
-.workshop-slot {
-  grid-column: 1 / -1;
-  min-height: 240px;
-  padding: var(--s-5);
-  background: var(--c-surface);
-  border: 1px solid var(--c-pencil);
-  border-radius: var(--radius-slip);
-}
-.workshop-slot .vd-label { font-size: var(--fs-prose); line-height: var(--lh-prose); }
-
-@media (max-width: 1100px) {
-  .workshop-grid { grid-template-columns: var(--index-col) minmax(0, 1fr); }
-}
-@media (max-width: 760px) {
-  .workshop-grid { grid-template-columns: minmax(0, 1fr); }
-  .workshop-slot { min-height: 160px; padding: var(--s-4); }
-}
